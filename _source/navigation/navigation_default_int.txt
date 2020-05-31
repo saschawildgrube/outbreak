@@ -1,0 +1,4 @@
+LEVEL	;CONTEXT				;LABEL													;CONDITIONS
+0			;worldmap				;?TID_NAVIGATION_WORLDMAP?			;
+0			;countries			;?TID_NAVIGATION_COUNTRIES?			;
+0			;docs						;?TID_NAVIGATION_DOCS?					;

@@ -1,0 +1,19 @@
+DirectoryIndex index.php
+RewriteEngine on
+RewriteRule ([.]*)sitemap\.xml$ /outbreak/?command=sitemap&%{QUERY_STRING}
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ([A-Za-z0-9\.\/\-\ \+]+)/?$ /outbreak/?seourl=$1&%{QUERY_STRING} [L]
+ErrorDocument 400 /outbreak/?error=HTTP400
+ErrorDocument 401 /outbreak/?error=HTTP401
+ErrorDocument 403 /outbreak/?error=HTTP403
+ErrorDocument 404 /outbreak/?error=HTTP404
+ErrorDocument 413 /outbreak/?error=HTTP413
+ErrorDocument 500 /outbreak/?error=HTTP500 
+AddHandler forbidden-file-types .inc
+AddHandler forbidden-file-types .cfg
+AddHandler forbidden-file-types .csv
+Action forbidden-file-types /outbreak/?error=HTTP404&query=
+<IfModule mod_headers.c>
+   RequestHeader unset Proxy
+</IfModule>
