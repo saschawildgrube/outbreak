@@ -94,6 +94,19 @@
 				$this->SetContent('worldmap');	
 			}
 
+
+			// OPEN GRAPH
+			$this->AddHeader('<meta property="og:image" content="{IMAGEURL ID="opengraph"}">');
+	   	$arrayParams = array();
+	   	$arrayParams["content"] = $this->GetContent();
+	   	$strPreferredLink = $this->MakeSitemapURL($arrayParams,true);
+			$this->AddHeader('<meta property="og:url" content="'.$strPreferredLink.'">');
+			$this->AddHeader('<meta property="og:type" content="website">');
+			$this->AddHeader('<meta property="og:title" content="'.$this->CallbackGetWebsiteTitle().'">');
+			$this->AddHeader('<meta property="og:image:alt" content="'.$this->CallbackGetWebsiteTitle().'">');
+			$this->AddHeader('<meta property="og:description" content="'.$this->CallbackGetWebsiteDescription().'">');
+
+
 /*
 			// DISPLAY DATETIME
 			$this->IncludeElement('datetime');
@@ -146,15 +159,6 @@
 		function CallbackRenderSpecialContent($strContentID)
 		{
 			return parent::CallbackRenderSpecialContent($strContentID); 
-		}
-
-		function CallbackRenderGenericOutputItem($strItem, $arrayAttributes)
-		{
-			switch ($strItem)
-			{
-			default:
-				return parent::CallbackRenderGenericOutputItem($strItem, $arrayAttributes);
-			}
 		}
 		
 
@@ -242,32 +246,7 @@
 					return '%H:%M:%S';
 			}
 		}
-		
-		
-		function CallbackCreateImage(&$image,$strImageID)
-		{
-			if ($strImageID == 'test')
-			{			
-				if ($image != null)
-				{
-					imagedestroy($image);	
-				}
-				$nWidth = 20;
-				$nHeight = 20;
-				
-				$image = imagecreate($nWidth,$nHeight);
-				$colorBackground =  imagecolorallocate ( $image, 255, 255, 255);
-				$colorForeground =  imagecolorallocate ( $image, 255, 0, 0);
-				imagefilledrectangle($image, 0, 0, $nWidth, $nHeight, $colorBackground);
-				imageline ($image , 3, 3 , $nWidth-3, $nHeight-3, $colorForeground );
-				imageline ($image , $nWidth-3, 3 , 3, $nHeight-3, $colorForeground );
-				return true;
-			}
-			
-			return parent::CallbackCreateImage($image,$strImageID);
-		}
-		
-
+	
 	}
 	
 
