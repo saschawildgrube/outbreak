@@ -12,6 +12,8 @@
 				$strStyleID,
 				true,
 				false);
+				
+			$this->GetWebsite()->ActivateFontAwesome();
 		}
 		
 		function RenderLegend($arrayItems)

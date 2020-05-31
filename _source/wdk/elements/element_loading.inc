@@ -12,6 +12,8 @@
 				$strStyleID,
 				false,
 				true);
+				
+			$this->GetWebsite()->ActivateFontAwesome();
 		}
 		
 		function RenderLoading($strText = '')

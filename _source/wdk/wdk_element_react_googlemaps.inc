@@ -17,9 +17,7 @@
 				$strStyleID,
 				$bLayoutCFG,
 				$bLayoutHTML);
-				
-			//$this->GetWebsite()->ActivateD3v5();
-			//$this->AddJavaScript('wdk-react-d3'); 
+
 		}
 	}
 

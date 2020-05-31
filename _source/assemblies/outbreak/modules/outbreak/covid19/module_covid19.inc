@@ -88,7 +88,7 @@
 		function GetOutbreakData()
 		{
 			$this->Trace('GetOutbreakData');
-			if (!is_array($this->m_arrayOutbreakData))
+			if (!IsArray($this->m_arrayOutbreakData))
 			{
 				$arrayOutbreakData = GetOutbreakDataCovid19();
 	
@@ -775,6 +775,8 @@
 			}
 			$arrayOutbreakData['map']['zoom'] = $nZoom;
 			
+			$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'timeseries');
+			
 			$this->IncludeElement('outbreakmap');
 			$outbreakmap = new COutbreakMapElement($this->GetWebsite(),'country'); 
 			$this->SetOutputItem('COUNTRY_MAP',$outbreakmap->RenderOutbreakMap($arrayOutbreakData));
@@ -808,7 +810,7 @@
 			
 			
 			$arrayTimeSeries = ArrayGetValue($arrayCountry,'timeseries');
-			if (is_array($arrayTimeSeries))
+			if (IsArray($arrayTimeSeries))
 			{
 				$nLength = ArrayCount($arrayTimeSeries);
 				for ($nIndex = 0; $nIndex < $nLength; $nIndex++)

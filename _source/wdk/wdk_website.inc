@@ -2409,14 +2409,14 @@
 		function AddStyleSheetURL($strTitle,$strURL)
 		{
 			$this->m_arrayStyleSheets[$strTitle] = array(
-				"url" => $strURL);	
+				'url' => $strURL);	
 		}
 
 		final
 		function AddStyleSheetSourceCode($strTitle,$strSourceCode)
 		{
 			$this->m_arrayStyleSheets[$strTitle] = array(
-				"sourcecode" => $strSourceCode);	
+				'sourcecode' => $strSourceCode);	
 		}
 
 
