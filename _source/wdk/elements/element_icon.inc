@@ -28,31 +28,14 @@
 				$strIconID = $strAliasIconID;
 			}
 			
-			$arrayItems["ICONID"] = StringLowerCase($strIconID);
-
-/*
-			if (FindString($strLayoutDef,"IMAGEURL") != -1)
-			{
-				$arrayItems["IMAGEURL"] = HtmlEncode($this->GetWebsite()->GetLayoutImageURL("icon_".$strIconID,"png"));
-			}
-*/
-/*
-			if (FindString($strLayoutDef,"TOOLTIP") != -1)
-			{
-				$arrayItems["TOOLTIP"] = HtmlEncode($strToolTip);
-			}
-*/			
-
-// <i class="fa fa-{ICONID} {SPINNER} fa-fw"></i>
-
+			$arrayItems['ICONID'] = StringLowerCase($strIconID);
 
 			$this->SetOutputItems($arrayItems);
 			$strOutput = $this->ReplaceOutputItems($strLayoutDef);
 			return $strOutput;			
 		}
 	}
-	
-	
+		
 	function GetIconIDByFileCategory($strFileCategory)
 	{
 		if ($strFileCategory == 'other')

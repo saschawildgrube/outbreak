@@ -688,14 +688,14 @@
    		$arrayParams[$this->GetModuleVarName('countrylist_tab')] = 'percapita';
 		  $tabnavigationDef->AddTab(
       	'percapita',
-      	'?TID_TAB_PERCAPITA?',
+      	'?TID_LABEL_PERCAPITA?',
       	$this->GetWebsite()->MakeURL($arrayParams));
 
 		  $arrayParams = array();
    		$arrayParams[$this->GetModuleVarName('countrylist_tab')] = 'absolute';
 		  $tabnavigationDef->AddTab(
       	'absolute',
-      	'?TID_TAB_ABSOLUTE?',
+      	'?TID_LABEL_ABSOLUTE?',
       	$this->GetWebsite()->MakeURL($arrayParams));
 
 
@@ -847,21 +847,26 @@
 			$arrayTable = array();
 			$arrayHeaders = array();
 			$arrayCellStyle = array();
+			
+			$arrayTable[] = array('','?TID_LABEL_ABSOLUTE?','?TID_LABEL_PERCAPITA?');
+			$arrayCellStyle[] = array('left','left','left');
+			$arrayHeaders[] = array(false,true,true);
 
-			function AddTableRow($strLabelTID,$strKey,$arrayCountry,&$arrayTable,&$arrayCellStyle,&$arrayHeaders)
+			function AddTableRow($strLabelTID,$strKeyAbsolute,$strKeyPerCapita,$arrayCountry,&$arrayTable,&$arrayCellStyle,&$arrayHeaders)
 			{
 				$arrayTable[] = array(
 					'?TID_LABEL_'.$strLabelTID.'?',
-					ArrayGetValue($arrayCountry,$strKey));
-				$arrayCellStyle[] = array('left','right');
-				$arrayHeaders[] = array(true,false);		
+					ArrayGetValue($arrayCountry,$strKeyAbsolute),
+					ArrayGetValue($arrayCountry,$strKeyPerCapita));
+				$arrayCellStyle[] = array('left','right','right');
+				$arrayHeaders[] = array(true,false,false);		
 			}
-			AddTableRow('POPULATION','text_population',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('CONFIRMED','text_confirmed',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('DEATHS','text_deaths',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('MORTALITY','text_mortality',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('RECOVERED','text_recovered',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('ACTIVE','text_active',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			AddTableRow('POPULATION','text_population','',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			AddTableRow('CONFIRMED','text_confirmed','text_confirmedpercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			AddTableRow('DEATHS','text_deaths','text_deathspercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			AddTableRow('MORTALITY','text_mortality','',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			AddTableRow('RECOVERED','text_recovered','text_recoveredpercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			AddTableRow('ACTIVE','text_active','text_activepercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
 						
 			$this->SetOutputItem(
 				'COUNTRY_TABLE',

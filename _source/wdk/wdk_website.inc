@@ -2900,7 +2900,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		}
 		
 		final
-		function PrepareHeader()
+		function RenderHeader($strInput)
 		{
 			$strHeader = "<head>\n";
 			$strHeader .= "\t<title>".$this->GetWebsiteTitle()."</title>\n";
@@ -2941,17 +2941,19 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				$strHeader .= "\t".$strAdditionalHeader."\n";
 			}
 			
-			$strHeader = $this->PrepareHeaderStyleSheets($strHeader);
-       
 			$strHeader .= "</head>\n\n";
-			$this->SetOutputItem('HEADER',$strHeader);
+			
+			$strOutput = ReplaceTagsBraces($strInput,array('HEADER' => $strHeader));
+		
+			return $strOutput;
 		}
 		
 		final
-		function PrepareHeaderStyleSheets($strHeader)
+		function RenderHeaderStyleSheets($strInput)
 		{
-			// Add additional CSS files to be included
+			$strHeader = '';
 			
+			// Add additional CSS files to be included
 			foreach ($this->m_arrayStyleSheets as $strTitle => $arrayStyleSheet)
 			{
 				$strURL = ArrayGetValue($arrayStyleSheet,'url');
@@ -3037,7 +3039,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 					}
 				}
 			}
-			return $strHeader;
+
+			$strOutput = ReplaceString($strInput,'</head>',$strHeader."\n</head>");
+			return $strOutput;
 		}
 		
 		
@@ -3778,41 +3782,43 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		final  
 		function RenderWebSite()
 		{
-			$this->Trace("RenderWebsite BEGIN");
+			$this->Trace('RenderWebsite BEGIN');
 			$this->ProfilingTrace();
 
-			$this->SetOutputItem("ROOTURL", $this->GetRootURL());
-			$this->SetOutputItem("ROOTPATH", $this->GetRootPath());
-			$this->SetOutputItem("SELFURL",$this->MakeSelfURL());
-			$this->SetOutputItem("INDEXURL",$this->MakeIndexURL());
+			// Initialize default placeholders
+			$this->SetOutputItem('ROOTURL', $this->GetRootURL());
+			$this->SetOutputItem('ROOTPATH', $this->GetRootPath());
+			$this->SetOutputItem('SELFURL',$this->MakeSelfURL());
+			$this->SetOutputItem('INDEXURL',$this->MakeIndexURL());
 
-			$this->SetOutputItem("CSSPATH",$this->GetRootURL() . "css/");
-			$this->SetOutputItem("IMAGEPATH",$this->GetImageRootURL());
-			$this->SetOutputItem("DOWNLOADPATH", $this->GetDownloadRootURL());
+			$this->SetOutputItem('CSSPATH',$this->GetRootURL() . 'css/');
+			$this->SetOutputItem('IMAGEPATH',$this->GetImageRootURL());
+			$this->SetOutputItem('DOWNLOADPATH', $this->GetDownloadRootURL());
 			
-			$this->SetOutputItem("LAYOUT",$this->GetLayout());
-			$this->SetOutputItem("LANGUAGE",StringLowerCase($this->GetLanguage()));
-			
+			$this->SetOutputItem('LAYOUT',$this->GetLayout());
+			$this->SetOutputItem('LANGUAGE',StringLowerCase($this->GetLanguage()));
+
+			// Render special pages			
 			$strOutput = $this->RenderSpecialPages();
-			if ($strOutput != "")
+			if ($strOutput != '')
 			{
 				return $strOutput;	
 			}
 			
 			$this->PrepareDocType();
-			
-			$this->Trace("Rendering content START");			
+
+			// Render Content
+			$this->Trace('Rendering content START');			
 			$this->CallbackPreContent();
 			$this->RenderContent();
 			$this->CallbackPostContent();
-			$this->Trace("Rendering content END");
+			$this->Trace('Rendering content END');
 			$this->ProfilingTrace();
 			
-			
-			$this->Trace("Load default string ressources START");			
-			$this->LoadStringResources("default");
-			// Default resource file has highest priority
-			$this->Trace("Load default string ressources END");
+			// Load default string resources
+			$this->Trace('Load default string ressources START');			
+			$this->LoadStringResources('default');
+			$this->Trace('Load default string ressources END');
 			$this->ProfilingTrace();
 
 			// Prepare Layout
@@ -3845,21 +3851,25 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			$this->Trace("Loading framework file END");
 			$this->ProfilingTrace();
 			
+			// Render Navigation
 			$this->Trace("CallbackRenderNavigation START");
 			$this->CallbackRenderNavigation($strOutput);
 			$this->Trace("CallbackRenderNavigation END");
 			$this->ProfilingTrace();
 			
+			// Render Message Stack
 			$this->Trace("PrepareMessages START");
 			$this->PrepareMessages();
 			$this->Trace("PrepareMessages END");
 			$this->ProfilingTrace();
-			
-			$this->Trace("PrepareHeader START");
-			$this->PrepareHeader();
-			$this->Trace("PrepareHeader END");
-			$this->ProfilingTrace();
 
+			// Render Header
+			$this->Trace("RenderHeader START");
+			$strOutput = $this->RenderHeader($strOutput);
+			$this->Trace("RenderHeader END");
+			$this->ProfilingTrace();
+			
+			
 			$this->CheckInvalidTID();
 			$this->ProfilingTrace();
 			
@@ -3965,6 +3975,13 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			$this->Trace("Tag replacement END");
 			$this->ProfilingTrace();
 			
+			// Render Style Sheets
+			$this->Trace("RenderHeaderStyleSheets START");
+			$strOutput = $this->RenderHeaderStyleSheets($strOutput);
+			$this->Trace("RenderHeaderStyleSheets END");
+			$this->ProfilingTrace();
+	
+			// Render Code
 			$this->Trace("RenderCode START");
 			$strOutput = $this->RenderCode($strOutput);
 			$this->Trace("RenderCode END");

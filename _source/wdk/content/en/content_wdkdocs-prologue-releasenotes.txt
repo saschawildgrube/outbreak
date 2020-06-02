@@ -15,6 +15,7 @@ ICON SUPPORT HAS CHANGED SIGNIFICANTLY. CHECK YOUR ICONS, TOOLBARS, ETC.!
 ** Removed CCarousselElement
 ** Removed CSSLModule
 ** Renamed class CountdownElement to CCountDownElement
+** Refactoring of RenderWebsite and the rendering of the head portion of the html output: The header is rendered before the tag replacement (like before) but the array of css files and the default layout css file is now added AFTER the tag replacement. This enables css files to be added late during generic tag replacements. E.g. if the icon element is only used as a generic tag, it can still use CWebsite::ActivateFontAwesome() to add the font awesome css file.
 * New Features
 ** Added function ArrayRemoveKeyRecursive() and corresponding tests
 ** Added function ArrayMap() and corresponding test
