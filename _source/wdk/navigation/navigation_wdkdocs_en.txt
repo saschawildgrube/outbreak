@@ -1,25 +1,23 @@
 LEVEL	;CONTEXT																						;LABEL														;CONDITIONS
 0			;wdkdocs																						;?TID_NAVIGATION_WDKDOCS?					;wdkdocs
-1			;wdkdocs-prologue																		;Prologue													;wdkdocs
-2			;wdkdocs-prologue-releasenotes											;Release Notes										;
-2			;wdkdocs-prologue-upgradeguide											;Upgrade Guide										;
-2			;wdkdocs-prologue-license														;License													;
-1			;wdkdocs-introduction																;Introduction											;
-2			;wdkdocs-introduction-about													;About														;
-2			;wdkdocs-introduction-installation									;Installation											;
-2			;wdkdocs-introduction-gettingstarted								;Getting started									;wdkdocs-wip
+1			;wdkdocs-about																			;About														;
+1			;wdkdocs-license																		;License													;
+1			;wdkdocs-installation																;Installation											;
+1			;wdkdocs-gettingstarted															;Getting Started									;wdkdocs-wip
+1			;wdkdocs-releasenotes																;Release Notes										;
+1			;wdkdocs-upgradeguide																;Upgrade Guide										;
 1			;wdkdocs-faq																				;FAQ															;wdkdocs-wip
 1			;wdkdocs-architecture																;Architecture											;
 2			;wdkdocs-architecture-assemblies										;Assemblies												;
 2			;wdkdocs-architecture-webapplications								;Web Applications									;
 2			;wdkdocs-architecture-websites											;Websites													;
-3			;wdkdocs-architecture-websites-requestlifecycle			;Request lifecycle								;wdkdocs-wip
-2			;wdkdocs-architecture-webservices										;Web services		 									;
-3			;wdkdocs-architecture-webservices-requestlifecycle	;Request lifecycle								;wdkdocs-wip
+3			;wdkdocs-architecture-websites-requestlifecycle			;Request Lifecycle								;wdkdocs-wip
+2			;wdkdocs-architecture-webservices										;Web Services		 									;
+3			;wdkdocs-architecture-webservices-requestlifecycle	;Request Lifecycle								;wdkdocs-wip
 2			;wdkdocs-architecture-quality												;Quality													;
 2			;wdkdocs-architecture-beyondmvc											;Beyond MVC												;
 2			;wdkdocs-architecture-installer											;Installer												;wdkdocs-wip
-2			;wdkdocs-architecture-input													;Input handling										;wdkdocs-wip
+2			;wdkdocs-architecture-input													;Input Handling										;wdkdocs-wip
 1			;wdkdocs-components																	;Components												;wdkdocs-wip
 2			;wdkdocs-components-assets													;Assets														;wdkdocs-wip
 2			;wdkdocs-components-config													;Config														;
@@ -36,8 +34,8 @@ LEVEL	;CONTEXT																						;LABEL														;CONDITIONS
 1			;wdkdocs-guides																			;Guides														;wdkdocs-wip
 2			;wdkdocs-guides-elements														;Creating an element							;wdkdocs-wip
 1			;wdkdocs-features																		;Features													;wdkdocs-wip
-2			;wdkdocs-features-accessrights											;Access rights										;wdkdocs-wip
-2			;wdkdocs-features-basicauth													;Basic authentication							;wdkdocs-wip
+2			;wdkdocs-features-accessrights											;Access Rights										;wdkdocs-wip
+2			;wdkdocs-features-basicauth													;Basic Authentication							;wdkdocs-wip
 2			;wdkdocs-features-bbcode														;bbcode														;wdkdocs-wip
 2			;wdkdocs-features-conditions												;Conditions												;wdkdocs-wip
 2			;wdkdocs-features-cmf																;Content Management Framework			;wdkdocs-wip
