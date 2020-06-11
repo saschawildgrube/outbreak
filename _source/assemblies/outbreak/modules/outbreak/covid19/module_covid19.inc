@@ -301,6 +301,43 @@
 			$outbreakmap = new COutbreakMapElement($this->GetWebsite(),'default');
 			$this->SetOutputItem('WORLDMAP',$outbreakmap->RenderOutbreakMap($arrayOutbreakData));
 			
+			
+			
+			
+			$this->IncludeElement('legend');
+			$legend = new CLegendElement($this->GetWebsite(),'default'); 
+			
+			$arrayWorldmapLegend = array(
+					array(
+						'label' => '?TID_LABEL_WORLDMAP_DEATHS?',
+						'color' => 'red'
+						),
+					array(
+						'label' => '?TID_LABEL_WORLDMAP_CONFIRMED?',
+						'color' => 'orange' 
+						),
+					array(
+						'label' => '?TID_LABEL_WORLDMAP_NONE?',
+						'color' => 'green'
+						)/*,
+					array(
+						'label' => '?TID_LABEL_WORLDMAP_COUNTRY?',
+						'color' => 'grey',
+						'icon' => 'circle'
+						),
+					array(
+						'label' => '?TID_LABEL_WORLDMAP_SHIP?',
+						'color' => 'grey',
+						'icon' => 'arrow-up'
+						)*/
+					);
+						
+			$this->SetOutputItem(
+				'WORLDMAP_LEGEND',
+				$legend->RenderLegend(
+					$arrayWorldmapLegend));
+		
+			
 			return 'worldmap';
 		}
 		

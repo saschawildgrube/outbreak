@@ -109,7 +109,7 @@
 					}
 					else
 					{
-						strColor = 'yellow';
+						strColor = 'orange';
 					}
 				}
 				

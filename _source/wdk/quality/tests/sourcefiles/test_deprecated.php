@@ -126,7 +126,8 @@
 						'/\-\>IncludeElement\((\"|\')carousel(\"|\')\)/',
 						'/\-\>IncludeModule\((\"|\')security\/ssl(\"|\')\);/',
 						'/CCountdownElement/',
-						'/RenderCountdown/(/'
+						'/RenderCountdown/(/',
+						'/IsDevice/'
 					);
 					
 				if ($strFileName != "wdk_url.inc")

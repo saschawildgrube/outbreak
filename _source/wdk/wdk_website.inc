@@ -37,7 +37,7 @@
 	require_once("wdk_bot.inc");
 	require_once("wdk_layout.inc");
 	require_once("wdk_navigationtree.inc");
-	require_once("wdk_devices.inc");
+
 	
 	abstract
 	class CWebSite extends CWebApplication
