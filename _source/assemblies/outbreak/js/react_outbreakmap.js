@@ -2,6 +2,8 @@
 
 	class OutbreakMapReactComponent extends GoogleMapsReactComponent
 	{
+		
+		
 		RenderGoogleMaps(strSelector,aProps)
 		{
 			var arrayOutbreakData = GetValue(aProps,'data');
@@ -78,6 +80,20 @@
 				arrayCountry['markersize'] = fMarkerSize;
 				
 			},this);
+
+
+
+			function onClickMarkerCountry()
+			{
+				var strLink = ''+GetValue(this,'link');
+				if (strLink != '')
+				{
+					window.location.href = strLink;
+				}
+				//window.alert(this.strToolTip);
+			}
+
+
 	
 			arrayCountries.forEach( function(arrayCountry)
 			{
@@ -94,6 +110,8 @@
 					+'Mortality: '+GetValue(arrayCountry,'text_mortality')+'\n'
 					+'Recovered: '+GetValue(arrayCountry,'text_recovered')+'\n'
 					+'Active: '+GetValue(arrayCountry,'text_active');
+				
+				var strLink = GetValue(arrayCountry,'link');
 				
 				var position = new google.maps.LatLng(arrayCountry['lat'],arrayCountry['long']);
 				
@@ -127,11 +145,12 @@
 		        strokeWeight: 0.4
 	    		},
 				});
-				
-			
+				if (strLink != '')
+				{
+					marker.link = strLink;
+					marker.addListener('click', onClickMarkerCountry);
+				}
 			});
-
-
 
 			arrayShips.forEach( function(arrayShip)
 			{
@@ -295,5 +314,6 @@
 	
 		
 		}	
+		
 	}
 	

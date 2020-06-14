@@ -8,6 +8,7 @@ ICON SUPPORT HAS CHANGED SIGNIFICANTLY. CHECK YOUR ICONS, TOOLBARS, ETC.!
 ** No Changes
 * Defects
 ** JavaScripts that were added during the rendering of generic output items were not considered since JavaScripts were rendered before tag replacement. This has been changed. JavaScripts are now embedded as part of the tag replacement loop - so placeholders in JavaScripts can be used and generic output items can in return still add JavaScripts.
+** CWebsiteSatellite::MakeURL() did not pass through the bEncoded parameter. This has been fixed.
 * Refactoring
 ** The CIconElement class is now entirely based on Font Awesome icons instead of a mix of images, Font Awesome and Glyphicons. This has widespread implications on CLinkIconELement, CMailIconElement, CItemManagerElement, CPageNavigatonElement, CFormElement etc.
 ** Removed all layout_default_icon* files (except the country and language icons)

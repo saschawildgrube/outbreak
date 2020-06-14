@@ -4925,10 +4925,10 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		function CallbackParseSEOURL($strSEOURL)
 		{
 			$strLanguage = $this->GetLanguage();
-			$this->Trace("SEOURL: $strSEOURL");
-			if ($strSEOURL != "")
+			$this->Trace('SEOURL: '.$strSEOURL);
+			if ($strSEOURL != '')
 			{
-				$arraySegments = StringExplode($strSEOURL,"/");
+				$arraySegments = StringExplode($strSEOURL,'/');
 				$this->Trace($arraySegments);
 				$nSegments = ArrayCount($arraySegments);
 				if ($nSegments == 1)
@@ -4936,14 +4936,14 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 					$strSegment = $arraySegments[0];
 					if (ArrayValueExists($this->GetSupportedLanguages(),StringUpperCase($strSegment)))
 					{
-						$this->SetContent("index");
+						$this->SetContent('index');
 						$this->SetLanguage(StringUpperCase($strSegment));    
 					}
 					else
 					{
 						$this->SetContent(
 							$this->GetRoutingContext(
-								"content",
+								'content',
 								$arraySegments[0],
 								$strLanguage));
 					}
@@ -4954,7 +4954,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 					$this->SetLanguage($strLanguage);  
 					$this->SetContent(
 						$this->GetRoutingContext(
-							"content",
+							'content',
 							$arraySegments[1],
 							$strLanguage));
 				}

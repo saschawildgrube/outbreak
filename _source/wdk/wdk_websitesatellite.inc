@@ -12,13 +12,13 @@
 			CWebSite &$website,
 			$strID)
 		{
-			if (!is_subclass_of($website,"CWebsite"))
+			if (!is_subclass_of($website,'CWebsite'))
 			{
-				FatalError("CWebsiteSatellite \"$strID\" has been initialized with an invalid website object.");
+				FatalError('CWebsiteSatellite "'.$strID.'" has been initialized with an invalid website object.');
 			}
 			$this->m_website = $website;
 			$this->m_strID = $strID;
-			$this->m_strResPrefix = "";
+			$this->m_strResPrefix = '';
 			$this->m_arrayOutputItems = array();
 		}
 		
@@ -206,13 +206,13 @@
 			return $this->GetWebsite()->SystemEvent($strEventSeverity,$strEventID,$strEventMessage,$arrayDetails);
 		}
 		
-		function MakeURL($arrayParams)
+		function MakeURL($arrayParams,$bEncoded=true)
 		{
-			return $this->GetWebsite()->MakeURL($arrayParams);
+			return $this->GetWebsite()->MakeURL($arrayParams, $bEncoded);
 		}
 		
 		
-		function AddJavaScript($strTitle,$strID = "")
+		function AddJavaScript($strTitle,$strID='')
 		{
 			$this->GetWebsite()->AddJavaScript($strTitle,$strID); 
 		}

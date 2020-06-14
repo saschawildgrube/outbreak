@@ -151,6 +151,14 @@
 					$arrayCountry['text_deathspercapita'] = $strDeathsPerCapita;
 					$arrayCountry['text_recoveredpercapita'] = $strRecoveredPerCapita;
 					$arrayCountry['text_activepercapita'] = $strActivePerCapita;
+					
+					$arrayParams = array();
+					$arrayParams[$this->GetModuleVarNameState()] = 'country';
+					$arrayParams[$this->GetModuleVarName('country')] = $strCountryID;
+					$strLinkCountry = $this->MakeURL($arrayParams,false);
+					
+					$arrayCountry['link'] = $strLinkCountry;
+					
 				}
 				$arrayOutbreakData['countries'] = $arrayCountries;
 
@@ -296,7 +304,7 @@
 			
 			$arrayOutbreakData = $this->GetOutbreakData();
 			$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'timeseries');
-		
+			
 			$this->IncludeElement('outbreakmap');
 			$outbreakmap = new COutbreakMapElement($this->GetWebsite(),'default');
 			$this->SetOutputItem('WORLDMAP',$outbreakmap->RenderOutbreakMap($arrayOutbreakData));
@@ -876,6 +884,7 @@
 			else
 			{
 				$this->SetOutputItem('COUNTRY_CHART','');
+				$this->SetOutputItem('COUNTRY_CHART_LEGEND','');
 			}
 		
 		

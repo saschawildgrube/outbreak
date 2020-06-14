@@ -251,6 +251,23 @@
 					return '%H:%M:%S';
 			}
 		}
+		
+		function CallbackPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
+		{
+			if ($this->m_moduleCovid19 != null)
+			{
+				$strModuleState = ArrayGetValue($arrayParams,$this->m_moduleCovid19->GetModuleVarNameState());
+				if ($strModuleState == 'country')
+				{
+					$arrayParams['content'] = 'countries';	
+				}
+			}
+
+			return parent::CallbackPrepareMakeURL($strRootURL,$arrayParams,$bEncoded);
+		}
+
+		
+		
 	
 	}
 	
