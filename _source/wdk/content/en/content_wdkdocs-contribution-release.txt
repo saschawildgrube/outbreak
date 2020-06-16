@@ -1,4 +1,4 @@
-=Release checklist=
+={WDK} release checklist=
 * Search for "TODO" in the source code
 * Execute all automated tests
 * Test the scaffolder and create a new website

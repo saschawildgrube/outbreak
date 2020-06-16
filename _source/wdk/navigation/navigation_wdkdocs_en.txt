@@ -3,21 +3,21 @@ LEVEL	;CONTEXT																						;LABEL														;CONDITIONS
 1			;wdkdocs-about																			;About														;
 1			;wdkdocs-license																		;License													;
 1			;wdkdocs-installation																;Installation											;
-1			;wdkdocs-gettingstarted															;Getting Started									;wdkdocs-wip
-1			;wdkdocs-releasenotes																;Release Notes										;
-1			;wdkdocs-upgradeguide																;Upgrade Guide										;
+1			;wdkdocs-gettingstarted															;Getting started									;wdkdocs-wip
+1			;wdkdocs-releasenotes																;Release notes										;
+1			;wdkdocs-upgradeguide																;Upgrade guide										;
 1			;wdkdocs-faq																				;FAQ															;wdkdocs-wip
 1			;wdkdocs-architecture																;Architecture											;
 2			;wdkdocs-architecture-assemblies										;Assemblies												;
-2			;wdkdocs-architecture-webapplications								;Web Applications									;
+2			;wdkdocs-architecture-webapplications								;Web applications									;
 2			;wdkdocs-architecture-websites											;Websites													;
-3			;wdkdocs-architecture-websites-requestlifecycle			;Request Lifecycle								;wdkdocs-wip
-2			;wdkdocs-architecture-webservices										;Web Services		 									;
-3			;wdkdocs-architecture-webservices-requestlifecycle	;Request Lifecycle								;wdkdocs-wip
+3			;wdkdocs-architecture-websites-requestlifecycle			;Request lifecycle								;wdkdocs-wip
+2			;wdkdocs-architecture-webservices										;Web services		 									;
+3			;wdkdocs-architecture-webservices-requestlifecycle	;Request lifecycle								;wdkdocs-wip
 2			;wdkdocs-architecture-quality												;Quality													;
 2			;wdkdocs-architecture-beyondmvc											;Beyond MVC												;
 2			;wdkdocs-architecture-installer											;Installer												;wdkdocs-wip
-2			;wdkdocs-architecture-input													;Input Handling										;wdkdocs-wip
+2			;wdkdocs-architecture-input													;Input handling										;wdkdocs-wip
 1			;wdkdocs-components																	;Components												;wdkdocs-wip
 2			;wdkdocs-components-assets													;Assets														;wdkdocs-wip
 2			;wdkdocs-components-config													;Config														;
@@ -34,11 +34,11 @@ LEVEL	;CONTEXT																						;LABEL														;CONDITIONS
 1			;wdkdocs-guides																			;Guides														;wdkdocs-wip
 2			;wdkdocs-guides-elements														;Creating an element							;wdkdocs-wip
 1			;wdkdocs-features																		;Features													;wdkdocs-wip
-2			;wdkdocs-features-accessrights											;Access Rights										;wdkdocs-wip
-2			;wdkdocs-features-basicauth													;Basic Authentication							;wdkdocs-wip
+2			;wdkdocs-features-accessrights											;Access rights										;wdkdocs-wip
+2			;wdkdocs-features-basicauth													;Basic authentication							;wdkdocs-wip
 2			;wdkdocs-features-bbcode														;bbcode														;wdkdocs-wip
 2			;wdkdocs-features-conditions												;Conditions												;wdkdocs-wip
-2			;wdkdocs-features-cmf																;Content Management Framework			;wdkdocs-wip
+2			;wdkdocs-features-cmf																;Content management framework			;wdkdocs-wip
 2			;wdkdocs-features-crud															;CRUD															;wdkdocs-wip
 2			;wdkdocs-features-csrf															;CSRF protection									;wdkdocs-wip
 2			;wdkdocs-features-debugging													;Debugging												;wdkdocs-wip
@@ -57,6 +57,7 @@ LEVEL	;CONTEXT																						;LABEL														;CONDITIONS
 1			;wdkdocs-conventions																;Conventions											;
 1			;wdkdocs-contribution																;Contribution											;wdkdocs-contribution
 2			;wdkdocs-contribution-bugreport											;Bug reports											;
-2			;wdkdocs-contribution-checklist-release							;Release Checklist								;
-2			;wdkdocs-contribution-checklist-addcountry					;Add a new country								;
-1			;wdkdocs-api																				;API Documentation								;wdkdocs-wip
+2			;wdkdocs-contribution-release												;Release checklist								;
+2			;wdkdocs-contribution-addcountry										;Add a new country								;
+2			;wdkdocs-contribution-github												;Publish a project on GitHub			;
+1			;wdkdocs-api																				;API documentation								;wdkdocs-wip

@@ -276,6 +276,13 @@
 				//$strSources .= ArrayGetValue($arraySource,'name').': '.ArrayGetValue($arraySource,'url').'<br/>';
 				$strSources .= ArrayGetValue($arraySource,'name').'<br/>';
 			}
+			
+			$strSources .=
+				'?TID_LABEL_LATESTDATA?: '
+				.$this->RenderDate(GetTime(ArrayGetValue($arrayOutbreakData,'date_latestdata')))
+				.' (?TID_LABEL_LOADED?: '
+				.$this->RenderDateTime(GetTime(ArrayGetValue($arrayOutbreakData,'datetime_downloaded')))
+				.')';
 			return $strSources;
 		}
 

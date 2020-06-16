@@ -252,6 +252,30 @@
 			$this->GetWebsite()->AddStyleSheetSourceCode($strTitle,$strSourceCode);
 		}
 
+		function RenderDate($time) 
+		{
+			return $this->GetWebsite()->RenderDate($time);
+		}
+
+		function RenderTime($time)
+		{
+			return $this->GetWebsite()->RenderTime($time);
+		}
+		
+		function RenderDateTime($time)
+		{
+			return $this->GetWebsite()->RenderDateTime($time);
+		}
+		
+		function RenderNumber($fValue,$nPrecision=0,$strMetric='',$bUseSeparator = true)
+		{
+			return $this->GetWebsite()->RenderNumber($fValue,$nPrecision,$strMetric,$bUseSeparator);
+		}
+
+		function RenderCurrency($fValue,$strCurrencyID)
+		{
+			return $this->GetWebsite()->RenderCurrency($fValue,$strCurrencyID);
+		}
 		
 	}
 

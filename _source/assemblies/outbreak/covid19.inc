@@ -346,6 +346,8 @@
 		$arrayOutbreakData['world'] = array();
 		$arrayOutbreakData['countries'] = array();
 		$arrayOutbreakData['ships'] = array();
+		
+		$strLatestDataDate = '';
 			
 
 		$arrayWorld = array();	
@@ -446,6 +448,13 @@
 			$arrayCountry['deaths'] = GetIntegerValue(ArrayGetValue($arrayLatestDataSet,'deaths'));
 			$arrayCountry['recovered'] = GetIntegerValue(ArrayGetValue($arrayLatestDataSet,'recovered'));
 			$arrayCountry['active'] = $arrayCountry['confirmed'] - $arrayCountry['deaths'] - $arrayCountry['recovered'];
+
+			// Determine the latest data date:
+			$strDate = ArrayGetValue($arrayLatestDataSet,'date');
+			if (CompareString($strDate,$strLatestDataDate) > 0)    
+			{
+				$strLatestDataDate = $strDate;
+			}
 
 			$arrayProvinces = ArrayGetValue($arrayJohnsHopkinsCountry,'provinces');
 			if (is_array($arrayProvinces))
@@ -689,7 +698,10 @@
 	
 		$arrayOutbreakData['sources'][] = array(
 			'name' => 'Harvard University - Center for Geographic Analysis');
-	
+			
+		$arrayOutbreakData['datetime_downloaded'] = RenderDateTimeNow();
+		$arrayOutbreakData['date_latestdata'] = $strLatestDataDate;
+		
 		return $arrayOutbreakData;
 	}
 	

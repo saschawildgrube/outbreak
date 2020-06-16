@@ -94,7 +94,8 @@
 				$this->SetContent('worldmap');	
 			}
 
-
+			$this->SetTimezone('Europe/Berlin');
+			
 			// OPEN GRAPH
 			$this->AddHeader('<meta property="og:image" content="{IMAGEURL ID="opengraph"}">');
 	   	$arrayParams = array();
