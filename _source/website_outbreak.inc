@@ -249,7 +249,7 @@
 					return '%H:%M:%S';
 				*/
 				default:
-					return '%H:%M:%S';
+					return '%H:%M:%S %Z'; 
 			}
 		}
 		
