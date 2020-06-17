@@ -18,16 +18,8 @@
 			$arrayMeta['copyright'] = '?TID_COPYRIGHT?';
 			$arrayMeta['copyright_since'] = '2020';
 			
-			
 			$arrayConfig = array();
-			
-	
-			//$arrayConfig['session_mode'] = SESSION_MODE_NONE;
 			$arrayConfig['session_mode'] = SESSION_MODE_LOCAL_COOKIE;
-
-			//$arrayConfig['underconstruction'] = true;
-
-			
 			$arrayConfig['cache_deactivate'] = true;
 			$arrayConfig['cache_allow_nocache'] = true;
 			
@@ -48,9 +40,6 @@
 			
 			$arrayConfig['googlemaps_apikey'] = 'AIzaSyD7TpOpV3vlxkavmlxZztH_3AKVYVKI2oI';
 			
-
-
-			
 			parent::__construct(
 				GetRootURL(),
 				GetSourceDir(),
@@ -59,7 +48,6 @@
 				$arrayConfig,
 				$arrayParams,
 				'website_outbreak');
-					
 		}
 		
 		function CallbackInitAssemblyLine(&$assemblyLine)
@@ -107,28 +95,15 @@
 			$this->AddHeader('<meta property="og:image:alt" content="'.$this->CallbackGetWebsiteTitle().'">');
 			$this->AddHeader('<meta property="og:description" content="'.$this->CallbackGetWebsiteDescription().'">');
 
-
 			// FORK ME ON GITHUB
 			$this->IncludeElement('forkmeongithub');
 			$forkmeongithub = new CForkMeOnGithubElement($this,'default');
 			$this->SetOutputItem('FORKMEONGITHUB',$forkmeongithub->RenderForkMeOnGithub('saschawildgrube','outbreak'));
 
-/*
-			// DISPLAY DATETIME
-			$this->IncludeElement('datetime');
-			$datetime = new CDateTimeElement($this,'default');
-			$this->SetOutputItem('DATETIME',$datetime->RenderDateTime(GetTimeNow()));	
-
-			// LANGUAGE SELECTION
-			$this->IncludeModule('user/languageselection');
-			$languageselectionModule = new CLanguageSelectionModule($this,'index');
-			$this->SetOutputItem('LANGUAGESELECTION',$languageselectionModule->RenderModule('toolbar'));	
-*/
-
+			// THE ACTUAL OUTBREAK MODULE
 			$this->IncludeModule('outbreak/covid19');
 			$arrayConfig = array();
 			$this->m_moduleCovid19 = new CCOVID19Module($this,'',$arrayConfig);			
-
 
 			return $bResult;
 		}
@@ -148,10 +123,6 @@
 			return 'sascha@wildgrube.com';
 		}
 	
-		function CallbackPreContent()
-		{
-		}
-
 		function CallbackPostContent()
 		{
 			$this->SetOutputItem('OUTBREAK_SUMMARY',$this->m_moduleCovid19->RenderSummary());
@@ -167,10 +138,8 @@
 			return parent::CallbackRenderSpecialContent($strContentID); 
 		}
 		
-
 		function CallbackRenderNavigation($strOutput)
 		{
-			
 			$navigationtree = new CNavigationTree();
 			$navigationtree->LoadNavigationTree($this,'');
 			$navigationtree->SetCurrentContext($this->GetContent());
@@ -182,14 +151,6 @@
 				$this->SetOutputItem('NAVIGATION_HORIZONTALPATH',$navigation->RenderNavigationHorizontalPath($navigationtree));
 	    }
 
-/*         
-			if (FindString($strOutput, '{NAVIGATION_VERTICALPATH}') != -1)
-			{ 
-				$navigation = new CNavigationElement($this,'verticalpath');
-				$this->SetOutputItem('NAVIGATION_VERTICALPATH',
-					$navigation->RenderNavigationVerticalPath($navigationtree,0));
-      }
- */        
 			if (FindString($strOutput, '{NAVIGATION_CURRENTPATH}') != -1)
 			{ 
 				$navigation = new CNavigationElement($this,'currentpath');
@@ -218,39 +179,19 @@
 			}
 		}
 
-
-
-
 		function CallbackCheckCondition($strCondition)
 		{
 			return parent::CallbackCheckCondition($strCondition);	
 		}
 		
-		
 		function CallbackGetDateLocalFormat($strCountryID)
 		{
-			switch ($strCountryID)
-			{
-				/*
-			case 'USA':
-				return '%Y-%m-%d';
-				*/
-			default:
-				return '%Y-%m-%d';
-			}
+			return '%Y-%m-%d';
 		}
 
 		function CallbackGetTimeLocalFormat($strCountryID)
 		{
-			switch ($strCountryID)
-			{
-				/*
-				case 'USA':				
-					return '%H:%M:%S';
-				*/
-				default:
-					return '%H:%M:%S %Z'; 
-			}
+			return '%H:%M:%S %Z'; 
 		}
 		
 		function CallbackPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
@@ -260,10 +201,9 @@
 				$strModuleState = ArrayGetValue($arrayParams,$this->m_moduleCovid19->GetModuleVarNameState());
 				if ($strModuleState == 'country')
 				{
-					$arrayParams['content'] = 'countries';	
+					$arrayParams['content'] = 'countries';
 				}
 			}
-
 			return parent::CallbackPrepareMakeURL($strRootURL,$arrayParams,$bEncoded);
 		}
 
