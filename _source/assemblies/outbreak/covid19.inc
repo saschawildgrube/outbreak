@@ -583,7 +583,7 @@
 			}
 			else if ($strName == 'Diamond Princess')
 			{
-				// The ship Diomon Princess is in the port of Yokohama
+				// The ship Diamond Princess is in the port of Yokohama
 				$arrayShip['lat'] = 35.443756;
 				$arrayShip['long'] = 139.704134;
 			}
