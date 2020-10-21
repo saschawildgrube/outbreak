@@ -583,7 +583,7 @@
 			}
 			else if ($strName == 'Diamond Princess')
 			{
-				// The ship Diamond Princess is in the port of Yokohama
+				// The ship Diomon Princess is in the port of Yokohama
 				$arrayShip['lat'] = 35.443756;
 				$arrayShip['long'] = 139.704134;
 			}
@@ -662,6 +662,7 @@
 			{
 				if (IsArray($value) == true)
 				{
+					$nConfirmedPrevious = 0;
 					foreach ($value as &$arrayTimePoint)
 					{
 						$nConfirmed = GetIntegerValue(ArrayGetValue($arrayTimePoint,'confirmed'));
@@ -670,6 +671,9 @@
 						
 						$nActive = $nConfirmed - $nDeaths - $nRecovered;
 						$arrayTimePoint['active'] = $nActive;
+						
+						$arrayTimePoint['confirmed_delta_daily'] = $nConfirmed - $nConfirmedPrevious;
+						$nConfirmedPrevious = $nConfirmed;
 					}
 					return $value;
 				}
@@ -690,6 +694,12 @@
 			'CallbackArrayMapCalculateTimeseries',
 			array());
 
+		$arrayCountries = ArrayGetValue($arrayOutbreakData,'countries');
+		$arrayCountries = $arrayOutbreakData['countries'];
+		foreach ($arrayCountries as &$arrayCountry)
+		{
+			
+		}
 
 		
 

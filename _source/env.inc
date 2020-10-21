@@ -74,7 +74,7 @@
 
 	function GetSystemEmailSenderName()
 	{
-		return GetRootURL().' ('.GetStage().')';	
+		return GetRootURL().' ('.GetEnvID().')';	
 	}
 
 
@@ -87,7 +87,7 @@
 	}
 
 	
-	function GetStage()
+	function GetEnvID()
 	{
 		if (FindString(GetRootURL(),'dev.') == 0)
 		{
@@ -96,7 +96,7 @@
 		return 'prod';	
 	}
 	
-	function GetDatabaseConfigID()
+	function GetEnvConfigID()
 	{
 		return '';
 	}

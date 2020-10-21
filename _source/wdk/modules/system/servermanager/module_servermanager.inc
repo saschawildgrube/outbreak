@@ -210,7 +210,7 @@
 							$bPleskActive = $consumer->GetResultValue("PLESK_ACTIVE");
 							if ($bPleskActive == true)
 							{
-								$strPleskURL = "https://".$strIP.":8443/";
+								$strPleskURL = "https://".$strHost.":8443/login_up.php";
 								$link = new CLinkElement($this->GetWebsite(),"default");
 								$strPleskActive = $link->RenderLink($strPleskURL,"?TID_ITEM_ACTIVE?",true);
 							}

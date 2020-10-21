@@ -48,7 +48,6 @@
 		
 		function CallbackInit()
 		{
-			//$this->Trace("About this server");
 			$this->SetResultValue($this->GetServerIP(),"IP");
 			$this->SetResultValue(GetSystemHostname(),"HOSTNAME");
 		
@@ -120,14 +119,7 @@
 		
 		function CommandStatus()
 		{
-		/*
-			$this->Trace("About this server");
-			$this->SetResultValue($this->GetServerIP(),"IP");
-			$this->SetResultValue(GetSystemHostname(),"HOSTNAME");
-		*/
-		
-		
-		
+	
 			$this->Trace("");	
 			$this->Trace("Check Disk Space");
 			
@@ -165,7 +157,7 @@
 			$this->Trace("");			
 			$this->Trace("Check Plesk");		
 				
-			$strURL = "https://".$this->GetServerIP().":8443/";
+			$strURL = "https://".GetSystemHostname().":8443/login_up.php";
 			$strResponse = HttpRequest(
 				$strURL,
 				array(),

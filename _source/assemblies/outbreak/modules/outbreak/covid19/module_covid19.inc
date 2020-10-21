@@ -17,7 +17,7 @@
 			$arrayConfig = array())
 		{
 			$this->m_arrayOutbreakData = null;
-			$this->m_cache = new CFileCache(GetTempDir(),'outbreak-'.GetStage());
+			$this->m_cache = new CFileCache(GetTempDir(),'outbreak-'.GetEnvID());
 			$this->m_bLoading = false;
 
 			parent::__construct(
@@ -832,6 +832,66 @@
 			$this->IncludeElement('outbreakmap');
 			$outbreakmap = new COutbreakMapElement($this->GetWebsite(),'country'); 
 			$this->SetOutputItem('COUNTRY_MAP',$outbreakmap->RenderOutbreakMap($arrayOutbreakData));
+
+
+
+
+
+			// Chart with daily delta data
+			
+			$arrayLineChartConfigLines = array(
+					array(
+						'key' => 'confirmed_delta_daily',
+						'label' => '?TID_LABEL_CONFIRMED-DELTA-DAILY?',
+						'color' => 'blue')
+					);
+		
+			$arrayLineChartConfig = array(
+				'lines' => $arrayLineChartConfigLines, 
+				'legend' => 'date'
+				);
+			
+			
+			$arrayTimeSeries = ArrayGetValue($arrayCountry,'timeseries');
+			if (IsArray($arrayTimeSeries))
+			{
+				$nLength = ArrayCount($arrayTimeSeries);
+				for ($nIndex = 0; $nIndex < $nLength; $nIndex++)
+				{
+					if ($nIndex != 0 && $nIndex != $nLength-1) 
+					{
+						$arrayTimeSeries[$nIndex]['date'] = '';	
+					}
+				}
+				$this->IncludeElement('linechart');
+				$linechart = new CLineChartElement($this->GetWebsite(),'country'); 
+				$this->SetOutputItem(
+					'COUNTRY_CHART_DELTA',
+					$linechart->RenderLineChart(
+						$arrayTimeSeries,
+						$arrayLineChartConfig));
+						
+				$this->IncludeElement('legend');
+				$legend = new CLegendElement($this->GetWebsite(),'default'); 
+						
+				$this->SetOutputItem(
+					'COUNTRY_CHART_DELTA_LEGEND', 
+					$legend->RenderLegend(
+						$arrayLineChartConfigLines));
+			}
+			else
+			{
+				$this->SetOutputItem('COUNTRY_CHART_ABSOLUTE','');
+				$this->SetOutputItem('COUNTRY_CHART_ABSOLUTE_LEGEND','');
+			}
+
+
+
+
+
+
+
+			// CHart with absolute data
 			
 			$arrayLineChartConfigLines = array(
 					array(
@@ -875,7 +935,7 @@
 				$this->IncludeElement('linechart');
 				$linechart = new CLineChartElement($this->GetWebsite(),'country'); 
 				$this->SetOutputItem(
-					'COUNTRY_CHART',
+					'COUNTRY_CHART_ABSOLUTE',
 					$linechart->RenderLineChart(
 						$arrayTimeSeries,
 						$arrayLineChartConfig));
@@ -884,14 +944,14 @@
 				$legend = new CLegendElement($this->GetWebsite(),'default'); 
 						
 				$this->SetOutputItem(
-					'COUNTRY_CHART_LEGEND',
+					'COUNTRY_CHART_ABSOLUTE_LEGEND', 
 					$legend->RenderLegend(
 						$arrayLineChartConfigLines));
 			}
 			else
 			{
-				$this->SetOutputItem('COUNTRY_CHART','');
-				$this->SetOutputItem('COUNTRY_CHART_LEGEND','');
+				$this->SetOutputItem('COUNTRY_CHART_ABSOLUTE','');
+				$this->SetOutputItem('COUNTRY_CHART_ABSOLUTE_LEGEND','');
 			}
 		
 		

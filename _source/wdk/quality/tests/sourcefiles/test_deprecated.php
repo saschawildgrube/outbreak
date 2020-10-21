@@ -127,7 +127,9 @@
 						'/\-\>IncludeModule\((\"|\')security\/ssl(\"|\')\);/',
 						'/CCountdownElement/',
 						'/RenderCountdown/(/',
-						'/IsDevice/'
+						'/IsDevice/',
+						'/GetDatabaseConfigID/(/',
+						'/GetStage/(/'
 					);
 					
 				if ($strFileName != "wdk_url.inc")

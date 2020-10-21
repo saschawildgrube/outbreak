@@ -65,7 +65,7 @@
 
 	function GetSystemEmailSenderName()
 	{
-		return GetRootURL()." (".GetStage().")";	
+		return GetRootURL()." (".GetEnvID().")";	
 	}
 
 
@@ -77,19 +77,19 @@
 	}
 
 	
-	function GetStage()
+	function GetEnvID()
 	{
 		return "prod";	
 	}
 	
-	function GetDatabaseConfigID()
+	function GetEnvConfigID()
 	{
-		return "";
+		return 'env';
 	}
 	
 	function GetOperationMode()
 	{
-		return "normal";	
+		return 'normal';	
 	}
 	
 	function GetGpgPath()
