@@ -38,8 +38,6 @@
 			$arrayConfig['seourl'] = 'seourl';
 			$arrayConfig['csvformat'] = 'excel';
 			
-			$arrayConfig['googlemaps_apikey'] = 'AIzaSyD7TpOpV3vlxkavmlxZztH_3AKVYVKI2oI';
-			
 			parent::__construct(
 				GetRootURL(),
 				GetSourceDir(),

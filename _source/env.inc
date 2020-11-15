@@ -59,7 +59,7 @@
 	
 	function GetWebservicesDefaultFormat()
 	{
-		return 'jsonpretty';	
+		return 'json';	
 	}
 
 	function GetAdminEmail()
@@ -98,7 +98,11 @@
 	
 	function GetEnvConfigID()
 	{
-		return '';
+		if (FindString(GetRootURL(),'wildgrube.com') != -1)
+		{
+			return 'env-wildgrube';
+		}
+		return 'env';
 	}
 	
 	function GetOperationMode()
