@@ -843,7 +843,15 @@
 					array(
 						'key' => 'confirmed_delta_daily',
 						'label' => '?TID_LABEL_CONFIRMED-DELTA-DAILY?',
-						'color' => 'blue')
+						'color' => 'grey',
+						'weight' => 1),
+					array(
+						'key' => 'confirmed_delta_average7d',  
+						'label' => '?TID_LABEL_CONFIRMED-DELTA-AVERAGE7D?',
+						'color' => 'blue',
+						'weight' => 2  
+						),
+						
 					);
 		
 			$arrayLineChartConfig = array(

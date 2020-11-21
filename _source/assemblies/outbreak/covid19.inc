@@ -663,6 +663,9 @@
 				if (IsArray($value) == true)
 				{
 					$nConfirmedPrevious = 0;
+					
+					$arrayNewConfirmedDaily = array();
+					
 					foreach ($value as &$arrayTimePoint)
 					{
 						$nConfirmed = GetIntegerValue(ArrayGetValue($arrayTimePoint,'confirmed'));
@@ -671,9 +674,28 @@
 						
 						$nActive = $nConfirmed - $nDeaths - $nRecovered;
 						$arrayTimePoint['active'] = $nActive;
-						
-						$arrayTimePoint['confirmed_delta_daily'] = $nConfirmed - $nConfirmedPrevious;
+
+						$nNewConfirmedDaily = $nConfirmed - $nConfirmedPrevious;
 						$nConfirmedPrevious = $nConfirmed;
+						$arrayTimePoint['confirmed_delta_daily'] = $nNewConfirmedDaily;
+
+						$nNewConfirmedAverage7Days = 0;
+						array_push($arrayNewConfirmedDaily,$nNewConfirmedDaily);
+						if (ArrayCount($arrayNewConfirmedDaily) > 7)
+						{
+							array_shift($arrayNewConfirmedDaily);
+						}
+						if (ArrayCount($arrayNewConfirmedDaily) == 7)
+						{
+							$nSum = 0;
+							foreach ($arrayNewConfirmedDaily as $nPreviousNewConfirmedDaily)
+							{
+								$nSum += $nPreviousNewConfirmedDaily;
+							}
+							$nNewConfirmedAverage7Days = $nSum / 7;
+						}
+						
+						$arrayTimePoint['confirmed_delta_average7d'] = $nNewConfirmedAverage7Days;
 					}
 					return $value;
 				}

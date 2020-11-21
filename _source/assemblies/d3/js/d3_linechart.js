@@ -41,7 +41,8 @@ function D3_LineChart(vSelector, aProps)
 			{
 				'key': aColumns[nColumn],
 				'label': aColumns[nColumn],
-				'color': 'black'
+				'color': 'black',
+				'weight': 2
 			});
 		}
 	}
@@ -57,7 +58,21 @@ function D3_LineChart(vSelector, aProps)
 		console.log('D3_LineChart: lines are not defined.');
 		return;
 	}
+	
 	var aLines = config.lines;	
+	for (var nLine = 0; nLine < aLines.length; nLine++)
+	{
+		if (aLines[nLine].weight == undefined || aLines[nLine].weight == 0)
+		{
+			aLines[nLine].weight = 2;
+		}
+		if (aLines[nLine].color == undefined || aLines[nLine].color == '')
+		{
+			aLines[nLine].color = 'black';
+		}
+	}
+
+
 	
 	var strMetric = '';
 	if (config.metric != undefined)
@@ -176,7 +191,7 @@ function D3_LineChart(vSelector, aProps)
 				.append('circle')
 					.attr('cx',scaleX(nDataIndex) + (scaleX.bandwidth()/2) )
 					.attr('cy',scaleY(values[aLines[nLinesIndex].key]))
-					.attr('r',3)
+					.attr('r',aLines[nLinesIndex].weight+1)
 					.attr('stroke',aLines[nLinesIndex].color)
 					.attr('fill',aLines[nLinesIndex].color)
 					.attr('class',strCssClassPrefix+'dot');
@@ -191,7 +206,8 @@ function D3_LineChart(vSelector, aProps)
 						.attr('y1',scaleY(previousValues[aLines[nLinesIndex].key]))
 						.attr('y2',scaleY(values[aLines[nLinesIndex].key]))
 						.attr('class',strCssClassPrefix+'line')
-						.style('stroke',aLines[nLinesIndex].color);
+						.style('stroke',aLines[nLinesIndex].color)
+						.style('stroke-width',aLines[nLinesIndex].weight);
 			}
 		
 		}
