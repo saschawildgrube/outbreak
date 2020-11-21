@@ -10,7 +10,7 @@ Installation guide:
 - GetDocumentRootDir()
 - GetRootURL()
 - GetTempDir() 
-4. Please replace the Google Maps API key with your own in /_source/website_outbreak.inc
+4. Please replace the Google Maps API key with your own in /_source/env.cfg
 
 This website is based on SteepPHP: https://www.steelphp.com.
 
