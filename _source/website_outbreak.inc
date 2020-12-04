@@ -103,6 +103,7 @@
 			$arrayConfig = array();
 			$this->m_moduleCovid19 = new CCOVID19Module($this,'',$arrayConfig);			
 
+
 			return $bResult;
 		}
 		
@@ -194,15 +195,45 @@
 		
 		function CallbackPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
 		{
+			$this->Trace('COutbreakWebSite::CallbackPrepareMakeURL');
+			$this->Trace($arrayParams);
+
 			if ($this->m_moduleCovid19 != null)
 			{
 				$strModuleState = ArrayGetValue($arrayParams,$this->m_moduleCovid19->GetModuleVarNameState());
 				if ($strModuleState == 'country')
 				{
-					$arrayParams['content'] = 'countries';
+					$strCountryID = StringUpperCase(ArrayGetValue($arrayParams,$this->m_moduleCovid19->GetModuleVarName('country')));
+					if (IsValidCountryID($strCountryID))
+					{
+						$strURL = $strRootURL . StringLowerCase($strCountryID);
+						$arrayParams= ArrayRemoveKey($arrayParams,$this->m_moduleCovid19->GetModuleVarNameState());
+						$arrayParams= ArrayRemoveKey($arrayParams,$this->m_moduleCovid19->GetModuleVarName('country'));
+						$arrayParams= ArrayRemoveKey($arrayParams,'content');
+						$this->Trace($strURL);
+						return $strURL;
+					}
 				}
 			}
 			return parent::CallbackPrepareMakeURL($strRootURL,$arrayParams,$bEncoded);
+		}
+		
+		function CallbackParseSEOURL($strSEOURL)
+		{
+			$this->Trace('COutbreakWebSite::CallbackParseSEOURL: '.$strSEOURL);
+			$strCountryID = StringUpperCase($strSEOURL);
+			if (IsValidCountryID($strCountryID))
+			{
+				//$this->Trace('Country ID from seourl detected: '.$strCountryID);
+				$this->SetContent('countries');
+				$this->SetVar('covid19_state','country');
+				$this->SetVar('covid19_country',$strCountryID);
+			}
+			else
+			{
+				parent::CallbackParseSEOURL($strSEOURL);
+			}
+			
 		}
 
 		
