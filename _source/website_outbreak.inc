@@ -31,7 +31,7 @@
 			$arrayConfig['defaultcountry'] = 'USA';
 			$arrayConfig['countries'][] = 'USA';
 			
-			
+			$arrayConfig['opengraph'] = true;
 			$arrayConfig['layouts'][] = 'outbreak';
 			$arrayConfig['protocols'][] = 'https';
 			$arrayConfig['admin_email'] = GetAdminEmail();
@@ -82,16 +82,6 @@
 
 			$this->SetTimezone('Europe/Berlin');
 			
-			// OPEN GRAPH
-			$this->AddHeader('<meta property="og:image" content="{IMAGEURL ID="opengraph"}">');
-	   	$arrayParams = array();
-	   	$arrayParams["content"] = $this->GetContent();
-	   	$strPreferredLink = $this->MakeSitemapURL($arrayParams,true);
-			$this->AddHeader('<meta property="og:url" content="'.$strPreferredLink.'">');
-			$this->AddHeader('<meta property="og:type" content="website">');
-			$this->AddHeader('<meta property="og:title" content="'.$this->CallbackGetWebsiteTitle().'">');
-			$this->AddHeader('<meta property="og:image:alt" content="'.$this->CallbackGetWebsiteTitle().'">');
-			$this->AddHeader('<meta property="og:description" content="'.$this->CallbackGetWebsiteDescription().'">');
 
 			// FORK ME ON GITHUB
 			$this->IncludeElement('forkmeongithub');

@@ -1,8 +1,8 @@
 <?php
 
-	require_once(GetSourceDir().'assemblies/google/element_react_googlemaps.inc');
+	require_once(GetSourceDir().'assemblies/google/elements/element_googlemaps.inc');
 
-	class COutbreakMapElement extends CGoogleMapsReactElement
+	class COutbreakMapElement extends CGoogleMapsElement
 	{
 		function __construct(
 			CWebSite $website,
