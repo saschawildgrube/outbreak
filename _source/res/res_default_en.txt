@@ -3,9 +3,9 @@ Covid-19 Outbreak
 TID_TITLE_DEFAULT
 ?TID_TITLE?
 TID_META_KEYWORDS_DEFAULT
-Outbreak Corona Covid Sars-Covid-19 Virus Pandemic World Map
+Outbreak Corona Covid Sars-Cov2 Virus Pandemic World Map
 TID_META_DESCRIPTION_DEFAULT
-
+Visualizing the pandemic.
 TID_TOOLTIP_SSL
 This page has been transferred using HTTPS.
 TID_NAVIGATION_CURRENTPATH
