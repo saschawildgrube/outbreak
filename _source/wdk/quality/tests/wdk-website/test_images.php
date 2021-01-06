@@ -8,9 +8,9 @@
 			parent::__construct("Test Image Inclusion");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			$this->SetResult(true);
 			
 			//$this->SetActive(false);

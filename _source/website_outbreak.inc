@@ -68,9 +68,9 @@
 			$this->LoadRoutingMap('default');
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			$bResult = parent::CallbackInit();
+			$bResult = parent::OnInit();
 			
 			$this->SetLayout('outbreak');
 		
@@ -82,6 +82,9 @@
 
 			$this->SetTimezone('Europe/Berlin');
 			
+			
+			// MONITORING
+			$this->AddHeader('<!--AVAILABILITY-CHECK-->');			
 
 			// FORK ME ON GITHUB
 			$this->IncludeElement('forkmeongithub');
@@ -92,7 +95,7 @@
 			$this->IncludeModule('outbreak/covid19');
 			$arrayConfig = array();
 			$this->m_moduleCovid19 = new CCOVID19Module($this,'',$arrayConfig);			
-
+ 
 
 			return $bResult;
 		}

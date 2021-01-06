@@ -15,13 +15,13 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->GetWebsite()->IncludeElement("article");
 			$this->GetWebsite()->IncludeElement("blogarticle");
 			$this->GetWebsite()->IncludeElement("blogarticleteaser");
 			
-			return true;
+			return parent::OnInit();
 		}
 		
 		function CallbackRenderModule($strState)

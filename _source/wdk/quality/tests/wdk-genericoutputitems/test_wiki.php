@@ -9,9 +9,9 @@
 			parent::__construct("Test generic output items with WIKI content");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

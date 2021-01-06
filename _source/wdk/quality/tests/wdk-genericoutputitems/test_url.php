@@ -9,9 +9,9 @@
 			parent::__construct("Test generic output item URL");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

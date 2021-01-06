@@ -9,9 +9,9 @@
 			parent::__construct("Test generic output item PORTFOLIO");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

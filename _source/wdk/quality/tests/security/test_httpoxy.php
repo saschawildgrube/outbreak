@@ -9,9 +9,9 @@
 			parent::__construct("Httpoxy Vulnerability CVE-2016-5385 (PHP) and CVE-2016-5387 (Apache HTTP Server)");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->SetResult(true);
 			return true;
 		}

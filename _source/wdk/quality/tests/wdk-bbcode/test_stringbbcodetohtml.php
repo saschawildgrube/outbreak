@@ -9,9 +9,9 @@
 			parent::__construct("StrongBBCodeToHtml");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->SetResult(true);
 			return true;
 		}

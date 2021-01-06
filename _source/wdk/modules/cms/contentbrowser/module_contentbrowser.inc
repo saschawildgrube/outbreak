@@ -22,7 +22,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->IncludeElement("tagcloud");
 			
@@ -135,7 +135,7 @@
 
 
 			
-			return true;
+			return parent::OnInit();
 		}
 
 			

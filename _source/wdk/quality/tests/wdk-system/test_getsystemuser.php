@@ -9,9 +9,9 @@
 			parent::__construct("GetSystemUser");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 
 			if (CheckSafeMode())
 			{

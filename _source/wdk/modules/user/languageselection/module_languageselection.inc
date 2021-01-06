@@ -14,10 +14,10 @@
 			parent::__construct($website,'user/languageselection');
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->GetWebsite()->LoadStringResources('local');
-			return true;
+			return parent::OnInit();
 		}
 		
 		function CallbackRenderModule($strState)

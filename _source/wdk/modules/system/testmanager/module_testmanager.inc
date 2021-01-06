@@ -33,8 +33,9 @@
 				
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
+		
 			$this->IncludeElement("tabnavigation");
 			$this->IncludeElement("format");
 			$this->IncludeElement("console");
@@ -54,12 +55,10 @@
 			$arrayEntityDefinitions = array(
 				"test" => GetEntityDefinitionTest()
 			);							
-			
 				
 			$this->SetEntityDefinitions($arrayEntityDefinitions);
-
 			
-			return true;
+			return parent::OnInit();
 		}
 		
 		function CallbackRenderModule($strState)

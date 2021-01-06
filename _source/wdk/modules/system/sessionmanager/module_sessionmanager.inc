@@ -24,7 +24,7 @@ $arrayParams["ownerid"] = $this->GetModuleVar("ownerid");
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$arrayEntityDefinitions = array(
 				"session" => GetEntityDefinitionSession()
@@ -32,7 +32,7 @@ $arrayParams["ownerid"] = $this->GetModuleVar("ownerid");
 	
 			$this->SetEntityDefinitions($arrayEntityDefinitions);
 			
-			return true;
+			return parent::OnInit();
 		}
 		
 		function CallbackPrepareItemDataView($strEntity,$strIndex,&$arrayItem)

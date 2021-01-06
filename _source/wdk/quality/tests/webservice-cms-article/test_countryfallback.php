@@ -17,11 +17,11 @@
 			parent::__construct("Web service cms/article: Country Fallback",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->RequireWebservice($this->m_strWebservice);
 			$this->SetVerbose(true);
-			return parent::CallbackInit();	
+			return parent::OnInit();	
 		}	
 		
 		function CallbackTest()

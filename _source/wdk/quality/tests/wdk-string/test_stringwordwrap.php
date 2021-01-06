@@ -7,9 +7,9 @@
 			parent::__construct("StringWordWrap");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			//$this->SetActive(false);
 			$this->SetResult(true);
 			return true;

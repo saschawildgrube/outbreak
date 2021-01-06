@@ -27,12 +27,12 @@
 			parent::__construct("Web service system/user Add duplicate user",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->RequireWebservice($this->m_strWebservice);
 			$this->SetVerbose(false);
 			$this->m_strUserName = "test-addduplicateuser";
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		function CallbackTest()

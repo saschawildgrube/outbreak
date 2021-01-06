@@ -2,38 +2,39 @@
  
 	require_once('wdk_webapplication.inc');
 
-	require_once("wdk_mail.inc");
-	require_once("wdk_encryption-symmetric.inc");
-	require_once("wdk_passwordpolicy.inc");
-	require_once("wdk_language.inc");
-	require_once("wdk_locale.inc");
-	require_once("wdk_country.inc");
-	require_once("wdk_currency.inc");
-	require_once("wdk_datetime.inc");
-	require_once("wdk_localresources.inc");
-	require_once("wdk_routing.inc");
-	require_once("wdk_websitesatellite.inc");
-	require_once("wdk_assemblyline.inc");
-	require_once("wdk_element.inc");
-	require_once("wdk_module.inc");
-	require_once("wdk_content.inc"); 
-	require_once("wdk_content_login.inc");
-	require_once("wdk_content_admin.inc");
-	require_once("wdk_content_systemadmin.inc");
-	require_once("wdk_content_cmsadmin.inc");
-	require_once("wdk_content_devtools.inc");
-	require_once("wdk_csv.inc");
-	require_once("wdk_datetime.inc");
-	require_once("wdk_w3c.inc");
-	require_once("wdk_html.inc");
-	require_once("wdk_webserviceconsumer_webapplication.inc");
-	require_once("wdk_quality.inc");
-	require_once("wdk_httpdownload.inc");
-	require_once("wdk_cookie.inc");
-	require_once("wdk_session.inc");
-	require_once("wdk_bot.inc");
-	require_once("wdk_layout.inc");
-	require_once("wdk_navigationtree.inc");
+	require_once('wdk_mail.inc');
+	require_once('wdk_encryption-symmetric.inc');
+	require_once('wdk_passwordpolicy.inc');
+	require_once('wdk_language.inc');
+	require_once('wdk_locale.inc');
+	require_once('wdk_country.inc');
+	require_once('wdk_currency.inc');
+	require_once('wdk_datetime.inc');
+	require_once('wdk_localresources.inc');
+	require_once('wdk_routing.inc');
+	require_once('wdk_websitesatellite.inc');
+	require_once('wdk_assemblyline.inc');
+	require_once('wdk_plugin.inc');
+	require_once('wdk_element.inc');
+	require_once('wdk_module.inc');
+	require_once('wdk_content.inc'); 
+	require_once('wdk_content_login.inc');
+	require_once('wdk_content_admin.inc');
+	require_once('wdk_content_systemadmin.inc');
+	require_once('wdk_content_cmsadmin.inc');
+	require_once('wdk_content_devtools.inc');
+	require_once('wdk_csv.inc');
+	require_once('wdk_datetime.inc');
+	require_once('wdk_w3c.inc');
+	require_once('wdk_html.inc');
+	require_once('wdk_webserviceconsumer_webapplication.inc');
+	require_once('wdk_quality.inc');
+	require_once('wdk_httpdownload.inc');
+	require_once('wdk_cookie.inc');
+	require_once('wdk_session.inc');
+	require_once('wdk_bot.inc');
+	require_once('wdk_layout.inc');
+	require_once('wdk_navigationtree.inc');
 
 	
 	abstract
@@ -113,10 +114,12 @@
 		private $m_assemblyline;
 		private $m_bCallbackInitAssemblyLineCalled;
 		
+		private $m_arrayPlugins;
+		
 		private $m_routing;
 		private $m_bCallbackInitRoutingMapCalled;
 		
-		private $m_bCallbackInit;
+		private $m_bOnInit;
 		
 		private $m_arrayDownloadFile;
 		
@@ -162,6 +165,9 @@
 			{
 				$this->Error('CheckEnvironment returned false. Check out env.inc if all environemnt functions have been defined!');
 			}
+			
+			// Plugin array
+			$this->m_arrayPlugins = array();
 			
 			// Subsequent request detection
 			$this->m_bSubsequentRequest = false;
@@ -534,11 +540,23 @@
 			$this->CallbackInitAssemblyLine($this->m_assemblyline);
 			if ($this->m_bCallbackInitAssemblyLineCalled != true)
 			{
-				$this->Error("CallbackInitAssemblyLine in a derived class must invoke the parent instance function.");	
+				$this->Error("OnInitAssemblyLine in a derived class must invoke the parent instance function.");	
 			}
 			$this->m_assemblyline->AddAssembly($this->m_assemblyWDK);
 					
-	
+			// Initialize Plugins
+			$this->m_arrayPlugins = $this->OnInitPlugins();
+			if (IsArray($this->m_arrayPlugins) == false)
+			{
+				FatalError('OnInitPlugins must return an array!');	
+			}
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				if (get_parent_class($plugin) != 'CPlugin')
+				{
+					FataError('All plugins must be derived from CPlugin!');	
+				}
+			}
 	
 			// Render Image
 			if ($this->GetCommand() == "image")
@@ -767,7 +785,7 @@
 			// WDK Ressources have lowest priority
 			
 			$this->LoadStringResources('default');
-			// This is because getmessage directly loads an error text and CallbackInit might render modules 
+			// This is because getmessage directly loads an error text and OnInit might render modules 
 
 			// Initialize "powered by"
 			$this->SetOutputItem("POWEREDBY","");
@@ -811,22 +829,22 @@
 		
 		
 			// Init
-			$this->Trace("CallbackInit START");
-			$this->m_bCallbackInit = false;
-			$bInitSuccess = $this->CallbackInit();
-			$this->Trace("CallbackInit END");
-			if ($this->m_bCallbackInit == false)
+			$this->Trace('OnInit START');
+			$this->m_bOnInit = false;
+			$bInitSuccess = $this->OnInit();
+			$this->Trace('OnInit END');
+			if ($this->m_bOnInit == false)
 			{
-				$this->Error("CallbackInit overloads must invoke parent implementation.");	
+				$this->Error('OnInit overloads must invoke parent implementation.');	
 			}
 			if ($bInitSuccess != true)
 			{
-				$this->Error("CallbackInit did not return true.");	
+				$this->Error('OnInit did not return true.');	
 			}
 			
 
-			// Init Assemblies
-			$this->TriggerEvent("website-assembly-init",array());
+			// Init Assemblies TODO
+			$this->TriggerEvent('website-assembly-init',array());
 
 			// Init User
 			$this->UserInit();
@@ -1074,29 +1092,34 @@
 		}
 		
 		final
-		function IncludeAssembly($strAssemblyID)
+		function GetAssembly($strAssemblyID)
 		{
-			$strFile = $this->GetAssemblyDir($strAssemblyID)."assembly_".$strAssemblyID.".inc";
-			if (!IsFile($strFile))
+			return $this->m_assemblyline->GetAssembly($strAssemblyID);
+		}
+
+
+		final
+		function IncludePlugin($strPluginID)
+		{
+			$strFile = $this->GetAssemblyLine()->GetPluginSourceFilePath($strPluginID);
+			if ($strFile == false)
 			{
-				$this->Error("IncludeAssembly: Assembly Source file not found: \"$strFile\"");
+				$this->Error('IncludePlugin: Plugin source file not found: "'.$strPluginID.'"');
 			}
 			require_once($strFile);
 		} 
 
 		final
-		function RegisterAssembly(CAssembly $assembly)
+		function GetPlugin($strPluginID)
 		{
-			$this->Trace("RegisterAssembly: ".$assembly->GetID()."");
-			$this->RegisterEvent("website-assembly-init",$assembly);
-			$this->RegisterEvent("website-user-changepassword",$assembly);
-			$this->RegisterEvent("website-user-delete",$assembly);
-		}
-		
-		final
-		function GetAssembly($strAssemblyID)
-		{
-			return $this->m_assemblyline->GetAssembly($strAssemblyID);
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				if ($strPluginID == $plugin->GetID())
+				{
+					return $plugin;	
+				}
+			}
+			return null;
 		}
 
 
@@ -1106,7 +1129,7 @@
 			$strFile = $this->GetAssemblyLine()->GetElementSourceFilePath($strElementID);
 			if ($strFile == false)
 			{
-				$this->Error("IncludeElement: Element Source file not found: \"$strElementID\"");
+				$this->Error('IncludeElement: Element source file not found: "'.$strElementID.'"');
 			}
 			require_once($strFile);
 		} 
@@ -1128,7 +1151,7 @@
 		{
 			if ($this->m_bModuleRegistrationCompleted == true)
 			{
-				$this->Error("Module registration completed. Please use RegisterModules only in or before invokation of CallbackInit.");	
+				$this->Error("Module registration completed. Please use RegisterModules only in or before invokation of OnInit.");	
 			}
 			$this->RegisterEvent("website-module-init",$module);
 			$this->RegisterEvent("website-user-delete",$module);
@@ -3352,7 +3375,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 								$arrayAttributes[$strAttributeName] = GetAttributeFromXMLTag($strItemTag,$strAttributeName);
 							} 
 							
-							$strOutputItem = $this->CallbackRenderGenericOutputItem(
+							$strOutputItem = $this->OnRenderGenericOutputItem(
 								$strItemID,
 								$arrayAttributes);
 								
@@ -3378,17 +3401,20 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			$this->m_arrayGenericOutputItems[$strItem] = $arrayAttributes;
 		}
 		
-		function CallbackRenderGenericOutputItem($strItem, $arrayAttributes)
+		function OnRenderGenericOutputItem($strItem, $arrayAttributes)
 		{
-			$strOutput = $this->GetAssemblyLine()->CallbackRenderGenericOutputItem($strItem, $arrayAttributes);
-			if ($strOutput != "")
+			foreach ($this->m_arrayPlugins as $plugin)
 			{
-				return $strOutput;	
+				$strOutput = $plugin->OnRenderGenericOutputItem($strItem, $arrayAttributes);
+				if ($strOutput != '')
+				{
+					return $strOutput;	
+				}
 			}
 			
 			switch ($strItem)
 			{
-			case "URL":
+			case 'URL':
 				$arrayParams = array();
 				$arrayParams["content"] = ArrayGetValue($arrayAttributes,"content");
 				$strLanguage = ArrayGetValue($arrayAttributes,"language");
@@ -3617,7 +3643,6 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 						}
 					}
 					
-					
 					if (ArrayCount($arrayTeaser) > 0)
 					{
 						$arrayPortfolio[] = $arrayTeaser;	
@@ -3654,7 +3679,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				return $this->m_elementCountDown->RenderCountDown($time);   
 						
 			default:
-				$this->Error("CallbackRenderGenericOutputItem: No callback function handles item id: \"$strItem\"");
+				$this->Error("OnRenderGenericOutputItem: No callback function handles item id: \"$strItem\"");
 			}
 		}
 		
@@ -4064,10 +4089,27 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		}
 
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			$this->m_bCallbackInit = true;
+			$this->m_bOnInit = true;
+			
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$bResult = $plugin->OnInit();
+				if ($bResult == false)
+				{
+					$this->Trace('Plugin '.$plugin->GetID().' returned false.');
+					return false;
+				}
+			}
+
+			
 			return true;
+		}
+		
+		function OnInitPlugins()
+		{
+			return array();	
 		}
 		
 		function CallbackCommand($strCommand)
@@ -4090,17 +4132,17 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		final
 		function RenderImage()
 		{
-			$strImageID = $this->GetParam("id");
-			$strExtention = $this->GetParam("ext");
+			$strImageID = $this->GetParam('id');
+			$strExtention = $this->GetParam('ext');
 			
 			$image = null;
 			$bSuccess = false;
 			
 			if (StringCheckCharSet($strImageID,CHARSET_IMAGEID))
 			{
-				if ($strImageID != "")
+				if ($strImageID != '')
 				{
-					$bSuccess = $this->CallbackCreateImage($image,$strImageID);
+					$bSuccess = $this->OnCreateImage($image,$strImageID);
 					if ($bSuccess == false)
 					{
 						$bSuccess = $this->RenderStaticImage($strImageID,$strExtention);
@@ -4109,7 +4151,6 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 							exit();	
 						}
 					}
-					
 				}
 			}
 				
@@ -4307,9 +4348,17 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return true;
 		}		
 		
-		function CallbackCreateImage(&$image,$strImageID)
+		function OnCreateImage(&$image,$strImageID)
 		{
-			if ($strImageID == "favicon")
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$bSuccess = $plugin->OnCreateImage($image,$strImageID);
+				if ($bSuccess == true)
+				{
+					return true;
+				}
+			}
+			if ($strImageID == 'favicon')
 			{
 				return $this->CreateImageDefaultFavicon($image);	
 			}
@@ -4960,23 +5009,37 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return $strUsername;
 		}
 
-		function CallbackUserChangePassword($strOldPassword,$strNewPassword)
+		function OnUserChangePassword($strOldPassword,$strNewPassword)
 		{
-			$this->Error("CallbackUserChangePassword() is not implemented.");
-			return false;
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$bResult = $plugin->OnUserChangePassword($strOldPassword,$strNewPassword);
+				if ($bResult == false)
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
-		function CallbackUserSignin($strUsername,$strPassword,$arrayParams=array(),&$strError="",&$arrayResults=array())
+		function CallbackUserSignin($strUsername,$strPassword,$arrayParams=array(),&$strError='',&$arrayResults=array())
 		{
-			$this->Error("CallbackUserSignin() is not implemented.");
+			$this->Error('CallbackUserSignin() is not implemented.');
 			return false;
 		}
 		
 
-		function CallbackUserDelete($strUserID)
+		function OnUserDelete($strUserID)
 		{
-			$this->Error("CallbackUserDelete() is not implemented.");
-			return false;
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$bResult = $plugin->OnUserDelete($strUserID);
+				if ($bResult == false)
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
 
@@ -5036,24 +5099,24 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		
 		function CallbackUserInitPrivileges()
 		{
-			$this->Error("CallbackUserInitPrivileges() is not implemented.");
+			$this->Error('CallbackUserInitPrivileges() is not implemented.');
 			return array();	
 		}
 		
 		function CallbackGetMessage($strMessageType,$strMessageID)
 		{
 			$this->Error("CallbackGetMessage() is not implemented.");
-			return "";
+			return '';
 		}
 		
 		function CallbackGetDateLocalFormat($strCountryID)
 		{
-			return "";	
+			return '';	
 		}
 
 		function CallbackGetTimeLocalFormat($strCountryID)
 		{
-			return "";	
+			return '';	
 		}
 
 		function CallbackGetDateTimeLocalFormat($strCountryID)
@@ -5185,7 +5248,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		final
 		function UserChangePassword($strOldPassword,$strNewPassword)
 		{
-			$bResult = $this->CallbackUserChangePassword($strOldPassword,$strNewPassword);
+			$bResult = $this->OnUserChangePassword($strOldPassword,$strNewPassword);
 			if ($bResult == false)
 			{
 				return false;	
@@ -5246,7 +5309,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			$arrayParam = array();
 			$arrayParam['userid'] = $strUserID; 
 			$this->TriggerEvent('website-user-delete',$arrayParam);
-			return $this->CallbackUserDelete($strUserID);	
+			return $this->OnUserDelete($strUserID);	
 		}
 		
 		final

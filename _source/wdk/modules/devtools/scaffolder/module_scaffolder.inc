@@ -19,7 +19,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			if ($this->GetPreselectedScaffoldID() != "")
 			{
@@ -40,7 +40,7 @@
 			
 			$this->SetToolbarConfig($arrayToolbarConfig);
 			
-			return true;
+			return parent::OnInit();
 		}
 
 		function GetPreselectedScaffoldCategory()

@@ -9,9 +9,9 @@
 			parent::__construct("Check UTF-8 Signature");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			$this->SetResult(true);
 			return true;
 		}

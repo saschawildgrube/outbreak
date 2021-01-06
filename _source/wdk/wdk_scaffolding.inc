@@ -28,6 +28,12 @@
 			$this->m_strZipFileName = "wdk-scaffold.zip";
 		}
 
+		function GetSatelliteType()
+		{
+			return 'Scaffolder';	
+		}
+
+
 		final
 		function GetScaffoldDir()
 		{

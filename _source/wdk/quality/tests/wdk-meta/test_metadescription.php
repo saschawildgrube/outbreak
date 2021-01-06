@@ -9,9 +9,9 @@
 			parent::__construct("Test Meta Description");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			//$this->SetActive(false);
 			return true;
 		}

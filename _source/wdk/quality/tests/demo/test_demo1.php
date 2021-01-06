@@ -7,9 +7,9 @@
 			parent::__construct("DEMO 1");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->Trace("Do some init tasks here!");
 			return true;
 		}

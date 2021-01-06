@@ -34,14 +34,14 @@
 		}
 		
 	
-		function CallbackInit()
+		function OnInit()
 		{
 			if (IsMcryptSupported() == false)
 			{
 				$this->Error("mcrypt is not supported!");	
 			}
 			$this->LoadSecretPayload();
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 
@@ -135,10 +135,10 @@
 			return parent::CallbackUserLogout();
 		}			
 		
-		function CallbackUserChangePassword($strOldPassword,$strNewPassword)
+		function OnUserChangePassword($strOldPassword,$strNewPassword)
 		{
-			$bResult = parent::CallbackUserChangePassword($strOldPassword,$strNewPassword);
-			if (!$bResult)
+			$bResult = parent::OnUserChangePassword($strOldPassword,$strNewPassword);
+			if ($bResult == false)
 			{
 				return false;
 			}			

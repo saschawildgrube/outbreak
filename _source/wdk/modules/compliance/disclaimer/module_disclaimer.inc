@@ -13,8 +13,9 @@
 				"compliance/disclaimer");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
+			$bResult = parent::OnInit();
 			$this->m_formDef = new CFormDefinition();
 			
 			$arrayParams = $this->GetWebsite()->GetSessionAwareArrayVars();
@@ -42,7 +43,7 @@
 					$this->SetModuleVar("accepted","");
 					return false;	
 				}
-				return true;	
+				return $bResult;	
 			}
 
 			return false;	

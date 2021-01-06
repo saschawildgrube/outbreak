@@ -456,10 +456,10 @@
 			if ($this->GetError() == "")
 			{
 				$this->m_bCallbackInit = false;
-				$bInit = $this->CallbackInit();
+				$bInit = $this->OnInit();
 				if ($this->m_bCallbackInit == false)
 				{
-					$this->Trace("CallbackInit() must call its parent function!");
+					$this->Trace("OnInit() must call its parent function!");
 					$this->SetError("IMPLEMENTATION");
 				}
 				else
@@ -780,7 +780,7 @@
 
 
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_bCallbackInit = true;
 			return true;			

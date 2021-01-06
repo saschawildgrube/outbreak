@@ -1,53 +1,33 @@
 <?php
 
-	require_once(GetWDKDir().'wdk_element_react.inc');
+	require_once(GetSourceDir().'assemblies/google/element_react_googlemaps.inc');
 
-	abstract class CGoogleMapsElement extends CReactElement
+	class CGoogleMapsElement extends CGoogleMapsReactElement
 	{
-		private $m_strApiKey;
 		function __construct(
-			CWebSite &$website,
-			$strElementID,
-			$strStyleID,
-			$bLayoutCFG,
-			$bLayoutHTML)
+			CWebSite $website,
+			$strStyleID)
 		{
-			$this->m_strApiKey = null;
 			parent::__construct(
 				$website,
-				$strElementID,
+				'googlemaps',
 				$strStyleID,
-				$bLayoutCFG,
-				$bLayoutHTML);
-			
-			$strApiKey = $this->GetWebsite()->GetConfig("googlemaps_apikey");
-			if ($strApiKey != '')
-			{
-				$this->m_strApiKey = $strApiKey;
-				$this->AddJavaScriptURL('googlemaps','https://maps.googleapis.com/maps/api/js?key='.$strApiKey); 
-				$this->AddJavaScript('react-googlemaps'); 
-			}
+				false,  
+				false); 
 		}
 		
-		function RenderReactComponent(
-			$strReactComponent,
-			$arrayProps = array())
+		function RenderGoogleMaps($fLat, $fLong, $nZoom = 3, $strType = 'terrain')
 		{
-			if ($this->m_strApiKey == null)
-			{
-				return '<div style="color:red;">CGoogleMapsElement: ERROR: The Google API key has not been specified.</div>';
-			}
-			
-			$strDomElementID = $this->GetElementID().'_'.MakeNumericToken(10);
-			
-			$this->AddJavaScriptReactRenderByID(
-				$strReactComponent,
-				$strDomElementID,
+			$arrayProps = array();
+			//$arrayProps['query'] = $strQuery;
+			$arrayProps['lat'] = $fLat;
+			$arrayProps['long'] = $fLong;
+			$arrayProps['zoom'] = $nZoom;
+			$arrayProps['type'] = $strType;
+			$this->AddJavaScript('react_googlemap');
+			return $this->RenderReactComponent(
+				'GoogleMapsReactComponent',
 				$arrayProps);
-				
-			$strOutput = '<div id="'.$strDomElementID.'"></div>';
-			return $strOutput;				
-		}	
-		
+		}
 	}
 

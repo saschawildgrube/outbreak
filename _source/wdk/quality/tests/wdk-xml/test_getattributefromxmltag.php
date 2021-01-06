@@ -9,9 +9,9 @@
 			parent::__construct("Test GetAttributeFromXMLTag");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			//$this->SetActive(false);
 			$this->SetResult(true);	
 			return true;

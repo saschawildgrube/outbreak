@@ -10,7 +10,7 @@
 			parent::__construct("WDK GetAllLocales");
 		}
 		  
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->SetActive(false);
 		}

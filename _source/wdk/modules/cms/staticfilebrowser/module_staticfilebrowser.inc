@@ -20,7 +20,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_arrayErrors = array();
 			
@@ -34,7 +34,7 @@
 				'browse' => array('refresh'),
 				);
 			$this->SetToolbarConfig($arrayToolbarConfig);
-			return true;
+			return parent::OnInit();
 		}
 		
 	

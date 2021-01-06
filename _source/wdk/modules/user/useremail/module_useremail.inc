@@ -24,14 +24,7 @@
 			parent::__construct($website,"user/useremail");
 		}
 		
-		function CallbackInit()
-		{
-			return true;
-		}
-		
-		function CallbackWebsiteInit()
-		{
-		}		
+	
 
 		function CallbackRenderModule($strState)
 		{

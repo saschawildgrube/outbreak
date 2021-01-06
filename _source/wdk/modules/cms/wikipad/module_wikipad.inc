@@ -16,8 +16,9 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
+			$bResult = parent::OnInit();
 			$this->IncludeElement("wiki");
 			$this->IncludeElement("tabnavigation");
 			
@@ -29,7 +30,7 @@
 				}
 			}
 			
-			return true;
+			return $bResult;
 		}
 		
 		

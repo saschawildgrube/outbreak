@@ -37,9 +37,9 @@
 		}
 		
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		

@@ -35,12 +35,12 @@
 			parent::__construct("Web service system/user",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_strUserName = "test-local";
 			$this->SetVerbose(false);
 			$this->RequireWebservice($this->m_strWebservice);			 
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		function CallbackTest()

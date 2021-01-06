@@ -9,9 +9,9 @@
 			parent::__construct('Test Generic Output Items');
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

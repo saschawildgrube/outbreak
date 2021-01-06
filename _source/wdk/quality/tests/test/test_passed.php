@@ -7,9 +7,9 @@
 			parent::__construct("Test CUnitTest");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			return true;
 		}
 		

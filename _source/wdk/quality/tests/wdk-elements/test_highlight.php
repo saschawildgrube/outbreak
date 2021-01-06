@@ -9,9 +9,9 @@
 			parent::__construct("Test Element Highlight");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

@@ -21,11 +21,15 @@
 			CWebSite $website,
 			$strContentID)
 		{
-			parent::__construct($website, "Content ".$strContentID);
-						
-			// Init values
+			parent::__construct($website, $strContentID);
 			$this->m_strContentID = $strContentID;
 		}
+		
+		function GetSatelliteType()
+		{
+			return 'Content';	
+		}
+
 		
 		function RenderSpecialContent()
 		{
@@ -101,7 +105,7 @@
 			return $strHTML;
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->Error("Content \"".$this->m_strContentID."\": CallbackInit not implemented.");	
 		}

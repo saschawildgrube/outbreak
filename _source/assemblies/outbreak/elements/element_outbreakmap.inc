@@ -1,8 +1,8 @@
 <?php
 
-	require_once(GetSourceDir().'assemblies/google/elements/element_googlemaps.inc');
+	require_once(GetSourceDir().'assemblies/google/element_react_googlemaps.inc');
 
-	class COutbreakMapElement extends CGoogleMapsElement
+	class COutbreakMapElement extends CGoogleMapsReactElement
 	{
 		function __construct(
 			CWebSite $website,
@@ -15,8 +15,8 @@
 				true,  
 				false); 
 				
-			$this->GetWebsite()->ActivateD3v5();
-			$this->AddJavaScript('wdk-react-d3'); 
+			//$this->GetWebsite()->ActivateD3v5();
+			//$this->AddJavaScript('wdk-react-d3'); 
 		}
 		
 		function RenderOutbreakMap($arrayData)

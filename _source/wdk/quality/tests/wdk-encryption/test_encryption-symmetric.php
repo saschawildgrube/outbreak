@@ -10,7 +10,7 @@
 		}
 		
 
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->SetResult(true);
 			if (!IsMcryptSupported())
@@ -21,7 +21,7 @@
 				$this->Trace("");
 				$this->SetActive(false);
 			}
-			return parent::CallbackInit();	
+			return parent::OnInit();	
 		}
 		
 		

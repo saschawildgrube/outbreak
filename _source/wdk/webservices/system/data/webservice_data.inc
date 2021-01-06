@@ -52,13 +52,13 @@
 			return parent::CallbackInitCommandDefinition($commandDef);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			if ($this->DatabaseConnect() != true)
 			{
 				return false;
 			}			
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}		
 		
 		function CallbackCommand($strCommand)

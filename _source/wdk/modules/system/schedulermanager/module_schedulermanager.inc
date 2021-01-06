@@ -19,7 +19,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$arrayEntityDefinitions = array(
 				'job' => GetEntityDefinitionJob()
@@ -29,7 +29,7 @@
 
 			$this->IncludeElement('format');
 			
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 
 		function CallbackRenderModule($strState)

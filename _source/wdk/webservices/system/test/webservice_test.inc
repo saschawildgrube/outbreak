@@ -66,7 +66,7 @@
 		}
 		
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			if ($this->IsDatabaseSupportActive() == true)
 			{
@@ -76,7 +76,7 @@
 				}			
 			}
 			$this->SetResultValue($this->IsDatabaseSupportActive(),"DATABASE_SUPPORT");   
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		

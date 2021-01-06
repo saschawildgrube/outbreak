@@ -8,9 +8,9 @@
 			parent::__construct("Test the use of aliases in wiki and html links");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			
 			$this->SetResult(true);			
 			return true;

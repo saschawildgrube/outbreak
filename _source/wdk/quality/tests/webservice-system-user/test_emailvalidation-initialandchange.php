@@ -35,11 +35,11 @@
 			parent::__construct("Web service system/user Email Validation (Post Signin)",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->RequireWebservice($this->m_strWebservice);
 			$this->SetVerbose(true);
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		function CallbackTest()

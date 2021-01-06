@@ -11,9 +11,9 @@
 			parent::__construct("WDK Asymmetric Encryption and Decryption");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			if (CheckSafeMode())
 			{
 				$this->Trace("Safe Mode is ON. So Shell* functions are not expected to work!");

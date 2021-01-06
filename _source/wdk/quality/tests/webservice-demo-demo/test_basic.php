@@ -11,11 +11,11 @@
 			parent::__construct("Test DEMO web service",$arrayConfig);
 		}
 	
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->RequireWebservice("demo/demo");
 			$this->SetVerbose(false);
-			return parent::CallbackInit();	
+			return parent::OnInit();	
 		}
 	
 		function CallbackTest()

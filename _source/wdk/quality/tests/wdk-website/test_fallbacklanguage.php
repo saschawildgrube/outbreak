@@ -9,9 +9,9 @@
 			parent::__construct("Test Fallback Language");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

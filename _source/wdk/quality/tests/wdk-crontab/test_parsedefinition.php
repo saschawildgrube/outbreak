@@ -9,9 +9,9 @@
 			parent::__construct("Test CrontabCalculateNextDateTime");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->Trace("Do some init tasks here!");
 			return true;
 		}

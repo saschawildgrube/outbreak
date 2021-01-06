@@ -20,7 +20,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_arrayErrors = array();
 			
@@ -30,7 +30,7 @@
 				);
 			$this->SetToolbarConfig($arrayToolbarConfig);
 			
-			return true;
+			return parent::OnInit();
 		}
 		
 	

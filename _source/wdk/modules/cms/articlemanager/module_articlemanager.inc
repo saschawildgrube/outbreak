@@ -19,14 +19,14 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$arrayEntityDefinitions = array(
 				"article" => GetEntityDefinitionArticle()
 			);
 			$this->SetEntityDefinitions($arrayEntityDefinitions);
 			$this->GetWebsite()->LoadStringResources("local");
-			return true;
+			return parent::OnInit();
 		}
 		
 	

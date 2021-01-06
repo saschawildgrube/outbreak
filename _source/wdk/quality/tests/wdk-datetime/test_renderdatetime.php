@@ -9,9 +9,9 @@
 			parent::__construct('Test RenderDateTime');
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->SetResult(true);
 			date_default_timezone_set('UTC');
 			return true;

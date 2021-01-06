@@ -68,10 +68,10 @@
 						"/GetBoolString/",
 						'"assembly_blacklist"/',
 						'/VerifyTextID/',
-						"/GetInvalidTextIDs/",
+						'/GetInvalidTextIDs/',
 						'/wdk_dns.inc/',
 						'/mysql_/',
-						"/MakeSQL_Assignment\(/",
+						'/MakeSQL_Assignment\(/',
 						"/MakeSQL_Value\(/",
 						"/MakeSQL_Field\(/",
 						"/MakeSQL_Fields\(/",
@@ -129,27 +129,35 @@
 						'/RenderCountdown/(/',
 						'/IsDevice/',
 						'/GetDatabaseConfigID/(/',
-						'/GetStage/(/',
+						'/GetStage\(/',
 						'/CBootstrapLayout/',
 						'/CBootstrapThemeLayout/',
 						'/CallbackGetWebsiteTitle/',
 						'/CallbackGetWebsiteDescription/',
-						'/CallbackGetWebsiteKeywords/'
+						'/CallbackGetWebsiteKeywords/',
+						'/CallbackCreateImage/',
+						'/CallbackInit\(/',  
+						'/IncludeAssembly\(/',  
+						'/RegisterAssembly\(/', 
+						'/CallbackUserChangePassword\(/',
+						'/CallbackRenderGenericOutputItem\(/',
+						'/CallbackUserDelete\(/',
+						'/CallbackWebsiteInit\(/'
 					);
 					
-				if ($strFileName != "wdk_url.inc")
+				if ($strFileName != 'wdk_url.inc')
 				{
-					$arrayRegExp[] = "/urlencode\(/";
+					$arrayRegExp[] = '/urlencode\(/';
 				}
 
-				if ($strFileName != "wdk_element.inc")
+				if ($strFileName != 'wdk_element.inc')
 				{
 					$arrayRegExp[] = '/$this->m_strLayoutHTML;/';
 				}
 					
 			}
-			else if (	$strExtention == "htm"
-						||  $strExtention == "cfg")
+			else if (	$strExtention == 'htm'
+						||  $strExtention == 'cfg')
 			{
 				$arrayRegExp = array
 					(

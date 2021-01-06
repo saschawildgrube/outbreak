@@ -18,16 +18,6 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
-		{
-			return true;
-		}
-		
-		
-
-		
-
-
 		function CallbackRenderModule($strState)
 		{
 			switch ($strState)

@@ -32,12 +32,12 @@
 			parent::__construct("Web service system/user Changing a Password",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_strUserName = "test-password";
 			$this->SetVerbose(false);
 			$this->RequireWebservice($this->m_strWebservice);			 
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		function CallbackTest()

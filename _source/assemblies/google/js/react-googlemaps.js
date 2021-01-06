@@ -39,9 +39,42 @@ class GoogleMapsReactComponent extends React.Component
   		null);
   }
   
-  RenderGoogleMaps(vSelector,aProps)
-  {
-  	Error('RenderGoogleMaps is NOT implemented!');	
-  }
+	RenderGoogleMaps(strSelector,aProps)
+	{
+			
+		var fLat = GetValue(aProps,'lat');
+		if (fLat == null)
+		{
+			fLat = 30;
+		}
+		var fLong = GetValue(aProps,'long');
+		if (fLong == null)
+		{
+			fLong = 0;
+		}
+			
+		var nZoom = GetValue(aProps,'zoom');
+		if (nZoom == null)
+		{
+			nZoom = 2;
+		}
+			
+		var strType = GetValue(aProps,'type');
+		if (strType == null)
+		{
+			strType = 'terrain';
+		}
+	
+		var map = new google.maps.Map(
+			document.getElementById(strSelector),
+			{
+				zoom: nZoom, 
+				center: new google.maps.LatLng(fLat,fLong),  
+				mapTypeId: strType,
+				mapTypeControl: true,
+				streetViewControl: true
+			});
+	}
+  
 }
 

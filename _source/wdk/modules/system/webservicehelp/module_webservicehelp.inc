@@ -11,11 +11,7 @@
 			$this->m_strURL = $strURL;
 			parent::__construct($website,"system/webservicehelp");
 		}
-		
-		function CallbackInit()
-		{
-			return true;
-		}
+
 
 		function CallbackRenderModule($strState)
 		{

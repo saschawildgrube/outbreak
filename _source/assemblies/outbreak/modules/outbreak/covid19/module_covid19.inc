@@ -27,10 +27,10 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->LoadStringResources('local');
-			return true;
+			return parent::OnInit();
 		}
 		
 	

@@ -9,9 +9,9 @@
 			parent::__construct("XML Check");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->SetResult(true);
 			
 			$this->Trace("Parse() does not accept the output of the root URL. Reason is yet unclear");

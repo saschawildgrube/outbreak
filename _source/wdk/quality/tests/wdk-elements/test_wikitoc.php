@@ -9,9 +9,9 @@
 			parent::__construct("Test Element Wiki TOC");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			return true;
 		}
 		

@@ -43,10 +43,10 @@
 			parent::__construct("Web service system/user Email Validation Timeout (Post Signin)",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->RequireWebservice($this->m_strWebservice);			 
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		function CallbackTest()

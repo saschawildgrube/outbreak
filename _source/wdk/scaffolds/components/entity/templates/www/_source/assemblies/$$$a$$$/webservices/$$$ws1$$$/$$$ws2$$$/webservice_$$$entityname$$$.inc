@@ -31,9 +31,9 @@
 				
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			$bResult = parent::CallbackInit();
+			$bResult = parent::OnInit();
 			if ($bResult == false)
 			{
 				return false;

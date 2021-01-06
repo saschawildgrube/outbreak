@@ -18,10 +18,6 @@
 				);
 		}
 		
-		function CallbackInit()
-		{
-			return true;
-		}
 		
 		function CheckSystemRequirements()
 		{

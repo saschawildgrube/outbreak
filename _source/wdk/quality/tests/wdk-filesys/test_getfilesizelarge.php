@@ -10,7 +10,7 @@
 			parent::__construct("GetFileSize (with large files)");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$nMemoryLimit = GetMemoryLimit();
 			$this->Trace("GetMemoryLimit() = $nMemoryLimit");
@@ -22,7 +22,7 @@
 			
 			
 			
-			return parent::CallbackInit();	
+			return parent::OnInit();	
 		}
 		
 

@@ -17,9 +17,9 @@
 			parent::__construct("Test Definition of all WDK supported Entities");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->SetResult(true);	
 			return true;
 		}

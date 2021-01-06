@@ -9,9 +9,9 @@
 			parent::__construct("Test generic output items within textareas");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit(); 
+			parent::OnInit(); 
 			$this->SetActive(false);
 			return true;
 		}

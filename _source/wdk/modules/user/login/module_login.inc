@@ -20,14 +20,10 @@
 			parent::__construct($website,"user/login");
 		}
 		
-		function CallbackInit()
+	
+		function OnWebsiteInit()
 		{
-			return true;
-		}
-		
-		function CallbackWebsiteInit()
-		{
-			$this->Trace("CallbackWebsiteInit");
+			$this->Trace("OnWebsiteInit");
 			$this->Trace("GetState() = ".$this->GetState());
 			if ($this->GetState() == "loginattempt")
 			{

@@ -254,9 +254,9 @@
 
 		
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			$bResult = parent::CallbackInit();
+			$bResult = parent::OnInit();
 			
 			/*
 				Add initialization code here!
@@ -269,7 +269,7 @@
 				They are replaced with content during rendering the website.
 				A generic output item is not simply replaced by another string,
 				but each time a generic output item is found, the
-				CallbackRenderGenericOutputItem() callback function
+				OnRenderGenericOutputItem() callback function
 				is invoked.
 				However, we must tell the website what to look for.
 				In addition generic output items support parameters.
@@ -352,10 +352,10 @@
 			return true;
 		}
 		
-		function CallbackUserChangePassword($strOldPassword,$strNewPassword)
+		function OnUserChangePassword($strOldPassword,$strNewPassword)
 		{
-			$bResult = parent::CallbackUserChangePassword($strOldPassword,$strNewPassword);
-			if (!$bResult)
+			$bResult = parent::OnUserChangePassword($strOldPassword,$strNewPassword);
+			if ($bResult == false)
 			{
 				return false;
 			}
@@ -465,7 +465,7 @@
 		}
 
 
-		function CallbackRenderGenericOutputItem($strItem, $arrayAttributes)
+		function OnRenderGenericOutputItem($strItem, $arrayAttributes)
 		{
 			switch ($strItem)
 			{
@@ -473,7 +473,7 @@
 				return 'http://www.google.de/search?q='.ArrayGetValue($arrayAttributes,'search');
 
 			default:
-				return parent::CallbackRenderGenericOutputItem($strItem, $arrayAttributes);
+				return parent::OnRenderGenericOutputItem($strItem, $arrayAttributes);
 			}
 		}
 		
@@ -636,7 +636,7 @@
 		}
 		
 		
-		function CallbackCreateImage(&$image,$strImageID)
+		function OnCreateImage(&$image,$strImageID)
 		{
 			/*
 				This function is the actual command handler for the 'image' command.
@@ -665,7 +665,7 @@
 				return true;
 			}
 			
-			return parent::CallbackCreateImage($image,$strImageID);
+			return parent::OnCreateImage($image,$strImageID);
 		}
 
 	}

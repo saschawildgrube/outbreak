@@ -24,7 +24,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$arrayEntityDefinitions = array(
 				"user" => GetEntityDefinitionUser()
@@ -34,7 +34,7 @@
 			
 			$this->GetWebsite()->LoadStringResources("local");
 			
-			return true;
+			return parent::OnInit();
 		}
 
 		function CallbackRenderModule($strState)

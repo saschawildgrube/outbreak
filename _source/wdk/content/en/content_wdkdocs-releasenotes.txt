@@ -1,4 +1,39 @@
 ={WDK} Release Notes=
+==Version 0.0.0.78 WORK IN PROGRESS==
+NOT YET Baselined
+* '''IMPORTANT'''
+** Renamed function CallbackInit() to OnInit() in CWebsite, CModule, CUnitTest and CWebservice and derived classes. THIS IS A MASSIVE CHANGE!
+** Introduced plugins and removed plugin-like behaviour from assemblies.
+* Security
+** No changes
+* Defects
+** No changes
+* New features
+** Introduced the CPlugin class.
+** Added function CWebsite::IncludePlugin() to load the plugin source code file from the assembly line.
+** Added function CWebsite::GetPlugin() to access a plugin class based on its ID.
+** Added function CWebsiteSatellite::GetSatelliteType() which must be implemented by all derived classes to prefix all trace messages emitted by the website satellite class.
+* Improvements
+** Changed the breakpoint for the GitHub ribbon to align with the Bootstrap lg breakpoint (at 992 pixels).
+** The dnamic website scaffolder's logout content now makes sure the user is really logged out.
+* Discontinued
+** CAssembly is now declared as final. It is no longer allowed to derive from the assembly class. Functionality from derived assembly classes must now be moved into plugins.
+** Removed function CAssembly::EventHandler(). Assemblies are no longer informed about events.
+** Removed functions CWebsite::IncludeAssembly() and CWebsite::RegisterAssembly().
+** Removed function CAssembly::CallbackRenderGenericOutputItem(). Use plugin classes to embedd generic output items.
+** Removed elements CGoogleMapsElement, CFacebookShareElement, CLinkedInShareElement and CXingShareElement.
+* Quality
+** No changes
+* Refactoring
+** Renamed function CWebsite::CallbackInit() to OnInit().
+** Renamed function CWebsite::CallbackCreateImage() to OnCreateImage().
+** Renamed function CModule::CallbackInit() to OnInit().
+** Renamed function CUnitTest::CallbackInit() to OnInit().
+** Renamed function CWebservice::CallbackInit() to OnInit().
+** Renamed function CWebservice::CallbackRenderGenericOutputItem to OnRenderGenericOutputItem()
+** CModule now verifies that the parent implementation of OnInit() is invoked in derived classes.
+* Documentation
+** No changes
 ==Version 0.0.0.77==
 Baselined 2020-12-27
 * '''IMPORTANT'''

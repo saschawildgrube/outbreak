@@ -9,9 +9,9 @@
 			parent::__construct("Test ArrayKeyExists");
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 			$this->SetResult(true);
 			return true;
 		}

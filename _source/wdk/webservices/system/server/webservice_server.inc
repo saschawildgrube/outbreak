@@ -46,12 +46,12 @@
 			parent::CallbackInitCommandDefinition($commandDef);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->SetResultValue($this->GetServerIP(),'IP');
 			$this->SetResultValue(GetSystemHostname(),'HOSTNAME');
 		
-			return parent::CallbackInit();
+			return parent::OnInit();
 		}
 		
 		

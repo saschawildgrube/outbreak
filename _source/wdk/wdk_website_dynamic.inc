@@ -40,12 +40,6 @@
 					
 		}
 		
-		function CallbackInit()
-		{
-			return parent::CallbackInit();
-		}
-
-
 		function SystemLog($strEventSeverity,$strEventID,$strEventMessage,$arrayDetails=array())
 		{
 			$arrayDetails["authuserid"] = $this->GetAuthUserID();
@@ -310,10 +304,10 @@
 			return StringCheckCharSet($strUsername,CHARSET_USERNAME);	
 		}
 		
-		function CallbackUserChangePassword($strOldPassword,$strNewPassword)
+		function OnUserChangePassword($strOldPassword,$strNewPassword)
 		{
 			$strUserID = $this->GetAuthUserID();
-			if ($strUserID == "")
+			if ($strUserID == '')
 			{
 				return false;	
 			}
@@ -345,7 +339,7 @@
 				return false;
 			}
 
-			return true;
+			return parent::OnUserChangePassword($strOldPassword,$strNewPassword);
 		}
 
 		
@@ -463,7 +457,7 @@
 		
 		
 		
-		function CallbackUserDelete($strUserID)
+		function OnUserDelete($strUserID)
 		{
 			$arrayParams = array();
 			$arrayParams["command"] = "delete";
@@ -475,7 +469,7 @@
 			{
 				$this->SetErrorMessageCode($strError);
 				
-				$this->Trace("CDynamicWebSite::CallbackUserDelete failed!");
+				$this->Trace("CDynamicWebSite::OnUserDelete failed!");
 				
 				return false;
 			}

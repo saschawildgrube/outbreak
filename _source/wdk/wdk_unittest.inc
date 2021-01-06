@@ -56,7 +56,7 @@
 			*/
 			
 			$this->Trace("INIT BEGIN");
-			$bResultInit = $this->CallbackInit();
+			$bResultInit = $this->OnInit();
 			if ($this->m_bCallbackInit == false)
 			{
 				$this->Trace("ERROR: CallbackInit must invoke parent implementation!");
@@ -174,7 +174,7 @@
 		}
 
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_bCallbackInit = true;
 			return true;

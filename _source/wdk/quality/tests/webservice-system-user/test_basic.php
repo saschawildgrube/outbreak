@@ -34,9 +34,9 @@
 			parent::__construct("Web service system/user",$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			parent::CallbackInit();
+			parent::OnInit();
 
 			$this->RequireWebservice("system/user");
 			

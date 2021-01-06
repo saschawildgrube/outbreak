@@ -20,7 +20,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_arrayErrors = array();
 			
@@ -35,7 +35,7 @@
 			$this->SetToolbarConfig($arrayToolbarConfig);
 			$this->SetOutputItem("MESSAGE","");
 			
-			return true;
+			return parent::OnInit();
 		}
 		
 	

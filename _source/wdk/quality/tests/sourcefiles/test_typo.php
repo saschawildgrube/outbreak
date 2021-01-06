@@ -31,6 +31,7 @@
 				$arrayRegExp[] = '/retrun/';
 				$arrayRegExp[] = '/provacy/';
 				$arrayRegExp[] = '/ teh /';
+				$arrayRegExp[] = '/plgin/';
 				$this->CheckFileAgainstRegExp($strFilePath,$arrayRegExp);
 			}
 			

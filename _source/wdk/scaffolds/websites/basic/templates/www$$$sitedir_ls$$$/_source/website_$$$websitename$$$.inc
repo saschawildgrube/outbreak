@@ -170,9 +170,9 @@
 			$this->LoadRoutingMap('default');
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
-			$bResult = parent::CallbackInit();
+			$bResult = parent::OnInit();
 			
 			/*
 				Add initialization code here!
@@ -259,7 +259,7 @@
 			return parent::CallbackRenderSpecialContent($strContentID); 
 		}
 
-		function CallbackRenderGenericOutputItem($strItem, $arrayAttributes)
+		function OnRenderGenericOutputItem($strItem, $arrayAttributes)
 		{
 			switch ($strItem)
 			{
@@ -267,7 +267,7 @@
 				return 'http://www.google.de/search?q='.ArrayGetValue($arrayAttributes,'search');
 
 			default:
-				return parent::CallbackRenderGenericOutputItem($strItem, $arrayAttributes);
+				return parent::OnRenderGenericOutputItem($strItem, $arrayAttributes);
 			}
 		}
 		
@@ -383,7 +383,7 @@
 		}
 		
 		
-		function CallbackCreateImage(&$image,$strImageID)
+		function OnCreateImage(&$image,$strImageID)
 		{
 			/*
 				This function is the actual command handler for the 'image' command.
@@ -412,7 +412,7 @@
 				return true;
 			}
 			
-			return parent::CallbackCreateImage($image,$strImageID);
+			return parent::OnCreateImage($image,$strImageID);
 		}
 
 	}

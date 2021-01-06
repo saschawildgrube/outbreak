@@ -22,7 +22,7 @@
 				$arrayConfig);
 		}
 		
-		function CallbackInit()
+		function OnInit()
 		{
 			$this->m_arrayErrors = array();
 			
@@ -34,7 +34,7 @@
 			
 			$this->m_bCheckAgain = false;
 			
-			return true;
+			return parent::OnInit();
 		}
 		
 	
