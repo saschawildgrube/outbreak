@@ -12,11 +12,11 @@ The root folder of the repo is the document root of the website.
 - GetTempDir() 
 4. Please replace the Google Maps API key with your own in /_source/env.cfg
 
-This website is based on SteepPHP: https://www.steelphp.com.
+This website is based on SteelPHP: https://www.steelphp.com.
 
 Enjoy!
 
-## Licence
+## License
 Copyright 2020-2021 by Sascha Wildgrube
 
 Licensed under the Apache License, Version 2.0 (the "License");
