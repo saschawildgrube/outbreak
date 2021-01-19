@@ -24,9 +24,9 @@
 			return parent::OnInit();	
 		}	
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			/*
 			
@@ -508,9 +508,9 @@
 			$this->SetResult(true);
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			
 			$this->Trace("DELETE ARTICLES");
 			$consumer = new CWebServiceConsumerWebApplication($this);

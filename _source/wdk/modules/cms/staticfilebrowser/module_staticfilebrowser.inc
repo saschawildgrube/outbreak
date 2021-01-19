@@ -38,9 +38,9 @@
 		}
 		
 	
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
-			$this->Trace("CallbackRenderModule(\"$strState\")");
+			$this->Trace("OnRenderModule(\"$strState\")");
 			switch ($strState)
 			{
 				case 'download':
@@ -93,7 +93,7 @@
 			$this->SetOutputItem("TOOLBAR",$toolbar->RenderToolbar($toolbarDef)); 
 		}		
 		
-		function CallbackIsToolVisible($strToolID)
+		function OnIsToolVisible($strToolID)
 		{
 			if ($strToolID == 'refresh')
 			{
@@ -102,7 +102,7 @@
 					return false;	
 				}	
 			}
-			return parent::CallbackIsToolVisible($strToolID);
+			return parent::OnIsToolVisible($strToolID);
 		}
 		
 		

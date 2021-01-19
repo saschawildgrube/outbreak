@@ -53,9 +53,9 @@
 		}
 
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 					
 			$this->SetResult(true);
 
@@ -84,10 +84,10 @@
 			}
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
 			DeleteFile($this->m_strTmpFile);			
-			return parent::CallbackCleanup();
+			return parent::OnCleanup();
 		}
 		
 		

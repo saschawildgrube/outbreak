@@ -35,9 +35,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_StringLength("",0);
 			$this->TestCase_StringLength("a",1);

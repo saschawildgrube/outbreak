@@ -11,7 +11,7 @@
 		 
 		
 		
-		function Callback_TestCase_CheckFile($strFilePath)
+		function OnTestCaseCheckFile($strFilePath)
 		{ 
 			$arrayRegExp = array();
 			$strExtention = GetExtentionFromPath($strFilePath);
@@ -132,17 +132,12 @@
 						'/GetStage\(/',
 						'/CBootstrapLayout/',
 						'/CBootstrapThemeLayout/',
-						'/CallbackGetWebsiteTitle/',
-						'/CallbackGetWebsiteDescription/',
-						'/CallbackGetWebsiteKeywords/',
-						'/CallbackCreateImage/',
-						'/CallbackInit\(/',  
 						'/IncludeAssembly\(/',  
-						'/RegisterAssembly\(/', 
-						'/CallbackUserChangePassword\(/',
-						'/CallbackRenderGenericOutputItem\(/',
-						'/CallbackUserDelete\(/',
-						'/CallbackWebsiteInit\(/'
+						'/RegisterAssembly\(/',
+						'/On_TestCase_CheckFile\(/',
+						'/On_TestCase_CheckFolder\(/',
+						'/::Callback/',
+						'/m_bCallback/'
 					);
 					
 				if ($strFileName != 'wdk_url.inc')
@@ -152,7 +147,7 @@
 
 				if ($strFileName != 'wdk_element.inc')
 				{
-					$arrayRegExp[] = '/$this->m_strLayoutHTML;/';
+					$arrayRegExp[] = '/$this->m_strLayoutHTML;/';  
 				}
 					
 			}
@@ -168,9 +163,9 @@
 			$this->CheckFileAgainstRegExp($strFilePath,$arrayRegExp);
 		}
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->SetResult(true);
 			$this->CheckSourceDirectories();
 		}

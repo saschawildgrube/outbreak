@@ -38,9 +38,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_RenderDate(0,"");
 			$this->TestCase_RenderDate(1,"1970-01-01");
 			$this->TestCase_RenderDate(mktime(8,46,0,9,11,2001),"2001-09-11");

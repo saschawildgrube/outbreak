@@ -43,9 +43,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$paramDef = new CParameterDefinition();
 			$paramDef->AddParameterDefinitionDate(

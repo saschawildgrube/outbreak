@@ -22,9 +22,9 @@
 				array($strExpectedOutput));			
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->SetResult(true);
 
 			$strURL = "http://".GetRootURL()."quality/testwebsite/?content=test-element-definitionlist";

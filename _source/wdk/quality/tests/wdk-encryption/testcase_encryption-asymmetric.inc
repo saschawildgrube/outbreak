@@ -161,13 +161,13 @@
 			$this->Trace("");
 		}
 
-		function CallbackCleanup()
+		function OnCleanup()
 		{
 			if (is_object($this->m_aee) && ($this->GetVerbose() == true))
 			{
 				$this->Trace($this->m_aee->GetTraceLog());
 			}
-			return parent::CallbackCleanup();
+			return parent::OnCleanup();
 		}		
 	}
 	

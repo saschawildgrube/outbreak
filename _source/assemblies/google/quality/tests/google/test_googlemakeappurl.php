@@ -37,9 +37,9 @@
 		}
 
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest(); 
+			parent::OnTest(); 
 
 			$this->TestCase_Google_MakeAppURL(
 				'mail',

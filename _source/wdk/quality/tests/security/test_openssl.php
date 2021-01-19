@@ -17,9 +17,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 		
 			$this->Trace('');
 			$this->Trace("This test requires that the www user (e.g. www-data) can execute the\nopenssl command with root privileges.");

@@ -25,9 +25,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$consumer = new CWebServiceConsumerWebApplication($this);			
 			
 			

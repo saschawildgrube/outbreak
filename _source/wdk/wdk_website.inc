@@ -14,7 +14,7 @@
 	require_once('wdk_routing.inc');
 	require_once('wdk_websitesatellite.inc');
 	require_once('wdk_assemblyline.inc');
-	require_once('wdk_plugin.inc');
+	require_once('wdk_plugin_website.inc');
 	require_once('wdk_element.inc');
 	require_once('wdk_module.inc');
 	require_once('wdk_content.inc'); 
@@ -112,12 +112,12 @@
 		private $m_assemblyRoot;
 		private $m_assemblyWDK;
 		private $m_assemblyline;
-		private $m_bCallbackInitAssemblyLineCalled;
+		private $m_bOnInitAssemblyLineCalled;
 		
 		private $m_arrayPlugins;
 		
 		private $m_routing;
-		private $m_bCallbackInitRoutingMapCalled;
+		private $m_bOnInitRoutingMapCalled;
 		
 		private $m_bOnInit;
 		
@@ -459,7 +459,7 @@
 				if ($this->m_strSessionID != "")
 				{
 					$this->Trace("SessionID: ".$this->m_strSessionID);
-					if ($this->CallbackSessionRead($this->m_strSessionID,$this->m_arraySession) == true)
+					if ($this->OnSessionRead($this->m_strSessionID,$this->m_arraySession) == true)
 					{
 						$bCreateSession = false;
 					}
@@ -470,7 +470,7 @@
 				}
 				if ($bCreateSession == true)
 				{
-					$this->m_strSessionID = $this->CallbackSessionCreate();
+					$this->m_strSessionID = $this->OnSessionCreate();
 					if ($this->m_strSessionID == "")
 					{
 						$bSessionCreationError = true;
@@ -536,9 +536,9 @@
 			$this->m_assemblyWDK = new CAssembly($this,"wdk",GetWDKDir());
 			$this->m_assemblyline = new CAssemblyLine($this);
 			$this->m_assemblyline->AddAssembly($this->m_assemblyRoot);
-			$this->m_bCallbackInitAssemblyLineCalled = false;
-			$this->CallbackInitAssemblyLine($this->m_assemblyline);
-			if ($this->m_bCallbackInitAssemblyLineCalled != true)
+			$this->m_bOnInitAssemblyLineCalled = false;
+			$this->OnInitAssemblyLine($this->m_assemblyline);
+			if ($this->m_bOnInitAssemblyLineCalled != true)
 			{
 				$this->Error("OnInitAssemblyLine in a derived class must invoke the parent instance function.");	
 			}
@@ -552,9 +552,9 @@
 			}
 			foreach ($this->m_arrayPlugins as $plugin)
 			{
-				if (get_parent_class($plugin) != 'CPlugin')
+				if (get_parent_class($plugin) != 'CWebsitePlugin')
 				{
-					FataError('All plugins must be derived from CPlugin!');	
+					FatalError('All plugins must be derived from CWebsitePlugin!');	
 				}
 			}
 	
@@ -596,23 +596,23 @@
 		
 			$this->Trace("RenderDateTimeNow() = \"".RenderDateTimeNow()."\""); 
 			
-			$this->Trace("Configuration:");
+			$this->Trace('Configuration:');
 			$this->Trace($this->GetConfigArray());
 
-			$this->Trace("Cookies:");
+			$this->Trace('Cookies:');
 			$this->Trace($this->GetAllCookies());
 			
-			$this->Trace("Parameters:");
+			$this->Trace('Parameters:');
 			$this->Trace($this->m_arrayParams);
 
 
 			if ($this->GetSessionMode() != SESSION_MODE_NONE)
 			{
-				$this->Trace("Session Data:");
+				$this->Trace('Session Data:');
 				$this->Trace($this->m_arraySession);  
 			} 
 			 
-			$this->Trace("Variables:");
+			$this->Trace('Variables:');
 			$this->Trace($this->GetAllVars());
 
 			
@@ -623,7 +623,7 @@
 
 			// Manage Local Resources
 			$this->m_bUseRes = true;
-			if ($this->GetVar("nores")=='1')
+			if ($this->GetVar('nores')=='1')
 			{
 				$this->m_bUseRes = false;
 			}
@@ -727,11 +727,11 @@
 
 			// Manage Routing Maps
 			$this->m_routing = new CRoutingMap();
-			$this->m_bCallbackInitRoutingMapCalled = false;
-			$this->CallbackInitRoutingMap();
-			if ($this->m_bCallbackInitRoutingMapCalled != true)
+			$this->m_bOnInitRoutingMapCalled = false;
+			$this->OnInitRoutingMap();
+			if ($this->m_bOnInitRoutingMapCalled != true)
 			{
-				$this->Error("CallbackInitRoutingMap in a derived class must invoke the parent instance function.");	
+				$this->Error("OnInitRoutingMap in a derived class must invoke the parent instance function.");	
 			}
 
 		
@@ -747,7 +747,7 @@
 			if ($strSEOURL != '')
 			{
 				$this->SetVar($strSEOURLParam,'');
-				$this->CallbackParseSEOURL($strSEOURL);
+				$this->OnParseSEOURL($strSEOURL);
 			}
 
 			
@@ -842,10 +842,6 @@
 				$this->Error('OnInit did not return true.');	
 			}
 			
-
-			// Init Assemblies TODO
-			$this->TriggerEvent('website-assembly-init',array());
-
 			// Init User
 			$this->UserInit();
 
@@ -880,7 +876,7 @@
 			$strCommand = $this->GetCommand();
 			if (StringCheckCharSet($strCommand,CHARSET_COMMAND) == true)
 			{
-				$bContinue = $this->CallbackCommand($strCommand);
+				$bContinue = $this->OnCommand($strCommand);
 				if ($bContinue == false)
 				{
 					exit();	
@@ -957,7 +953,7 @@
 					if ($this->IsSubsequentRequest() == false)
 					{
 						$this->Trace($this->m_arrayVars);
-						if ($this->CallbackSessionWrite($this->m_strSessionID,$this->m_arrayVars) != true)
+						if ($this->OnSessionWrite($this->m_strSessionID,$this->m_arrayVars) != true)
 						{
 							$this->Trace("ERROR: Session data could not be written.");
 							$this->SystemEvent(
@@ -1478,11 +1474,11 @@
 			{
 				return true;	
 			}
-			$this->m_bSubsequentRequest = $this->CallbackIsSubsequentRequest();
+			$this->m_bSubsequentRequest = $this->OnIsSubsequentRequest();
 			return $this->m_bSubsequentRequest;
 		}
 		
-		function CallbackIsSubsequentRequest()
+		function OnIsSubsequentRequest()
 		{
 			$strCommand = $this->GetCommand();
 			if ($strCommand == 'image')
@@ -1961,7 +1957,7 @@
 		function RenderDate($time) 
 		{
 			$strCountryID = $this->GetCountry();
-			$strFormat = $this->CallbackGetDateLocalFormat($strCountryID);
+			$strFormat = $this->OnGetDateLocalFormat($strCountryID);
 			if ($strFormat == "")
 			{
 				$strFormat = GetDateLocalFormat($strCountryID);
@@ -1978,7 +1974,7 @@
 		function RenderTime($time)
 		{
 			$strCountryID = $this->GetCountry();
-			$strFormat = $this->CallbackGetTimeLocalFormat($strCountryID);
+			$strFormat = $this->OnGetTimeLocalFormat($strCountryID);
 			if ($strFormat == "")
 			{
 				$strFormat = GetTimeLocalFormat($strCountryID);
@@ -1995,7 +1991,7 @@
 		function RenderDateTime($time)
 		{
 			$strCountryID = $this->GetCountry();
-			$strFormat = $this->CallbackGetDateTimeLocalFormat($strCountryID);
+			$strFormat = $this->OnGetDateTimeLocalFormat($strCountryID);
 			if ($strFormat == "")
 			{ 
 				$strFormat = GetDateTimeLocalFormat($strCountryID);
@@ -2175,7 +2171,7 @@
 		final
 		function GetSupportedLayouts()
 		{
-			$arrayLayouts = $this->CallbackGetSupportedLayouts();
+			$arrayLayouts = $this->OnGetSupportedLayouts();
 			if (ArrayCount($arrayLayouts) >= 1)
 			{
 				return $arrayLayouts;
@@ -2183,7 +2179,7 @@
 			return array("default");				
 		}
 		
-		function CallbackGetSupportedLayouts()
+		function OnGetSupportedLayouts()
 		{
 			return $this->GetConfig("layouts");
 		}
@@ -2613,10 +2609,10 @@
 		final 
 		function GetRoutingAlias($strLanguage,$strContextType,$strContextID)
 		{
-			return $this->CallbackGetRoutingAlias($strLanguage,$strContextType,$strContextID);
+			return $this->OnGetRoutingAlias($strLanguage,$strContextType,$strContextID);
 		}
 		
-		function CallbackGetRoutingAlias($strLanguage,$strContextType,$strContextID)
+		function OnGetRoutingAlias($strLanguage,$strContextType,$strContextID)
 		{
 			// -1 means: take a random alias if there is more than one alias available for a context id
 			return $this->m_routing->GetRoutingAlias($strLanguage,$strContextType,$strContextID,-1);
@@ -2625,10 +2621,10 @@
 		final 
 		function GetRoutingContext($strContextType,$strAlias,&$strLanguage)
 		{
-			return $this->CallbackGetRoutingContext($strContextType,$strAlias,$strLanguage);
+			return $this->OnGetRoutingContext($strContextType,$strAlias,$strLanguage);
 		}
 		
-		function CallbackGetRoutingContext($strContextType,$strAlias,&$strLanguage)
+		function OnGetRoutingContext($strContextType,$strAlias,&$strLanguage)
 		{
 			$arrayLanguages = $this->GetSupportedLanguages();
 			if ($strLanguage != "")
@@ -2671,7 +2667,7 @@
 				$arrayParams = array();
 			}
 			$arrayParams = ArrayMerge($this->GetSessionAwareArrayVars(), $arrayParams);
-			$strURL = $this->CallbackPrepareMakeURL($this->m_strRootURL,$arrayParams,$bEncoded);
+			$strURL = $this->OnPrepareMakeURL($this->m_strRootURL,$arrayParams,$bEncoded);
 			$strURL = MakeURL($strURL,$arrayParams,$bEncoded);
 			return $strURL;
 		}
@@ -2688,11 +2684,11 @@
 			{
 				$arrayParams = ArrayRemoveKey($arrayParams,'content');	
 			}
-			$strURL = $this->CallbackPrepareMakeURL($this->m_strRootURL,$arrayParams,$bEncoded);
+			$strURL = $this->OnPrepareMakeURL($this->m_strRootURL,$arrayParams,$bEncoded);
 			return MakeURL($strURL,$arrayParams,$bEncoded);
 		}
 
-		function CallbackPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
+		function OnPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
 		{
 			$strURL = $strRootURL;
 			
@@ -2827,7 +2823,7 @@
 				$strURL = $strNewProtocol . "://";				
 			}
 			$strURL .= $this->m_strRootURLnoProtocol;
-			$strURL = $this->CallbackPrepareMakeURL($strURL,$arrayParams,$bEncoded);			
+			$strURL = $this->OnPrepareMakeURL($strURL,$arrayParams,$bEncoded);			
 			return MakeURL($strURL,$arrayParams,$bEncoded);
 		}
 
@@ -2914,7 +2910,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			
 		}
 
-		function CallbackRenderSpecialPages()
+		function OnRenderSpecialPages()
 		{
 			if (GetBoolValue($this->GetConfig("wdkhelp_disable")) == false)
 			{
@@ -2929,7 +2925,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		final
 		function RenderSpecialPages()
 		{
-			return $this->CallbackRenderSpecialPages();
+			return $this->OnRenderSpecialPages();
 		}
 		
 		final
@@ -3125,14 +3121,14 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		{
 			$strContentID = $this->GetContent();
 			
-			$arrayRequiredConditions = $this->CallbackGetRequiredConditionsForContent($strContentID);
+			$arrayRequiredConditions = $this->OnGetRequiredConditionsForContent($strContentID);
 			if (is_array($arrayRequiredConditions))
 			{
 				foreach ($arrayRequiredConditions as $strCondition => $strError)
 				{
 					if ($strCondition == "")
 					{
-						$this->Error("CallbackGetRequiredConditionsForContent() returned an invalid array. The keys must contain the condition and the values must contain the error if the condition is not met - usually INSUFFICIENT_PRIVILEGES.");	
+						$this->Error("OnGetRequiredConditionsForContent() returned an invalid array. The keys must contain the condition and the values must contain the error if the condition is not met - usually INSUFFICIENT_PRIVILEGES.");	
 					}
 					if ($this->CheckCondition($strCondition) != true)
 					{
@@ -3148,9 +3144,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				}	
 			}			
 			
-			$this->Trace("CallbackRenderSpecialContent START");
-			$strSpecialContent = $this->CallbackRenderSpecialContent($strContentID);
-			$this->Trace("CallbackRenderSpecialContent END");
+			$this->Trace("OnRenderSpecialContent START");
+			$strSpecialContent = $this->OnRenderSpecialContent($strContentID);
+			$this->Trace("OnRenderSpecialContent END");
 			
 			if ($strSpecialContent != "")
 			{
@@ -3161,7 +3157,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
     	$strContentHTML = $this->LoadContent($strContentID);
       if ($strContentHTML === false)
     	{
-    		$strContentHTML = $this->CallbackRenderContentException();
+    		$strContentHTML = $this->OnRenderContentException();
     	}
     	if ($strContentHTML !== false)
     	{
@@ -3679,7 +3675,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				return $this->m_elementCountDown->RenderCountDown($time);   
 						
 			default:
-				$this->Error("OnRenderGenericOutputItem: No callback function handles item id: \"$strItem\"");
+				$this->Error('OnRenderGenericOutputItem: No function handles item id: '.$strItem);
 			}
 		}
 		
@@ -3886,9 +3882,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 
 			// Render Content
 			$this->Trace('Rendering content START');			
-			$this->CallbackPreContent();
+			$this->OnPreContent();
 			$this->RenderContent();
-			$this->CallbackPostContent();
+			$this->OnPostContent();
 			$this->Trace('Rendering content END');
 			$this->ProfilingTrace();
 			
@@ -3923,9 +3919,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			$this->ProfilingTrace();
 			
 			// Render Navigation
-			$this->Trace("CallbackRenderNavigation START");
-			$this->CallbackRenderNavigation($strOutput);
-			$this->Trace("CallbackRenderNavigation END");
+			$this->Trace("OnRenderNavigation START");
+			$this->OnRenderNavigation($strOutput);
+			$this->Trace("OnRenderNavigation END");
 			$this->ProfilingTrace();
 			
 			// Render Message Stack
@@ -4078,14 +4074,14 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 
 		
 		
-		function CallbackInitAssemblyLine(&$assemblyLine)
+		function OnInitAssemblyLine(&$assemblyLine)
 		{
-			$this->m_bCallbackInitAssemblyLineCalled = true;
+			$this->m_bOnInitAssemblyLineCalled = true;
 		}
 
-		function CallbackInitRoutingMap()
+		function OnInitRoutingMap()
 		{
-			$this->m_bCallbackInitRoutingMapCalled = true;
+			$this->m_bOnInitRoutingMapCalled = true;
 		}
 
 		
@@ -4112,7 +4108,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return array();	
 		}
 		
-		function CallbackCommand($strCommand)
+		function OnCommand($strCommand)
 		{
 			if ($strCommand == "logout")
 			{
@@ -4405,11 +4401,11 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		function RenderCss()
 		{
 			header("Content-type: css");
-			$this->CallbackRenderCss();
+			$this->OnRenderCss();
 			exit();
 		}
 
-		function CallbackRenderCss()
+		function OnRenderCss()
 		{
 			return $this->RenderStaticCss();
 		}
@@ -4451,7 +4447,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			header('Content-type: application/xml');
 			
 			$this->SetContent('');
-			$arraySitemap = $this->CallbackMakeSitemap();
+			$arraySitemap = $this->OnMakeSitemap();
 			print('<?xml version="1.0" encoding="UTF-8"?>
 <urlset
 	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -4497,7 +4493,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			exit;	
 		}
 
-		function CallbackMakeSitemap()
+		function OnMakeSitemap()
 		{
 			$arraySitemap = array();
 			
@@ -4762,10 +4758,10 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			{
 				$strNavigationID = "default";
 			}
-			return $this->CallbackGetNavigationTree($strNavigationID,$strContextParameter);	
+			return $this->OnGetNavigationTree($strNavigationID,$strContextParameter);	
 		}
 		
-		function CallbackGetNavigationTree($strNavigationID,$strContextParameter)
+		function OnGetNavigationTree($strNavigationID,$strContextParameter)
 		{
 			$navigationtree = new CNavigationTree();
 			$bResult = $navigationtree->LoadNavigationTree($this,$strNavigationID);
@@ -4782,11 +4778,11 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		}
 		
 		
-		function CallbackRenderNavigation($strOutput)
+		function OnRenderNavigation($strOutput)
 		{
 		}
 		
-		function CallbackRenderSpecialContent($strContentID)
+		function OnRenderSpecialContent($strContentID)
 		{
 			return "";
 		}
@@ -4911,9 +4907,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		}
 
 		
-		function CallbackSessionCreate()
+		function OnSessionCreate()
 		{
-			$this->Trace("CWebsite::CallbackSessionCreate");
+			$this->Trace("CWebsite::OnSessionCreate");
 			if ($this->GetSessionMode() == SESSION_MODE_LOCAL_COOKIE)
 			{
 				return "local";					
@@ -4922,9 +4918,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return $strSessionID;			
 		}
 		
-		function CallbackSessionRead($strSessionID, &$arrayData)
+		function OnSessionRead($strSessionID, &$arrayData)
 		{
-			$this->Trace("CWebsite::CallbackSessionRead");
+			$this->Trace("CWebsite::OnSessionRead");
 			$arrayData = array();
 			if ($this->GetSessionMode() == SESSION_MODE_LOCAL_COOKIE)
 			{
@@ -4934,9 +4930,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return false;
 		}
 
-		function CallbackSessionWrite($strSessionID, $arrayData)
+		function OnSessionWrite($strSessionID, $arrayData)
 		{
-			$this->Trace("CWebsite::CallbackSessionWrite");
+			$this->Trace("CWebsite::OnSessionWrite");
 			if ($this->GetSessionMode() == SESSION_MODE_LOCAL_COOKIE)
 			{
 				foreach ($arrayData as $strKey => $strValue)
@@ -4948,28 +4944,28 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return false;
 		}
 		
-		function CallbackSessionDestroy($strSessionID)
+		function OnSessionDestroy($strSessionID)
 		{
-			$this->Trace("CallbackSessionDestroy() is not implemented.");
+			$this->Trace("OnSessionDestroy() is not implemented.");
 			return false;
 		}
 
 
-		function CallbackLoadUserSettings()
+		function OnLoadUserSettings()
 		{
-			$this->Error("CallbackLoadUserSettings() is not implemented.");
+			$this->Error("OnLoadUserSettings() is not implemented.");
 			return false;
 		}
 
-		function CallbackPreContent()
+		function OnPreContent()
 		{
 		}
 
-		function CallbackPostContent()
+		function OnPostContent()
 		{
 		}
 
-		function CallbackRenderContentException()
+		function OnRenderContentException()
 		{
 			$navigationtree = $this->GetNavigationTree("");
 			$navigation = new CNavigationElement($this,"portfolio");
@@ -4984,25 +4980,25 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		}
 
 		
-		function CallbackUserLogin($strUserName,$strAuthenticationPayload)
+		function OnUserLogin($strUserName,$strAuthenticationPayload)
 		{
-			$this->Error("CallbackUserLogin() is not implemented.");
+			$this->Error("OnUserLogin() is not implemented.");
 			return false;			
 		}
 		
-		function CallbackUserLogout()
+		function OnUserLogout()
 		{
-			$this->Error("CallbackUserLogout() is not implemented.");
+			$this->Error("OnUserLogout() is not implemented.");
 			return false;
 		}
 
-		function CallbackUserCheckName($strUsername)
+		function OnUserCheckName($strUsername)
 		{
-			$this->Error("CallbackUserCheckName() is not implemented.");
+			$this->Error("OnUserCheckName() is not implemented.");
 			return false;
 		}
 
-		function CallbackUserNameInputCorrection($strUsername)
+		function OnUserNameInputCorrection($strUsername)
 		{
 			$strUsername = StringLowerCase($strUsername);
 			$strUsername = trim($strUsername);
@@ -5022,9 +5018,9 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return true;
 		}
 
-		function CallbackUserSignin($strUsername,$strPassword,$arrayParams=array(),&$strError='',&$arrayResults=array())
+		function OnUserSignin($strUsername,$strPassword,$arrayParams=array(),&$strError='',&$arrayResults=array())
 		{
-			$this->Error('CallbackUserSignin() is not implemented.');
+			$this->Error('OnUserSignin() is not implemented.');
 			return false;
 		}
 		
@@ -5043,7 +5039,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		}
 
 
-		function CallbackParseSEOURL($strSEOURL)
+		function OnParseSEOURL($strSEOURL)
 		{
 			$strLanguage = $this->GetLanguage();
 			$this->Trace('SEOURL: '.$strSEOURL);
@@ -5082,7 +5078,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			}	
 		}
 
-		function CallbackCheckCondition($strCondition)
+		function OnCheckCondition($strCondition)
 		{
 			$bResult = GetBoolValue(ArrayGetValue($this->m_arrayConditions,StringUpperCase($strCondition)));
 			if ($bResult == true)
@@ -5092,41 +5088,41 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			return $this->CheckPrivilege(StringUpperCase($strCondition));
 		}
 
-		function CallbackGetRequiredConditionsForContent($strContentID)
+		function OnGetRequiredConditionsForContent($strContentID)
 		{
 			return array();	
 		}
 		
-		function CallbackUserInitPrivileges()
+		function OnUserInitPrivileges()
 		{
-			$this->Error('CallbackUserInitPrivileges() is not implemented.');
+			$this->Error('OnUserInitPrivileges() is not implemented.');
 			return array();	
 		}
 		
-		function CallbackGetMessage($strMessageType,$strMessageID)
+		function OnGetMessage($strMessageType,$strMessageID)
 		{
-			$this->Error("CallbackGetMessage() is not implemented.");
+			$this->Error("OnGetMessage() is not implemented.");
 			return '';
 		}
 		
-		function CallbackGetDateLocalFormat($strCountryID)
+		function OnGetDateLocalFormat($strCountryID)
 		{
 			return '';	
 		}
 
-		function CallbackGetTimeLocalFormat($strCountryID)
+		function OnGetTimeLocalFormat($strCountryID)
 		{
 			return '';	
 		}
 
-		function CallbackGetDateTimeLocalFormat($strCountryID)
+		function OnGetDateTimeLocalFormat($strCountryID)
 		{
-			$strDateFormat = $this->CallbackGetDateLocalFormat($strCountryID);
+			$strDateFormat = $this->OnGetDateLocalFormat($strCountryID);
 			if ($strDateFormat == "")
 			{
 				$strDateFormat = GetDateLocalFormat($strCountryID);	
 			}
-			$strTimeFormat = $this->CallbackGetTimeLocalFormat($strCountryID);
+			$strTimeFormat = $this->OnGetTimeLocalFormat($strCountryID);
 			if ($strTimeFormat == "")
 			{
 				$strTimeFormat = GetTimeLocalFormat($strCountryID);	 
@@ -5204,7 +5200,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				return false;			
 			}
 			
-			$bSuccess = $this->CallbackUserLogin($strUserName,$strAuthenticationPayload);
+			$bSuccess = $this->OnUserLogin($strUserName,$strAuthenticationPayload);
 			if ($bSuccess != true)
 			{
 				return false;
@@ -5221,7 +5217,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		function UserLogout()
 		{
 			$this->Trace('UserLogout');
-			$bResult = $this->CallbackUserLogout();
+			$bResult = $this->OnUserLogout();
 			$this->m_arrayPrivileges = array();	
 			if ($bResult == false)
 			{
@@ -5234,13 +5230,13 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		final
 		function UserNameInputCorrection($strUsername)
 		{
-			return $this->CallbackUserNameInputCorrection($strUsername);	
+			return $this->OnUserNameInputCorrection($strUsername);	
 		}
 		
 		final
 		function UserCheckName($strUsername)
 		{
-			$bResult = $this->CallbackUserCheckName($strUsername);
+			$bResult = $this->OnUserCheckName($strUsername);
 			$this->Trace('UserCheckName("'.$strUsername.'") returned '.RenderBool($bResult));
 			return $bResult;
 		}
@@ -5264,13 +5260,13 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		final
 		function UserInitPrivileges()
 		{
-			$this->m_arrayPrivileges = $this->CallbackUserInitPrivileges();
+			$this->m_arrayPrivileges = $this->OnUserInitPrivileges();
 		}
 
 		final
 		function UserLoadSettings()
 		{
-			return $this->CallbackUserLoadSettings();	
+			return $this->OnUserLoadSettings();	
 		}
 
 		final
@@ -5281,7 +5277,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				$strError = "USERNAME_INVALID";
 				return false;	
 			}
-			$strNewUserID = $this->CallbackUserSignin($strUserName,$strPassword,$arraySigninParams,$strError,$arrayResults);
+			$strNewUserID = $this->OnUserSignin($strUserName,$strPassword,$arraySigninParams,$strError,$arrayResults);
 			if ($strNewUserID == false)
 			{
 				return false;	
@@ -5320,7 +5316,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			{
 				return false;
 			}
-			return $this->CallbackGetData('USER',$strUserID,$strDataName,$strDefaultContent);	
+			return $this->OnGetData('USER',$strUserID,$strDataName,$strDefaultContent);	
 		}
 
 		final
@@ -5331,30 +5327,30 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			{
 				return false;
 			}
-			return $this->CallbackSetData('USER',$strUserID,$strDataName,$strContent);	
+			return $this->OnSetData('USER',$strUserID,$strDataName,$strContent);	
 		}
 		
 		final
 		function GetData($strContextType, $strContextID, $strDataName,$strDefaultContent='')
 		{
-			return $this->CallbackGetData($strContextType, $strContextID, $strDataName, $strDefaultContent);	
+			return $this->OnGetData($strContextType, $strContextID, $strDataName, $strDefaultContent);	
 		}
 
 		final
 		function SetData($strContextType, $strContextID, $strDataName, $strContent)
 		{
-			return $this->CallbackSetData($strContextType, $strContextID, $strDataName, $strContent);
+			return $this->OnSetData($strContextType, $strContextID, $strDataName, $strContent);
 		}
 		
-		function CallbackGetData($strContextType, $strContextID, $strDataName, $strDefaultContext)
+		function OnGetData($strContextType, $strContextID, $strDataName, $strDefaultContext)
 		{
-			$this->Error("CallbackGetData() is not implemented.");
+			$this->Error("OnGetData() is not implemented.");
 			return false;	
 		}
 
-		function CallbackSetData($strContextType, $strContextID, $strDataName, $strContext)
+		function OnSetData($strContextType, $strContextID, $strDataName, $strContext)
 		{
-			$this->Error("CallbackGetData() is not implemented.");
+			$this->Error("OnGetData() is not implemented.");
 			return false;	
 		}		
 
@@ -5368,7 +5364,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			{
 				if ($this->GetSessionID() != "")
 				{
-					$bResult = $this->CallbackSessionDestroy($this->GetSessionID());
+					$bResult = $this->OnSessionDestroy($this->GetSessionID());
 				}
 			}
 			$this->m_strSessionID = "";			
@@ -5384,7 +5380,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				$bInvert = true;
 				$strCondition	= StringSection($strCondition,1);
 			}
-			$bResult = $this->CallbackCheckCondition($strCondition);
+			$bResult = $this->OnCheckCondition($strCondition);
 			if ($bInvert == true)
 			{
 				return !$bResult;	
@@ -5646,18 +5642,18 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			}
 		}
 		
-		function CallbackBasicAuthGetText()
+		function OnBasicAuthGetText()
 		{
 			return $this->GetSiteName();
 		}		
 		
-		function CallbackBasicAuthRenderFailed() 
+		function OnBasicAuthRenderFailed() 
 		{
 			$this->SetErrorMessageCode("HTTP401");
 			return "";	
 		}
 
-		function CallbackBasicAuthRenderSuccess() 
+		function OnBasicAuthRenderSuccess() 
 		{
 			return "";	
 		}

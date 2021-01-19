@@ -16,9 +16,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 		
 			$this->Trace("Checking the Domain for the Poodle vulnerability (CVE-2014-3566)...");
 			$this->Trace("For more information go to:");

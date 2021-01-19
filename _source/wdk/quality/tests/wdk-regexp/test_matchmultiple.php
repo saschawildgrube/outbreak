@@ -41,9 +41,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_RegExpMatchMultiple("abc@def.com and xyz@test.de","/".StringSection(REGEXP_EMAIL,2,-2)."/",false,   
 				array(

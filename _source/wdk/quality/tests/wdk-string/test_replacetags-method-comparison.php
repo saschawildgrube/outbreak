@@ -271,9 +271,9 @@
 	
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$this->TestCaseSet_ReplaceTags('{','}');
 			$this->TestCaseSet_ReplaceTags('?TAG_','?');  

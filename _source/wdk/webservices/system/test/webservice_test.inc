@@ -38,18 +38,18 @@
 				);
 		}
 		
-		function CallbackInitParameterDefinition(&$paramDef)
+		function OnInitParameterDefinition(&$paramDef)
 		{
 			$paramDef->AddParameterDefinition_testpath(); 
 			$paramDef->AddParameterDefinitionEmail("alertemail");
 			$paramDef->AddParameterDefinitionBoolean("dotest");
 			$paramDef->AddParameterDefinitionBoolean("getstatus");
 			$paramDef->AddParameterDefinitionBoolean("getlog");
-			parent::CallbackInitParameterDefinition($paramDef);
+			parent::OnInitParameterDefinition($paramDef);
 			
 		}
 		
-		function CallbackInitCommandDefinition(&$commandDef)
+		function OnInitCommandDefinition(&$commandDef)
 		{
 			$commandDef->AddCommandDefinition("install",array());
 			//$commandDef->AddCommandDefinition("test",array("assemblyname","groupname","testname"));
@@ -62,7 +62,7 @@
 			
 			$commandDef->AddCommandDefinition("gettest",array("test_path"));
 			
-			parent::CallbackInitCommandDefinition($commandDef);
+			parent::OnInitCommandDefinition($commandDef);
 		}
 		
 		
@@ -80,7 +80,7 @@
 		}
 		
 		
-		function CallbackCommand($strCommand)
+		function OnCommand($strCommand)
 		{
 			switch ($strCommand)
 			{
@@ -107,7 +107,7 @@
 			case "statushistorylist":
 				if ($this->IsDatabaseSupportActive() == true)
 				{
-					parent::CallbackCommand($strCommand);
+					parent::OnCommand($strCommand);
 				}
 				return;
 
@@ -140,14 +140,14 @@
 				return;
 
 			default:
-				parent::CallbackCommand($strCommand);
+				parent::OnCommand($strCommand);
 				return;
 			}
 		}
 		
-		function CallbackLog($strEventSeverity, $strEventID, $strDetails)
+		function OnLog($strEventSeverity, $strEventID, $strDetails)
 		{
-			$this->CallbackLog_LogWebservice($strEventSeverity, $strEventID, $strDetails);
+			$this->OnLog_LogWebservice($strEventSeverity, $strEventID, $strDetails);
 		}		
 
 		function CheckParam($strParam)

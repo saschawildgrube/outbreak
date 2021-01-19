@@ -41,9 +41,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_IsFloatString("",false);
 			
 			$this->TestCase_IsFloatString("1.0abcd",false);

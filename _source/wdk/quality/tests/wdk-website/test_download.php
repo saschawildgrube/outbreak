@@ -34,9 +34,9 @@
 			$this->Trace("");				
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$this->Trace("");
 			$this->Trace("PART 1: Testing the download URL generator");

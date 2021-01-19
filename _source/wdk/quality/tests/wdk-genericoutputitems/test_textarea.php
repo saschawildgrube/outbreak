@@ -23,9 +23,9 @@
 				$arrayExpectedOutput);
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->SetResult(true);
 			
 			$arrayExpectedOutput[] = '<a href="http://'.GetRootURL()."quality/testwebsite/en/test-genericoutputitem-textarea/";

@@ -36,9 +36,9 @@
 					
 		}
 		
-		function CallbackInitRoutingMap()
+		function OnInitRoutingMap()
 		{
-			parent::CallbackInitRoutingMap();
+			parent::OnInitRoutingMap();
 			$this->LoadRoutingMap('default');
 		}
 		
@@ -48,31 +48,31 @@
 			return parent::OnInit();
 		}
 		
-		function CallbackRenderSpecialContent($strContentID)
+		function OnRenderSpecialContent($strContentID)
 		{
 			return '';
 		}
 
-		function CallbackRenderNavigation($strOutput)
+		function OnRenderNavigation($strOutput)
 		{
 		}
 		
 
-		function CallbackCheckCondition($strCondition)
+		function OnCheckCondition($strCondition)
 		{
 			return true;	
 		}
 		
-		function CallbackPreContent()
+		function OnPreContent()
 		{
 		}
 		
-		function CallbackPostContent()
+		function OnPostContent()
 		{
 		}	
 		
 		
-		function CallbackInitAssemblyLine(&$assemblyLine)
+		function OnInitAssemblyLine(&$assemblyLine)
 		{
 			$assembly = new CAssembly($this,'testimages');
 			$assemblyLine->AddAssembly($assembly);
@@ -84,7 +84,7 @@
 			$assemblyLine->AddAssembly($assembly);
 
 
-			parent::CallbackInitAssemblyLine($assemblyLine);
+			parent::OnInitAssemblyLine($assemblyLine);
 		}		
 		
 

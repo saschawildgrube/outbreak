@@ -69,9 +69,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_CheckEntity("session",GetEntityDefinitionSession());
 			$this->TestCase_CheckEntity("log",GetEntityDefinitionLog());
 			$this->TestCase_CheckEntity("user",GetEntityDefinitionUser());

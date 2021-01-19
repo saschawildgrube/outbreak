@@ -49,9 +49,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$passwordpolicy = new CPasswordPolicy();
 			$this->TestCase_CheckPassword(

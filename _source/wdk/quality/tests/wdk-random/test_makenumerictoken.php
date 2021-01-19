@@ -43,9 +43,9 @@
 		}
 
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			for ($nIndex = -2; $nIndex <= 45; $nIndex++)
 			{

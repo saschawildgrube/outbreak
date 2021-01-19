@@ -26,9 +26,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_TIDCheck(
 				"http://".GetRootURL());

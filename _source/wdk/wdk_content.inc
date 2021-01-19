@@ -33,12 +33,12 @@
 		
 		function RenderSpecialContent()
 		{
-			return $this->CallbackRenderSpecialContent();
+			return $this->OnRenderSpecialContent();
 		}
 		
 		function RenderContent()
 		{
-			$arrayRequiredConditions = $this->CallbackGetRequiredConditions();
+			$arrayRequiredConditions = $this->OnGetRequiredConditions();
 			if (is_array($arrayRequiredConditions))
 			{
 				foreach ($arrayRequiredConditions as $strCondition => $strError)
@@ -56,7 +56,7 @@
 				}	
 			}
 						
-      $strSpecialContent = $this->CallbackRenderSpecialContent();
+      $strSpecialContent = $this->OnRenderSpecialContent();
       if ($strSpecialContent != "")
       {
       	return $strSpecialContent;
@@ -99,7 +99,7 @@
 			}			
 		
 			$arrayItems = array();
-			$this->CallbackRenderContent($arrayItems);
+			$this->OnRenderContent($arrayItems);
 			$this->SetOutputItems($arrayItems);
 			$strHTML = $this->ReplaceOutputItems($strHTML);
 			return $strHTML;
@@ -107,21 +107,21 @@
 		
 		function OnInit()
 		{
-			$this->Error("Content \"".$this->m_strContentID."\": CallbackInit not implemented.");	
+			$this->Error("Content \"".$this->m_strContentID."\": OnInit not implemented.");	
 		}
 
-		function CallbackRenderSpecialContent()
+		function OnRenderSpecialContent()
 		{
-			$this->Trace("Content \"".$this->m_strContentID."\" does not implement CallbackRenderSpecialContent");
+			$this->Trace("Content \"".$this->m_strContentID."\" does not implement OnRenderSpecialContent");
 			return "";
 		}
 		
-		function CallbackRenderContent(&$arrayItems)
+		function OnRenderContent(&$arrayItems)
 		{
 			$this->Trace("Content \"".$this->m_strContentID."\" uses CContent");
 		}
 		
-		function CallbackGetRequiredConditions()
+		function OnGetRequiredConditions()
 		{
 			return array();
 		}

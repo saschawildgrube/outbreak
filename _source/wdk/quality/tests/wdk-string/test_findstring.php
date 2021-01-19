@@ -54,9 +54,9 @@
 			
 		}		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_FindString("abcdefghijklmnopqrstuvwxyz","ghi",6);
 			$this->TestCase_FindString("abcdefghijklmnopqrstuvwxyz","zyx",-1);

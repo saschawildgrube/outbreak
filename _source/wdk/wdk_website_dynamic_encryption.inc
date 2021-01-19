@@ -112,16 +112,16 @@
 	   	return $arrayVarsSession;
 		}
 
-		function CallbackSessionWrite($strSessionID, $arrayData)
+		function OnSessionWrite($strSessionID, $arrayData)
 		{
-			$this->Trace("CallbackSessionWrite");
+			$this->Trace("OnSessionWrite");
 			$arrayData = ArrayRemoveKey($arrayData,"secretpayload");
-			return parent::CallbackSessionWrite($strSessionID, $arrayData);
+			return parent::OnSessionWrite($strSessionID, $arrayData);
 		}
 	
-		function CallbackUserLogin($strUserName,$strAuthenticationPayload)	
+		function OnUserLogin($strUserName,$strAuthenticationPayload)	
 		{
-			$strUserID = parent::CallbackUserLogin($strUserName,$strAuthenticationPayload);
+			$strUserID = parent::OnUserLogin($strUserName,$strAuthenticationPayload);
 			if ($strUserID != "")
 			{
 				$this->StoreSecretPayload($strAuthenticationPayload);
@@ -129,10 +129,10 @@
 			return $strUserID;
 		}
 		
-		function CallbackUserLogout()
+		function OnUserLogout()
 		{
 			$this->StoreSecretPayload("");
-			return parent::CallbackUserLogout();
+			return parent::OnUserLogout();
 		}			
 		
 		function OnUserChangePassword($strOldPassword,$strNewPassword)

@@ -240,7 +240,7 @@
 			return $this->GetWebsite()->GetMessage($strMessageType,$strMessageID,StringUpperCase($this->GetModuleID()));
 		}
 		
-		function CallbackIsToolVisible($strToolID)
+		function OnIsToolVisible($strToolID)
 		{
 			$strState = $this->GetState();
 			$this->Trace($strState);
@@ -259,7 +259,7 @@
 		final
 		function IsToolVisible($strToolID)
 		{
-			return $this->CallbackIsToolVisible($strToolID);
+			return $this->OnIsToolVisible($strToolID);
 		}
 
 
@@ -322,7 +322,7 @@
 			else
 			{
 				$this->m_strStyleID = $strStyleID;
-				$strStateID = $this->CallbackRenderModule($this->GetState());
+				$strStateID = $this->OnRenderModule($this->GetState());
 				$this->m_strFinalState = $strStateID;
 				$strOutput = $this->LoadModuleLayoutFile($strStateID,$strStyleID);
        	$strOutput = $this->ReplaceOutputItems($strOutput);
@@ -345,9 +345,9 @@
 		}
 
 		
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
-			$this->Error('Module '.$this->m_strModuleID.': CallbackRenderModule not implemented.');
+			$this->Error('Module '.$this->m_strModuleID.': OnRenderModule not implemented.');
 			return '';
 		}
 		

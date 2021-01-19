@@ -18,9 +18,9 @@
 		
 			
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_CheckURL(
 				"http://".GetRootURL(),
@@ -41,9 +41,9 @@
 		 
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			return true;
 		}
 		

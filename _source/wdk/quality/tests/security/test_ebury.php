@@ -17,9 +17,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->Trace("This test aims to detect a potential infection by the ebury rootkit on the server.");
 			$this->Trace("For more information go to https://www.cert-bund.de/ebury-faq");

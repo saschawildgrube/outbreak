@@ -15,9 +15,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$strURL = "http://".GetRootURL()."quality/testwebsite/?content=test-bodyitems";
 			$this->TestCase_CheckURL(

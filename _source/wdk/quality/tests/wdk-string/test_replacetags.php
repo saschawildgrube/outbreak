@@ -63,9 +63,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$arrayTags = array(
 				"TID_ITEM1" => "blubb\nand a new line.",

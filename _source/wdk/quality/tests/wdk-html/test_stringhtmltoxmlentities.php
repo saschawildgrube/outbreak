@@ -44,9 +44,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$this->TestCase_StringHTMLtoXMLEntities("Äbc","&#196;bc");
 			$this->TestCase_StringHTMLtoXMLEntities(u("Ä"),"&#196;");

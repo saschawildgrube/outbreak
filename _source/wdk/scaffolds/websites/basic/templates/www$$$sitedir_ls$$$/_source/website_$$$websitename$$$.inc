@@ -151,7 +151,7 @@
 					
 		}
 		
-		function CallbackInitAssemblyLine(&$assemblyLine)
+		function OnInitAssemblyLine(&$assemblyLine)
 		{
 			/* 
 				To use more assemblies, add the following code for each assembly:
@@ -161,12 +161,28 @@
 	
 			*/
 
-			parent::CallbackInitAssemblyLine($assemblyLine);
+			parent::OnInitAssemblyLine($assemblyLine);
 		}
 		
-		function CallbackInitRoutingMap()
+		function OnInitPlugins()
 		{
-			parent::CallbackInitRoutingMap();
+			$arrayPlugins = parent::OnInitPlugins();
+
+			/*
+				To include a plugin, add the following code and replace the id and the class name:
+			
+			$this->IncludePlugin('whatever');
+			$plugin = new CWhateverPlugin($this);
+			$arrayPlugins[] = $plugin;
+		
+			*/
+		
+			return $arrayPlugins;
+		}		
+		
+		function OnInitRoutingMap()
+		{
+			parent::OnInitRoutingMap();
 			$this->LoadRoutingMap('default');
 		}
 		
@@ -214,31 +230,31 @@
 			return '$$$siteteam$$$';
 		}
 	
-		function CallbackPreContent()
+		function OnPreContent()
 		{
 			/*
 				Called before the actual content rendering takes place.
 			*/
 		}
 
-		function CallbackPostContent()
+		function OnPostContent()
 		{
 			/*
 				Called after the actual content rendering takes place.
 			*/			
 		}
 		
-		function CallbackRenderContentException()
+		function OnRenderContentException()
 		{
 			/*
 				This function is called if a requested content is not found.
 				If you were implementing a wiki, this would be the place to create a
 				new page.
 			*/
-			return parent::CallbackRenderContentException();
+			return parent::OnRenderContentException();
 		}
 		
-		function CallbackRenderSpecialContent($strContentID)
+		function OnRenderSpecialContent($strContentID)
 		{
 			/*
 				Before trying to load the content from a file, this function is called.
@@ -256,7 +272,7 @@
 				$disclaimer = new CDisclaimerModule($this);
 				return $disclaimer->RenderModule('default');
 			}
-			return parent::CallbackRenderSpecialContent($strContentID); 
+			return parent::OnRenderSpecialContent($strContentID); 
 		}
 
 		function OnRenderGenericOutputItem($strItem, $arrayAttributes)
@@ -272,7 +288,7 @@
 		}
 		
 
-		function CallbackRenderNavigation($strOutput)
+		function OnRenderNavigation($strOutput)
 		{
 			/*
 				This function is called after content rendering is complete.
@@ -329,25 +345,25 @@
 
 
 
-		function CallbackCheckCondition($strCondition)
+		function OnCheckCondition($strCondition)
 		{
 			/*
 				Whenever a component uses the CWebsite::CheckCondition() to find out if
-				a feature or option is available to a given user, this callback function
+				a feature or option is available to a given user, this function
 				is invoked.
-				The parent implementation in CWebsite::CallbackCheckCondition() alsways returns
+				The parent implementation in CWebsite::OnCheckCondition() alsways returns
 				false.
-				CUsersWebSite::CallbackCheckCondition() on the other hand will check
+				CUsersWebSite::OnCheckCondition() on the other hand will check
 				the users individual privileges.
 				You can also use this function to enable or disable features globally or
 				apply additional checks before granting a user access to specific features.
 			
 			*/
-			return parent::CallbackCheckCondition($strCondition);	
+			return parent::OnCheckCondition($strCondition);	
 		}
 		
 		
-		function CallbackGetDateLocalFormat($strCountryID)
+		function OnGetDateLocalFormat($strCountryID)
 		{
 			/*
 				Use this function to override defaults defined in GetDateLocalFormat().
@@ -364,7 +380,7 @@
 			}
 		}
 
-		function CallbackGetTimeLocalFormat($strCountryID)
+		function OnGetTimeLocalFormat($strCountryID)
 		{
 			/*
 				Use this function to override defaults defined in GetTimeLocalFormat().
@@ -387,7 +403,7 @@
 		{
 			/*
 				This function is the actual command handler for the 'image' command.
-				Whenever an image is requested, the callback function is invoked.
+				Whenever an image is requested, the function is invoked.
 				If the parent implementation is called, the website will try to load an image file
 				from the file system, and if it can't be found it will render an error image.
 				

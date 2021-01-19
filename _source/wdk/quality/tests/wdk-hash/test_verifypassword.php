@@ -37,9 +37,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->Trace('Random data using the default behaviour');
 			$strPassword = '123';

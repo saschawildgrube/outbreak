@@ -26,11 +26,11 @@
 			return parent::OnInit();	
 		}	
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
-			$this->CallbackCleanup();
+			$this->OnCleanup();
 			$arrayItemIDs = array();
 			
 		
@@ -439,9 +439,9 @@
 		}
 		
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			
 			
 			

@@ -55,9 +55,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$this->TestCase_StringXMLEntities("Äbc","&#196;bc");
 			$this->TestCase_StringXMLEntities("&uuml;","&uuml;");

@@ -18,7 +18,7 @@
 		
 		
 	
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			if ($this->GetWebSite()->GetAuthUserID() == '')
 			{

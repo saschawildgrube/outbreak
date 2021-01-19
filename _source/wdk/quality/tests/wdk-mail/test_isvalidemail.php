@@ -38,9 +38,9 @@
 			$this->Trace("");
 		}		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_IsValidEmail("info@example.com",true);
 			$this->TestCase_IsValidEmail("info@example.info",true);

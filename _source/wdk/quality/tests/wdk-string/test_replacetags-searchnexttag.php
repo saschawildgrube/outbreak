@@ -58,9 +58,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 	
 			$strBogus = "";
 			for  ($nIndex = 0; $nIndex < 50; $nIndex++)   

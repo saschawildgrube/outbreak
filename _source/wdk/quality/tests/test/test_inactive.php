@@ -13,9 +13,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 	
 			$this->Trace("This is an inactive test!");
 			$this->SetActive(false);
@@ -23,9 +23,9 @@
 			$this->SetResult(true);	
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			return true;
 		}
 		

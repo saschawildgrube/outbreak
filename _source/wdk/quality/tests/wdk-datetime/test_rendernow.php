@@ -17,9 +17,9 @@
 			return true;
 		}
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$strValue = RenderDateTimeNow();
 			$this->Trace("RenderDateTimeNow() = \"$strValue\"");

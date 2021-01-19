@@ -36,9 +36,9 @@
 			
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_GetIntegerValue(0,0);
 			$this->TestCase_GetIntegerValue(1,1);

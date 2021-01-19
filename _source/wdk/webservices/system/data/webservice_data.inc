@@ -41,15 +41,15 @@
 				$arrayEntityDefinitions);
 		}
 		
-		function CallbackInitParameterDefinition(&$paramDef)
+		function OnInitParameterDefinition(&$paramDef)
 		{
-			return parent::CallbackInitParameterDefinition($paramDef);
+			return parent::OnInitParameterDefinition($paramDef);
 		}
 		
-		function CallbackInitCommandDefinition(&$commandDef)
+		function OnInitCommandDefinition(&$commandDef)
 		{
 			$commandDef->AddCommandDefinition("deletecontext",array("data_context_type","data_context_id"));
-			return parent::CallbackInitCommandDefinition($commandDef);
+			return parent::OnInitCommandDefinition($commandDef);
 		}
 		
 		function OnInit()
@@ -61,7 +61,7 @@
 			return parent::OnInit();
 		}		
 		
-		function CallbackCommand($strCommand)
+		function OnCommand($strCommand)
 		{
 			switch ($strCommand)
 			{
@@ -70,7 +70,7 @@
 				return;
 
 			default:
-				parent::CallbackCommand($strCommand);
+				parent::OnCommand($strCommand);
 				return;
 			}
 		}

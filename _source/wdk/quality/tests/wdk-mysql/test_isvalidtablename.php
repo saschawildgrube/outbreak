@@ -40,9 +40,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_SQL_IsValidTableName("System-User",true);
 			$this->TestCase_SQL_IsValidTableName("SYSTEM_USER",true);

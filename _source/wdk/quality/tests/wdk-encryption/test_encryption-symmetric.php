@@ -97,9 +97,9 @@
 				
 		}
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_EncryptDecrypt(
 				"This is some highly confidential text.",

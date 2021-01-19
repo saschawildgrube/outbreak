@@ -47,9 +47,9 @@
 		}
 
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_MakeUniqueToken(
 				"ABC 123 ABC",

@@ -40,9 +40,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_IsValidConfigID("abc123",true);
 			$this->TestCase_IsValidConfigID("1",true);
 			$this->TestCase_IsValidConfigID("prod",true);

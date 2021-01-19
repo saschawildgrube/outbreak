@@ -18,9 +18,9 @@
 			return parent::OnInit();	
 		}
 	
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();	
+			parent::OnTest();	
 	
 			//$arrayWebservices = $this->GetConfig("webservices");
 			//$this->Trace($arrayWebservices);

@@ -33,7 +33,7 @@
 			}
 		}
 		
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			
 			// Prepare Username

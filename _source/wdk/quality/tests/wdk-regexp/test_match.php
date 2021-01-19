@@ -38,9 +38,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_RegExpMatch("Hello World","/Wor/",true);
 			$this->TestCase_RegExpMatch("Hello World","/Word/",false);

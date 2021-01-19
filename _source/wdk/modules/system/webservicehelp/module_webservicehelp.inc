@@ -13,7 +13,7 @@
 		}
 
 
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			$this->SetOutputItem("URL",$this->m_strURL);
 			

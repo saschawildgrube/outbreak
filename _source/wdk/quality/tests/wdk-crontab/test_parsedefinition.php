@@ -57,9 +57,9 @@
 
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->SetResult(true);	
 
 			$this->TestCase_CrontabParseDefinition("",0,10,false);
@@ -125,9 +125,9 @@
 
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			return true;
 		}
 		

@@ -40,9 +40,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_IsBoolString("0",true);
 			$this->TestCase_IsBoolString("1",true);
 			$this->TestCase_IsBoolString("TRUE",true);

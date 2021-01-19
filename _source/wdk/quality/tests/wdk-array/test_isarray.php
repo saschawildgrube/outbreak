@@ -39,9 +39,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_IsArray(null,false);
 			$this->TestCase_IsArray(false,false);

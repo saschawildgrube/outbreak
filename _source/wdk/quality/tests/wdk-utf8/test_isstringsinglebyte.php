@@ -40,9 +40,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_IsStringSingleByte("",true);
 			$this->TestCase_IsStringSingleByte("abc",true);
 			$this->TestCase_IsStringSingleByte(u("abc"),true);

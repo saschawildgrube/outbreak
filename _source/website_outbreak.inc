@@ -48,7 +48,7 @@
 				'website_outbreak');
 		}
 		
-		function CallbackInitAssemblyLine(&$assemblyLine)
+		function OnInitAssemblyLine(&$assemblyLine)
 		{
 			$assembly = new CAssembly($this,'google');
 			$assemblyLine->AddAssembly($assembly);
@@ -59,12 +59,12 @@
 			$assembly = new CAssembly($this,'d3');
 			$assemblyLine->AddAssembly($assembly);
 	
-			parent::CallbackInitAssemblyLine($assemblyLine);
+			parent::OnInitAssemblyLine($assemblyLine);
 		}
 		
-		function CallbackInitRoutingMap()
+		function OnInitRoutingMap()
 		{
-			parent::CallbackInitRoutingMap();
+			parent::OnInitRoutingMap();
 			$this->LoadRoutingMap('default');
 		}
 		
@@ -115,22 +115,12 @@
 			return 'sascha@wildgrube.com';
 		}
 	
-		function CallbackPostContent()
+		function OnPostContent()
 		{
 			$this->SetOutputItem('OUTBREAK_SUMMARY',$this->m_moduleCovid19->RenderSummary());
 		}
 		
-		function CallbackRenderContentException()
-		{
-			return parent::CallbackRenderContentException();
-		}
-		
-		function CallbackRenderSpecialContent($strContentID)
-		{
-			return parent::CallbackRenderSpecialContent($strContentID); 
-		}
-		
-		function CallbackRenderNavigation($strOutput)
+		function OnRenderNavigation($strOutput)
 		{
 			$navigationtree = new CNavigationTree();
 			$navigationtree->LoadNavigationTree($this,'');
@@ -171,24 +161,20 @@
 			}
 		}
 
-		function CallbackCheckCondition($strCondition)
-		{
-			return parent::CallbackCheckCondition($strCondition);	
-		}
 		
-		function CallbackGetDateLocalFormat($strCountryID)
+		function OnGetDateLocalFormat($strCountryID)
 		{
 			return '%Y-%m-%d';
 		}
 
-		function CallbackGetTimeLocalFormat($strCountryID)
+		function OnGetTimeLocalFormat($strCountryID)
 		{
 			return '%H:%M:%S %Z'; 
 		}
 		
-		function CallbackPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
+		function OnPrepareMakeURL($strRootURL,&$arrayParams,$bEncoded)
 		{
-			$this->Trace('COutbreakWebSite::CallbackPrepareMakeURL');
+			$this->Trace('COutbreakWebSite::OnPrepareMakeURL');
 			$this->Trace($arrayParams);
 
 			if ($this->m_moduleCovid19 != null)
@@ -208,12 +194,12 @@
 					}
 				}
 			}
-			return parent::CallbackPrepareMakeURL($strRootURL,$arrayParams,$bEncoded);
+			return parent::OnPrepareMakeURL($strRootURL,$arrayParams,$bEncoded);
 		}
 		
-		function CallbackParseSEOURL($strSEOURL)
+		function OnParseSEOURL($strSEOURL)
 		{
-			$this->Trace('COutbreakWebSite::CallbackParseSEOURL: '.$strSEOURL);
+			$this->Trace('COutbreakWebSite::OnParseSEOURL: '.$strSEOURL);
 			$strCountryID = StringUpperCase($strSEOURL);
 			if (IsValidCountryID($strCountryID))
 			{
@@ -224,7 +210,7 @@
 			}
 			else
 			{
-				parent::CallbackParseSEOURL($strSEOURL);
+				parent::OnParseSEOURL($strSEOURL);
 			}
 			
 		}

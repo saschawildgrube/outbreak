@@ -15,7 +15,7 @@
 			parent::__construct($website,'user/userpassword');
 		}
 		
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			switch ($strState)
 			{

@@ -39,9 +39,9 @@
 		}
 		
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_RegExpReplace("Hello World","/Wor/","WOR","Hello WORld");
 			$this->TestCase_RegExpReplace("Hello World","/wor/","WOR","Hello World");

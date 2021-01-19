@@ -35,9 +35,9 @@
 			
 		}
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_HashMethodProfiling("sha1");
 			$this->TestCase_HashMethodProfiling("bcrypt7");

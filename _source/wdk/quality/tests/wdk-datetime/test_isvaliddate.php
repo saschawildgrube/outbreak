@@ -44,9 +44,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_IsValidDate("2008-05-03",true);
 			$this->TestCase_IsValidDate("2008-03-25",true);
 			$this->TestCase_IsValidDate("1970-01-01",true);

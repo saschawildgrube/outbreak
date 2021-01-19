@@ -44,9 +44,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_IsValidDateTime("2008-05-03 23:55:03",true);
 			$this->TestCase_IsValidDateTime("2008-03-25 12:34:00",true);
 			$this->TestCase_IsValidDateTime("2008-0325 12:34:00",false);

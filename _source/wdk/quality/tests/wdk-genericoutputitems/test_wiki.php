@@ -22,9 +22,9 @@
 				$arrayExpectedOutput);
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->SetResult(true);
 			
 			for ($nCount = 1; $nCount <= 15; $nCount++)

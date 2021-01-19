@@ -16,9 +16,9 @@
 			return true;
 		}
 					
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_w3cValidateURL(
 				'http://'.GetRootURL(),

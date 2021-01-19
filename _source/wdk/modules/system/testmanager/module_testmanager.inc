@@ -61,7 +61,7 @@
 			return parent::OnInit();
 		}
 		
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			switch ($strState)
 			{
@@ -88,7 +88,7 @@
 			}
 		}
 		
-		function CallbackPrepareToolbar()
+		function OnPrepareToolbar()
 		{
 
 
@@ -1199,7 +1199,7 @@
 			if (ArrayCount($arrayTests) == 0)
 			{
 				$this->SetInfoMessageText($this->LoadStringEntity("TEST","INFO","RUNTESTS-COMPLETE"));
-				return $this->CallbackRenderModule($strOriginalState);
+				return $this->OnRenderModule($strOriginalState);
 			}
 
 			$arrayParams = array();
@@ -1225,7 +1225,7 @@
 			$arrayTestPath = ParseTestPath($strTestPath);
 			if ($arrayTestPath == false)
 			{
-				return $this->CallbackRenderModule($strOriginalState);
+				return $this->OnRenderModule($strOriginalState);
 			}
 			
 			$consumer = new CWebServiceConsumerWebApplication($this->GetWebsite());	
@@ -1274,7 +1274,7 @@
 			
 			//$this->SetInfoMessageText("BLUBB");
 			
-			return $this->CallbackRenderModule($strOriginalState);
+			return $this->OnRenderModule($strOriginalState);
 		}
 		
 

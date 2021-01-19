@@ -49,7 +49,7 @@
 			return false;	
 		}
 
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			$form = new CFormElement($this->GetWebsite(),"default");
 			$this->SetOutputItem("FORM", $form->RenderForm($this->m_formDef,array()));

@@ -18,9 +18,9 @@
 		
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$arraySQL = array(
 				"command" => "SELECT",

@@ -16,9 +16,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 		
 			$this->TestCase_CheckURL(
 				'http://'.GetRootURL().'_source/wdk/quality/testfiles/htaccess.txt',

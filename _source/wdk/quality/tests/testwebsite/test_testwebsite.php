@@ -16,17 +16,17 @@
 		
 			
 			
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$strURL = "http://".GetRootURL()."quality/testwebsite/";
 			$this->TestCase_CheckURL($strURL,array("This is an instance of a WDK test website."));
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			
 			if ($this->GetResult() == false)
 			{

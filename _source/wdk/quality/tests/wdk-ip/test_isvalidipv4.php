@@ -40,9 +40,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_IsValidIPv4("192.168.1.1",true);
 			$this->TestCase_IsValidIPv4("255.255.255.255",true);

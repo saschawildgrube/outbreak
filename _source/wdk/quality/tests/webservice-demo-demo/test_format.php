@@ -119,9 +119,9 @@
 		}
 	
 	
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();	
+			parent::OnTest();	
 			
 			$this->TestCase_WebserviceFormat("xml");
 			$this->TestCase_WebserviceFormat("json");

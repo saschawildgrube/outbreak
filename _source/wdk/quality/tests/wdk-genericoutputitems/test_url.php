@@ -22,9 +22,9 @@
 				$arrayExpectedOutput);
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->SetResult(true);
 			
 			$arrayExpectedOutput[] = "1:http://".GetRootURL()."quality/testwebsite/en/test-genericoutputitem-url/";

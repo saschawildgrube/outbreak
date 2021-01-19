@@ -60,9 +60,9 @@
 			$this->Trace("");
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			
 			
@@ -114,9 +114,9 @@
 		
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			
 			$this->Trace("DELETE JOBS");
 			$this->m_consumer = new CWebServiceConsumerWebApplication($this);

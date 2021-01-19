@@ -37,9 +37,9 @@
 		}
 
 
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest(); 
+			parent::OnTest(); 
 
 			$this->TestCase_StringCutOff(
 				"1234 67890 23456789 1234 67890 23456789",

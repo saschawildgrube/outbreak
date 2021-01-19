@@ -15,9 +15,9 @@
 			return true;
 		}
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 
 			$strURL_Root = "http://".GetRootURL()."quality/testwebsite/";
 			$strURL = $strURL_Root."?content=test-element-toolbar";
@@ -32,9 +32,9 @@
 				array('<div><a href="http://www.example.com"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Example.com</a>&nbsp;<a href="http://www.example.com"><i class="fa fa-link fa-fw" aria-hidden="true"></i></a>&nbsp;<a href="http://www.example.com" target="_blank">Example.com</a></div>'));
 		}
 		
-		function CallbackCleanup()
+		function OnCleanup()
 		{
-			parent::CallbackCleanup();
+			parent::OnCleanup();
 			return true;
 		}
 		

@@ -40,9 +40,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$this->TestCase_IsValidWebserviceName("demo/demo",true);
 			$this->TestCase_IsValidWebserviceName("a/b",true);

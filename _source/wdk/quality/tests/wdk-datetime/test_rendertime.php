@@ -38,9 +38,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			$this->TestCase_RenderTime(0,"");
 			$this->TestCase_RenderTime(1,"00:00:01");
 			$this->TestCase_RenderTime(mktime(8,46,0,9,11,2001),"08:46:00");

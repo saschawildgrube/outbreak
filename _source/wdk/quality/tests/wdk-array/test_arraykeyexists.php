@@ -44,9 +44,9 @@
 		}
 
 		
-		function CallbackTest()
+		function OnTest()
 		{
-			parent::CallbackTest();
+			parent::OnTest();
 			
 			$arrayInput = array();
 			$this->TestCase_ArrayKeyExists($arrayInput,"1",false);

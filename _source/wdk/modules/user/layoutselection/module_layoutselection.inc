@@ -16,7 +16,7 @@
 		}
 		
 	
-		function CallbackRenderModule($strState)
+		function OnRenderModule($strState)
 		{
 			return $this->StateDefault();
 		}
