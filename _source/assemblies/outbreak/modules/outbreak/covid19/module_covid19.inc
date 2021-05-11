@@ -246,16 +246,17 @@
 			
 			$strConfirmed = ArrayGetValue($arrayOutbreakData,'world','text_confirmed');
 			$strDeaths = ArrayGetValue($arrayOutbreakData,'world','text_deaths');
-			$strRecovered = ArrayGetValue($arrayOutbreakData,'world','text_recovered');
-			$strActive = ArrayGetValue($arrayOutbreakData,'world','text_active');
+			//$strRecovered = ArrayGetValue($arrayOutbreakData,'world','text_recovered');
+			//$strActive = ArrayGetValue($arrayOutbreakData,'world','text_active');
 			$strMortality = ArrayGetValue($arrayOutbreakData,'world','text_mortality');	
 	
 			$strSummary .=
 				'?TID_LABEL_CONFIRMED?: '.$strConfirmed
 			.	' / ?TID_LABEL_DEATHS?: '.$strDeaths			
 			.	' / ?TID_LABEL_MORTALITY?: '.$strMortality
-			. ' / ?TID_LABEL_RECOVERED?: '.$strRecovered
-			. ' / ?TID_LABEL_ACTIVE?: '.$strActive;
+			//. ' / ?TID_LABEL_RECOVERED?: '.$strRecovered
+			//. ' / ?TID_LABEL_ACTIVE?: '.$strActive
+			;
 
 			return $strSummary;	
 		}
@@ -602,7 +603,7 @@
 			$strLinkSortByDeathsPerCapita = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'deathspercapita')),
 				'?TID_LABEL_DEATHSPERCAPITA?');
-
+/*
 			$strLinkSortByRecoveredPerCapita = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'recoveredpercapita')),
 				'?TID_LABEL_RECOVEREDPERCAPITA?');
@@ -610,6 +611,7 @@
 			$strLinkSortByActivePerCapita = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'activepercapita')),
 				'?TID_LABEL_ACTIVEPERCAPITA?');
+*/
 
 			$strLinkSortByConfirmed = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'confirmed')),
@@ -618,7 +620,7 @@
 			$strLinkSortByDeaths = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'deaths')),
 				'?TID_LABEL_DEATHS?');
-
+/*
 			$strLinkSortByRecovered = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'recovered')),
 				'?TID_LABEL_RECOVERED?');
@@ -626,7 +628,7 @@
 			$strLinkSortByActive = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'active')),
 				'?TID_LABEL_ACTIVE?');
-
+*/
 			$strLinkSortByMortality = $link->RenderLink(
 				$this->GetWebsite()->MakeURL(array($strSortParamName => 'mortality')),
 				'?TID_LABEL_MORTALITY?');
@@ -652,10 +654,10 @@
 					$strLinkSortByConfirmed,
 					$strLinkSortByDeaths,
 					$strLinkSortByMortality,
-					$strLinkSortByRecovered,
-					$strLinkSortByActive);
-				$arrayCellStyle[] = array('left','left','left','left','left','left','left');  
-				$arrayHeaders[] = array(true,true,true,true,true,true,true);
+					/*$strLinkSortByRecovered,
+					$strLinkSortByActive*/);
+				$arrayCellStyle[] = array('left','left','left','left','left'/*,'left','left'*/);  
+				$arrayHeaders[] = array(true,true,true,true,true/*,true,true*/);
 				
 				foreach ($arrayCountries as $arrayCountry)
 				{
@@ -677,12 +679,12 @@
 						ArrayGetValue($arrayCountry,'text_population'),
 						ArrayGetValue($arrayCountry,'text_confirmed'),
 						ArrayGetValue($arrayCountry,'text_deaths'),
-						ArrayGetValue($arrayCountry,'text_mortality'),
+						ArrayGetValue($arrayCountry,'text_mortality')/*,
 						ArrayGetValue($arrayCountry,'text_recovered'),
-						ArrayGetValue($arrayCountry,'text_active')
+						ArrayGetValue($arrayCountry,'text_active')*/
 						);					
-					$arrayCellStyle[] = array('left','right','right','right','right','right','right');
-					$arrayHeaders[] = array(false,false,false,false,false,false,false);
+					$arrayCellStyle[] = array('left','right','right','right','right'/*,'right','right'*/);
+					$arrayHeaders[] = array(false,false,false,false,false/*,false,false*/);
 				}
 				
 				
@@ -696,11 +698,11 @@
 					$strLinkSortByPopulation,
 					$strLinkSortByConfirmedPerCapita,
 					$strLinkSortByDeathsPerCapita,
-					$strLinkSortByMortality,
+					$strLinkSortByMortality/*,
 					$strLinkSortByRecoveredPerCapita,
-					$strLinkSortByActivePerCapita);
-				$arrayCellStyle[] = array('left','left','left','left','left','left','left');  
-				$arrayHeaders[] = array(true,true,true,true,true,true,true);
+					$strLinkSortByActivePerCapita*/);
+				$arrayCellStyle[] = array('left','left','left','left','left'/*,'left','left'*/);  
+				$arrayHeaders[] = array(true,true,true,true,true/*,true,true*/);
 
 				foreach ($arrayCountries as $arrayCountry)
 				{
@@ -722,12 +724,12 @@
 						ArrayGetValue($arrayCountry,'text_population'),
 						ArrayGetValue($arrayCountry,'text_confirmedpercapita'),
 						ArrayGetValue($arrayCountry,'text_deathspercapita'),
-						ArrayGetValue($arrayCountry,'text_mortality'),
+						ArrayGetValue($arrayCountry,'text_mortality')/*,
 						ArrayGetValue($arrayCountry,'text_recoveredpercapita'),
-						ArrayGetValue($arrayCountry,'text_activepercapita')
+						ArrayGetValue($arrayCountry,'text_activepercapita')*/
 						);					
-					$arrayCellStyle[] = array('left','right','right','right','right','right','right');
-					$arrayHeaders[] = array(false,false,false,false,false,false,false);
+					$arrayCellStyle[] = array('left','right','right','right','right'/*,'right','right'*/);
+					$arrayHeaders[] = array(false,false,false,false,false/*,false,false*/);
 				}
 
 
@@ -834,7 +836,64 @@
 			$this->SetOutputItem('COUNTRY_MAP',$outbreakmap->RenderOutbreakMap($arrayOutbreakData));
 
 
-
+			// Chart with 7 day incidence rates
+			
+			$arrayLineChartConfigLines = array(
+					/*
+					array(
+						'key' => 'incidence_daily',
+						'label' => '?TID_LABEL_INCIDENCE-DAILY?',
+						'color' => 'grey',
+						'weight' => 1),*/
+					array(
+						'key' => 'incidence_7days',  
+						'label' => '?TID_LABEL_INCIDENCE-7DAYS?',
+						'color' => 'blue',
+						'weight' => 2  
+						),
+						
+					);
+		
+			$arrayLineChartConfig = array(
+				'lines' => $arrayLineChartConfigLines, 
+				'legend' => 'date'
+				);
+			
+			//$this->Trace($arrayCountry);
+			
+			$arrayTimeSeries = ArrayGetValue($arrayCountry,'timeseries');
+			
+			if (IsArray($arrayTimeSeries))
+			{
+				$nLength = ArrayCount($arrayTimeSeries);
+				for ($nIndex = 0; $nIndex < $nLength; $nIndex++)
+				{
+					if ($nIndex != 0 && $nIndex != $nLength-1) 
+					{
+						$arrayTimeSeries[$nIndex]['date'] = '';	
+					}
+				}
+				$this->IncludeElement('linechart');
+				$linechart = new CLineChartElement($this->GetWebsite(),'country'); 
+				$this->SetOutputItem(
+					'COUNTRY_CHART_INCIDENCE',
+					$linechart->RenderLineChart(
+						$arrayTimeSeries,
+						$arrayLineChartConfig));
+						
+				$this->IncludeElement('legend');
+				$legend = new CLegendElement($this->GetWebsite(),'default'); 
+						
+				$this->SetOutputItem(
+					'COUNTRY_CHART_INCIDENCE_LEGEND', 
+					$legend->RenderLegend(
+						$arrayLineChartConfigLines));
+			}
+			else
+			{
+				$this->SetOutputItem('COUNTRY_CHART_INCIDENCE','');
+				$this->SetOutputItem('COUNTRY_CHART_INCIDENCE_LEGEND','');
+			}
 
 
 			// Chart with daily delta data
@@ -889,8 +948,8 @@
 			}
 			else
 			{
-				$this->SetOutputItem('COUNTRY_CHART_ABSOLUTE','');
-				$this->SetOutputItem('COUNTRY_CHART_ABSOLUTE_LEGEND','');
+				$this->SetOutputItem('COUNTRY_CHART_DELTA','');
+				$this->SetOutputItem('COUNTRY_CHART_DELTA_LEGEND','');
 			}
 
 
@@ -899,7 +958,7 @@
 
 
 
-			// CHart with absolute data
+			// Chart with absolute data
 			
 			$arrayLineChartConfigLines = array(
 					array(
@@ -910,7 +969,7 @@
 						'key' => 'deaths',
 						'label' => '?TID_LABEL_DEATHS?',
 						'color' => 'red'
-						),
+						)/*,
 					array(
 						'key' => 'recovered',
 						'label' => '?TID_LABEL_RECOVERED?',
@@ -920,7 +979,7 @@
 						'key' => 'active',
 						'label' => '?TID_LABEL_ACTIVE?',
 						'color' => 'orange'
-						)
+						)*/
 					);
 		
 			$arrayLineChartConfig = array(
@@ -986,8 +1045,8 @@
 			AddTableRow('CONFIRMED','text_confirmed','text_confirmedpercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
 			AddTableRow('DEATHS','text_deaths','text_deathspercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
 			AddTableRow('MORTALITY','text_mortality','',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('RECOVERED','text_recovered','text_recoveredpercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
-			AddTableRow('ACTIVE','text_active','text_activepercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			//AddTableRow('RECOVERED','text_recovered','text_recoveredpercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
+			//AddTableRow('ACTIVE','text_active','text_activepercapita',$arrayCountry,$arrayTable,$arrayCellStyle,$arrayHeaders);
 						
 			$this->SetOutputItem(
 				'COUNTRY_TABLE',

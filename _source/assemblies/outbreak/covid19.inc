@@ -658,6 +658,15 @@
 
 		function CallbackArrayMapCalculateTimeseries($key,$value,$arrayParams)
 		{
+			if (ArrayGetValue($arrayParams,'countries') == true)
+			{
+				$arrayParams['population'] = ArrayGetValue($value,'population');
+				$arrayParams['countries'] = false;
+			}
+			if ($key === 'countries')
+			{
+				$arrayParams['countries'] = true;
+			}
 			if ($key === 'timeseries')
 			{
 				if (IsArray($value) == true)
@@ -665,6 +674,9 @@
 					$nConfirmedPrevious = 0;
 					
 					$arrayNewConfirmedDaily = array();
+					$arrayIncidence7Days = array();
+					
+					$nPopulation = ArrayGetValue($arrayParams,'population');
 					
 					foreach ($value as &$arrayTimePoint)
 					{
@@ -678,9 +690,12 @@
 						$nNewConfirmedDaily = $nConfirmed - $nConfirmedPrevious;
 						$nConfirmedPrevious = $nConfirmed;
 						$arrayTimePoint['confirmed_delta_daily'] = $nNewConfirmedDaily;
-
+						
+						// Calculation of the last 7 days average of new confirmed cases 
+						
 						$nNewConfirmedAverage7Days = 0;
 						array_push($arrayNewConfirmedDaily,$nNewConfirmedDaily);
+
 						if (ArrayCount($arrayNewConfirmedDaily) > 7)
 						{
 							array_shift($arrayNewConfirmedDaily);
@@ -694,8 +709,36 @@
 							}
 							$nNewConfirmedAverage7Days = $nSum / 7;
 						}
-						
 						$arrayTimePoint['confirmed_delta_average7d'] = $nNewConfirmedAverage7Days;
+
+
+						// Calculation of the 7 days incidence
+
+						if ($nPopulation > 0)
+						{
+				
+							$fIncidenceDaily = ($nNewConfirmedDaily * 100000) / $nPopulation;
+							$arrayTimePoint['incidence_daily'] = $fIncidenceDaily;
+	
+	
+							$fIncidence7Days = 0; 
+							array_push($arrayIncidence7Days,$fIncidenceDaily);
+							if (ArrayCount($arrayIncidence7Days) > 7)
+							{
+								array_shift($arrayIncidence7Days);
+							}
+							if (ArrayCount($arrayIncidence7Days) == 7)
+							{
+								$fIncidence7Days = 0;
+								foreach ($arrayIncidence7Days as $fPreviousIncidence7Days)
+								{
+									$fIncidence7Days += $fPreviousIncidence7Days;
+								}
+							}
+							
+							$arrayTimePoint['incidence_7days'] = $fIncidence7Days;					
+						}
+					
 					}
 					return $value;
 				}
