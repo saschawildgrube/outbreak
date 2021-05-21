@@ -312,6 +312,9 @@
 			
 			$arrayOutbreakData = $this->GetOutbreakData();
 			$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'timeseries');
+			//$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'active');
+			//$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'recovered');
+
 			
 			$this->IncludeElement('outbreakmap');
 			$outbreakmap = new COutbreakMapElement($this->GetWebsite(),'default');

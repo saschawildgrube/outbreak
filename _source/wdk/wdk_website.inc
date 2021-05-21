@@ -128,7 +128,6 @@
 		private $m_elementTel;
 		private $m_elementSourceCode;
 		private $m_elementYouTube;
-		private $m_elementGoogleMaps;
 		private $m_elementCountDown;
 		
 		private $m_arrayDynamicNavigationTrees;
@@ -226,7 +225,6 @@
 				'payload19','title19','text19','linktext19','linkurl19','imageurl19','external19',				
 				'payload20','title20','text20','linktext20','linkurl20','imageurl20','external20',				
 				'style'));
-			$this->RegisterGenericOutputItem('GOOGLEMAPS',array('location'));
 			$this->RegisterGenericOutputItem('COUNTDOWN',array('datetime','timezone'));
 			
 
@@ -394,7 +392,6 @@
 			$this->m_elementTel = null;
 			$this->m_elementSourceCode = null;
 			$this->m_elementYouTube = null;
-			$this->m_elementGoogleMaps = null;
 
 
 
@@ -1689,7 +1686,8 @@
 		function SetBodyItems($arrayItems)
 		{
 			$this->m_arrayBodyItems = ArrayMerge($this->m_arrayBodyItems,$arrayItems);	
-		}		
+		}
+		
 		
 		final
 		function GetLayoutConfigItem($strItem)
@@ -3652,17 +3650,6 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 				}
 				return "";								
 
-							
-			case "GOOGLEMAPS":
-			
-				$strLocation = ArrayGetValue($arrayAttributes,"location");
-				if ($this->m_elementGoogleMaps == null)
-				{
-					$this->IncludeElement("googlemaps");
-					$this->m_elementGoogleMaps = new CGoogleMapsElement($this,"default");	
-				}
-				return $this->m_elementGoogleMaps->RenderGoogleMaps($strLocation);
-
 			case "COUNTDOWN":
 				if ($this->m_elementCountDown == null) 
 				{
@@ -4834,7 +4821,16 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			
 		function OnGetWebsiteTitle()
 		{
-			$strTitle = "";
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$strTitle = $plugin->OnGetWebsiteTitle();
+				if ($strTitle != '')
+				{
+					return $strTitle;	
+				}
+			}
+			
+			$strTitle = '';
 			if (IsValidContentID($this->GetContent()) == true)
 			{
 				$strContentUC = StringUppercase($this->GetContent());
@@ -4843,7 +4839,7 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 					if ($strContentUC != 'INDEX')
 					{
 						$strTitle = $this->LoadString('TID_TITLE_'.$strContentUC);
-						if ($strTitle == "")
+						if ($strTitle == '')
 						{
 							$strTitle = $this->LoadString('TID_NAVIGATION_'.$strContentUC);	
 						}
@@ -4870,28 +4866,37 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 
 		function OnGetWebsiteDescription()
 		{
-			$strText = $this->LoadString("TID_META_DESCRIPTION_".StringUppercase($this->GetContent()));
-			if ($strText != "")
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$strDescription = $plugin->OnGetWebsiteDescription();
+				if ($strDescription != '')
+				{
+					return $strDescription;	
+				}
+			}		
+			
+			$strText = $this->LoadString('TID_META_DESCRIPTION_'.StringUppercase($this->GetContent()));
+			if ($strText != '')
 			{
 				return $strText;
 			}
-			$strText = $this->LoadString("TID_META_DESCRIPTION_DEFAULT");
-			if ($strText != "")
+			$strText = $this->LoadString('TID_META_DESCRIPTION_DEFAULT');
+			if ($strText != '')
 			{
 				return $strText;
 			}
-			return "";	
+			return '';	
 		}
 
 		function OnGetWebsiteKeywords()
 		{
-			$strText = $this->LoadString("TID_META_KEYWORDS_".StringUpperCase($this->GetContent()));
-			$strTextDefault = $this->LoadString("TID_META_KEYWORDS_DEFAULT");
-			if ($strTextDefault != "")
+			$strText = $this->LoadString('TID_META_KEYWORDS_'.StringUpperCase($this->GetContent()));
+			$strTextDefault = $this->LoadString('TID_META_KEYWORDS_DEFAULT');
+			if ($strTextDefault != '')
 			{
-				if ($strText != "")
+				if ($strText != '')
 				{
-					$strText = $strText.", ".$strTextDefault;   
+					$strText = $strText.', '.$strTextDefault;   
 				}
 				else
 				{
@@ -4903,18 +4908,26 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 		
 		function OnGetOpenGraphImageURL()
 		{
+			foreach ($this->m_arrayPlugins as $plugin)
+			{
+				$strImageURL = $plugin->OnGetOpenGraphImageURL();
+				if ($strImageURL != '')
+				{
+					return $strImageURL;	
+				}
+			}					
 			return $this->GetImageURL('opengraph','png');	
 		}
 
 		
 		function OnSessionCreate()
 		{
-			$this->Trace("CWebsite::OnSessionCreate");
+			$this->Trace('CWebsite::OnSessionCreate');
 			if ($this->GetSessionMode() == SESSION_MODE_LOCAL_COOKIE)
 			{
-				return "local";					
+				return 'local';					
 			}
-			$strSessionID = "";
+			$strSessionID = '';
 			return $strSessionID;			
 		}
 		
@@ -5622,19 +5635,19 @@ FileRead(GetWDKDir() . "wdk_help.txt").
 			// Check for invalid TIDs if required
 			if ($this->m_bCheckInvalidTID == true)
 			{
-				$this->Trace("Checking for invalid TIDs...");
+				$this->Trace('Checking for invalid TIDs...');
 				
 				$arrayErrors = GetInvalidTIDs($this->m_res->GetStrings($this->GetLanguage()));
 				if (ArrayCount($arrayErrors) > 0)
 				{
-					$this->Trace("Invalid TID detected");	
+					$this->Trace('Invalid TID detected');	
 					$this->Trace($arrayErrors);
 					$this->SystemEvent(
-						"WARNING",
-						"INVALID_TID",
-						"Invalid TIDs found",
+						'WARNING',
+						'INVALID_TID',
+						'Invalid TIDs found',
 						array(
-							"output" => $arrayErrors
+							'output' => $arrayErrors
 							)
 						);
 					

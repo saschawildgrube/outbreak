@@ -99,7 +99,7 @@
 			{
 				var nConfirmed = GetValue(arrayCountry,'confirmed');
 				var nDeaths = GetValue(arrayCountry,'deaths');
-				var nRecovered = GetValue(arrayCountry,'recovered');
+				//var nRecovered = GetValue(arrayCountry,'recovered');
 				var fMortality = GetValue(arrayCountry,'mortality');
 				var strMortality = GetValue(arrayCountry,'text_mortality');
 				
@@ -108,8 +108,9 @@
 					+'Confirmed: '+GetValue(arrayCountry,'text_confirmed')+'\n'
 					+'Deaths: '+GetValue(arrayCountry,'text_deaths')+'\n'
 					+'Mortality: '+GetValue(arrayCountry,'text_mortality')+'\n'
-					+'Recovered: '+GetValue(arrayCountry,'text_recovered')+'\n'
-					+'Active: '+GetValue(arrayCountry,'text_active');
+					//+'Recovered: '+GetValue(arrayCountry,'text_recovered')+'\n'
+					//+'Active: '+GetValue(arrayCountry,'text_active'
+					;
 				
 				var strLink = GetValue(arrayCountry,'link');
 				
@@ -156,14 +157,15 @@
 			{
 				var nConfirmed = GetValue(arrayShip,'confirmed');
 				var nDeaths = GetValue(arrayShip,'deaths');
-				var nRecovered = GetValue(arrayShip,'recovered');
+				//var nRecovered = GetValue(arrayShip,'recovered');
 				
 				var strToolTip =
 					'Ship: '+GetValue(arrayShip,'name')+'\n'
 					+'Confirmed: '+GetValue(arrayShip,'text_confirmed')+'\n'
 					+'Deaths: '+GetValue(arrayShip,'text_deaths')+'\n'
 					+'Mortality: '+GetValue(arrayShip,'text_mortality')+'\n'
-					+'Recovered: '+GetValue(arrayShip,'text_recovered');
+					//+'Recovered: '+GetValue(arrayShip,'text_recovered'
+					;
 				
 				var position = new google.maps.LatLng(arrayShip['lat'],arrayShip['long']);
 				
