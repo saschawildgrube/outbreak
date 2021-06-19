@@ -312,6 +312,107 @@
 			
 			$arrayOutbreakData = $this->GetOutbreakData();
 			$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'timeseries');
+			
+			$arrayMarkers = [];
+			
+			$arrayCountries = ArrayGetValue($arrayOutbreakData,'countries');
+			
+			$fIncidenceMax = 0;
+			foreach ($arrayCountries as $arrayCountry)
+			{
+				$fIncidence = GetFloatValue(ArrayGetValue($arrayCountry,'incidence_7days'));
+				$fIncidenceMax = max($fIncidenceMax,$fIncidence);
+			}
+			
+			if ($fIncidenceMax <= 0)
+			{
+				$this->Trace('The maximum seven days incidence is zero? Is the pandemic over?');
+				$fIncidenceMax = 1.0;
+			}
+
+
+			foreach ($arrayCountries as $arrayCountry)
+			{
+				$arrayMarker = [];
+				
+				$arrayMarker['long'] = ArrayGetValue($arrayCountry,'long');
+				$arrayMarker['lat'] = ArrayGetValue($arrayCountry,'lat');
+				
+				$fIncidence = GetFloatValue(ArrayGetValue($arrayCountry,'incidence_7days'));
+				
+				$strToolTip =
+					ArrayGetValue($arrayCountry,'name') . "\n"
+					.$this->LoadString('TID_LABEL_INCIDENCE_7DAYS').': '.RenderNumber($fIncidence,1)
+					;
+					
+				$strColor = 'green';
+				if ($fIncidence > 50)
+				{
+					$strColor = 'orange';	
+				}
+				if ($fIncidence > 100)
+				{
+					$strColor = 'red';	
+				} 
+				
+				$arrayMarker['tooltip'] = $strToolTip;
+				$arrayMarker['color'] = $strColor;
+				$arrayMarker['opacity'] = 0.5;
+				$arrayMarker['size'] = $fIncidence / $fIncidenceMax;
+
+				$arrayMarker['link'] = ArrayGetValue($arrayCountry,'link');
+				
+				$arrayMarkers[] = $arrayMarker;
+			}
+			
+			
+			$this->IncludeElement('googlemaps');
+			$googlemaps = new CGoogleMapsElement($this->GetWebsite(),'default');
+			$this->SetOutputItem(
+				'WORLDMAP',
+				$googlemaps->RenderGoogleMaps(
+					30,0,
+					2,'satellite',  
+					false,
+					false,
+					$arrayMarkers));
+			
+			
+			
+			
+			$this->IncludeElement('legend');
+			$legend = new CLegendElement($this->GetWebsite(),'default'); 
+			
+			$arrayWorldmapLegend = array(
+					array(
+						'label' => '?TID_LABEL_INCIDENCE_7DAYS? < 50',
+						'color' => 'green'
+						),
+					array(
+						'label' => '50 < ?TID_LABEL_INCIDENCE_7DAYS? < 100',
+						'color' => 'orange' 
+						),
+					array(
+						'label' => '?TID_LABEL_INCIDENCE_7DAYS? > 100',
+						'color' => 'red'
+						)
+					);
+						
+			$this->SetOutputItem(
+				'WORLDMAP_LEGEND',
+				$legend->RenderLegend(
+					$arrayWorldmapLegend));
+		
+			
+			return 'worldmap';
+		}
+
+
+		function StateWorldMapConfirmed()
+		{
+			
+			$arrayOutbreakData = $this->GetOutbreakData();
+			$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'timeseries');
 			//$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'active');
 			//$arrayOutbreakData = ArrayRemoveKeyRecursive($arrayOutbreakData,'recovered');
 
@@ -359,6 +460,7 @@
 			
 			return 'worldmap';
 		}
+
 		
 		function StateCountryList()
 		{

@@ -760,11 +760,21 @@
 			array());
 
 		$arrayCountries = ArrayGetValue($arrayOutbreakData,'countries');
-		$arrayCountries = $arrayOutbreakData['countries'];
-		foreach ($arrayCountries as &$arrayCountry)
+		foreach ($arrayCountries as &$arrayCountry2)
 		{
-			
+			$arrayTimeSeries = ArrayGetValue($arrayCountry2,'timeseries');
+			if (IsArray($arrayTimeSeries))
+			{
+				$arrayLastTimePoint = end($arrayTimeSeries);
+				$fIncidence = ArrayGetValue($arrayLastTimePoint,'incidence_7days');
+			}
+			else
+			{
+				$fIncidence = 0;
+			}
+			$arrayCountry2['incidence_7days'] = $fIncidence;
 		}
+		$arrayOutbreakData['countries'] = $arrayCountries;
 
 		
 

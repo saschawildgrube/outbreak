@@ -64,6 +64,34 @@ class GoogleMapsReactComponent extends React.Component
 		{
 			strType = 'terrain';
 		}
+
+		var bTypeControl = GetValue(aProps,'typecontrol');
+		if (bTypeControl == null)
+		{
+			bTypeControl = true;
+		}
+
+		var bStreetViewControl = GetValue(aProps,'streetviewcontrol');
+		if (bStreetViewControl == null)
+		{
+			bStreetViewControl = true;
+		}
+	
+		var arrayMarker = GetValue(aProps,'markers');
+		if (arrayMarker == null)
+		{
+			arrayMarker = [];
+		}	
+
+		function onClickMarker()
+		{
+			var strLink = GetStringValue(GetValue(this,'link'));
+			if (strLink != '')
+			{
+				//window.alert(strLink);
+				window.location.href = strLink;
+			}
+		}
 	
 		var map = new google.maps.Map(
 			document.getElementById(strSelector),
@@ -71,9 +99,62 @@ class GoogleMapsReactComponent extends React.Component
 				zoom: nZoom, 
 				center: new google.maps.LatLng(fLat,fLong),  
 				mapTypeId: strType,
-				mapTypeControl: true,
-				streetViewControl: true
+				mapTypeControl: bTypeControl,
+				streetViewControl: bStreetViewControl
 			});
+
+		arrayMarker.forEach( function(markerDef)
+		{
+			var strToolTip = GetStringValue(GetValue(markerDef,'tooltip'));
+			var strLink = GetStringValue(GetValue(markerDef,'link'));
+			
+			var position = new google.maps.LatLng(GetValue(markerDef,'lat'),GetValue(markerDef,'long'));
+			
+			var fSize = GetValue(markerDef,'size');
+			if (fSize < 0 || fSize > 1)
+			{
+				fSize = 1.0;
+			}
+	
+			var fOpacity = GetNumberValue(GetValue(markerDef,'opacity'));
+			if (fOpacity < 0 || fOpacity > 1)
+			{
+				fOpacity = 1.0;
+			}
+			
+			var fScale = 10.0 + (40.0 * fSize);
+			
+			var strColor = GetStringValue(GetValue(markerDef,'color'));
+			if (strColor == '')
+			{
+				strColor = 'red';
+			}
+			
+			var marker = new google.maps.Marker(
+			{
+				position: position,
+				map: map,
+				title: strToolTip,
+				icon:
+				{
+	        path: google.maps.SymbolPath.CIRCLE,
+	        scale: fScale,
+	        fillColor: strColor, 
+	        fillOpacity: fOpacity,
+	        strokeWeight: 0.4
+    		} 
+			});
+			
+			if (strLink != '')
+			{
+				marker.link = strLink;
+				marker.addListener('click', onClickMarker);
+			}
+		});
+
+
+
+
 	}
   
 }

@@ -12,19 +12,28 @@
 				$website,
 				'googlemaps',
 				$strStyleID,
-				false,  
+				true,  
 				false); 
 		}
 		
-		function RenderGoogleMaps($fLat, $fLong, $nZoom = 3, $strType = 'terrain')
+		function RenderGoogleMaps(
+			$fLat, $fLong,
+			$nZoom = 3,
+			$strType = 'terrain',
+			$bTypeControl = true,
+			$bStreetViewControl = true,
+			$arrayMarkers = array())
 		{
 			$arrayProps = array();
-			//$arrayProps['query'] = $strQuery;
+			$arrayProps['height'] = intval($this->GetLayoutDef('LAYOUT_MAP_HEIGHT'));
+			$arrayProps['width'] = intval($this->GetLayoutDef('LAYOUT_MAP_WIDTH'));
 			$arrayProps['lat'] = $fLat;
 			$arrayProps['long'] = $fLong;
 			$arrayProps['zoom'] = $nZoom;
 			$arrayProps['type'] = $strType;
-			$this->AddJavaScript('react_googlemap');
+			$arrayProps['typecontrol'] = GetBoolValue($bTypeControl);
+			$arrayProps['streetviewcontrol'] = GetBoolValue($bStreetViewControl);
+			$arrayProps['markers'] = $arrayMarkers;
 			return $this->RenderReactComponent(
 				'GoogleMapsReactComponent',
 				$arrayProps);

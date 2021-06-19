@@ -1,0 +1,4 @@
+TID_TITLE_ELEMENT_GOOGLEMAPS
+Google Maps
+TID_TEXT_ELEMENT_GOOGLEMAPS
+This element draws a Google Map using react.
