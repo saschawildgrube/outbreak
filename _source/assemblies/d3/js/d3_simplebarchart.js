@@ -10,6 +10,12 @@ function D3_SimpleBarChart(selector, aProps)
 	}
 
 	var arrayData = aProps['data'];
+	
+	var strCssClassPrefix = GetStringValue(aProps['cssclassprefix']);
+	if (strCssClassPrefix == '')
+	{
+		strCssClassPrefix = 'd3-simplebarchart-';
+	}
 
 	var nSvgWidth = svg.node().getBoundingClientRect().width;
 	var nSvgHeight = svg.node().getBoundingClientRect().height;
@@ -18,7 +24,7 @@ function D3_SimpleBarChart(selector, aProps)
 	
 	var nBarWidth = (nSvgWidth / arrayData.length);		
 
-	svg.attr("class", "d3-simplebarchart-svg");
+	svg.attr('class', strCssClassPrefix+'svg');
 
 	var yScale = d3.scaleLinear()
     .domain([0, d3.max(arrayData)])
@@ -28,7 +34,7 @@ function D3_SimpleBarChart(selector, aProps)
 	    .data(arrayData)
 	    .enter()
 	    .append("rect")
-	    .attr("class", "d3-simplebarchart-bar")
+	    .attr("class", strCssClassPrefix+'bar')
 	    .attr("y", function(nValue) {
 	         return nSvgHeight - yScale(nValue)
 	    })
@@ -54,5 +60,5 @@ function D3_SimpleBarChart(selector, aProps)
 	    .attr("x", function(d, i) {
 	        return nBarWidth * i;
 	    })
-	    .attr("class", "d3-simplebarchart-text");
+	    .attr("class", strCssClassPrefix+'text');
 }

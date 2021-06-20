@@ -17,6 +17,12 @@ function D3_ZoomableSunburst(vSelector, aProps)
 		return;	
 	}
 
+	var strCssClassPrefix = GetStringValue(aProps['cssclassprefix']);
+	if (strCssClassPrefix == '')
+	{
+		strCssClassPrefix = 'd3-zoomablesunburst-';
+	}
+
 	svg.style("height","auto");
 	
 	var nSvgWidth = svg.node().getBoundingClientRect().width;
@@ -27,7 +33,7 @@ function D3_ZoomableSunburst(vSelector, aProps)
 	var partition = aData => {
 	  const root = d3.hierarchy(aData)
 	      .sum(d => d.value)
-	      .sort((a, b) => b.value - a.value);
+	      .sort((a,b) => Compare(a, b));
 	  return d3.partition()
 	      .size([2 * Math.PI, root.height + 1])
 	    (root);
@@ -58,8 +64,8 @@ function D3_ZoomableSunburst(vSelector, aProps)
     .selectAll("path")
     .data(root.descendants().slice(1))
     .join("path")
-      .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
-      .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
+      .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.label); })
+      .attr("fill-opacity", d => IsArcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
       .attr("d", d => arc(d.current));
 
   path.filter(d => d.children)
@@ -67,7 +73,7 @@ function D3_ZoomableSunburst(vSelector, aProps)
       .on("click", clicked);
 
   path.append("title")
-      .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
+			.text(d => GetToolTip(d));
 
   const label = g.append("g")
       .attr("pointer-events", "none")
@@ -77,9 +83,9 @@ function D3_ZoomableSunburst(vSelector, aProps)
     .data(root.descendants().slice(1))
     .join("text")
       .attr("dy", "0.35em")
-      .attr("fill-opacity", d => +labelVisible(d.current))
-      .attr("transform", d => labelTransform(d.current))
-      .text(d => d.data.name);
+      .attr("fill-opacity", d => +IsLabelVisible(d.current))
+      .attr("transform", d => GetLabelTransform(d.current))
+      .text(d => GetLabel(d));
 
   const parent = g.append("circle")
       .datum(root)
@@ -110,34 +116,65 @@ function D3_ZoomableSunburst(vSelector, aProps)
           return t => d.current = i(t);
         })
       .filter(function(d) {
-        return +this.getAttribute("fill-opacity") || arcVisible(d.target);
+        return +this.getAttribute("fill-opacity") || IsArcVisible(d.target);
       })
-        .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
+        .attr("fill-opacity", d => IsArcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
         .attrTween("d", d => () => arc(d.current));
 
     label.filter(function(d) {
-        return +this.getAttribute("fill-opacity") || labelVisible(d.target);
+        return +this.getAttribute("fill-opacity") || IsLabelVisible(d.target);
       }).transition(t)
-        .attr("fill-opacity", d => +labelVisible(d.target))
-        .attrTween("transform", d => () => labelTransform(d.current));
+        .attr("fill-opacity", d => +IsLabelVisible(d.target))
+        .attrTween("transform", d => () => GetLabelTransform(d.current));
   }
   
-  function arcVisible(d)
+  function IsArcVisible(d)
   {
     return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
   }
 
-  function labelVisible(d)
+  function IsLabelVisible(d)
   {
     return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
   }
 
-  function labelTransform(d)
+  function GetLabelTransform(d)
   {
     const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
     const y = (d.y0 + d.y1) / 2 * radius;
     return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
   }
+  
+  function GetLabel(d)
+  {
+  	var strLabel = d.data.label;
+  	strLabel = StringCutOff(strLabel,16);  
+  	return strLabel;
+  }
 
+  function GetToolTip(d)
+  {
+  	var strToolTip = d.ancestors().map(d => d.data.label).reverse().filter(d => (d != '')?(true):(false)).join('/');
+  	var bHideValue = GetBoolValue(GetValue(aProps,'config','hidevalue'));
+  	if (bHideValue == false)
+  	{
+  		strToolTip += `\n` + format(d.value);
+  	}
+    return strToolTip;
+  }
+  
+  function Compare(a,b)
+  {
+  	var strSort = GetValue(aProps,'config','sort');
+  	if (strSort == 'label')
+  	{
+  		return CompareStringIgnoreCase(a.label,b.label);	
+  	}
+  	if (strSort == 'value')
+  	{
+  		return b.value - a.value;	
+  	}
+  	return 0;
+  }
 	
 }

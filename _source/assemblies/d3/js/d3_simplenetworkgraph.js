@@ -18,18 +18,24 @@ function D3_SimpleNetworkGraph(vSelector, aProps)
 	var aNodes = aData['nodes'];
 	var aLinks = aData['links'];
 
-  var sLinks = sSvg.selectAll(".d3-simplenetworkgraph-link")
+	var strCssClassPrefix = GetStringValue(aProps['cssclassprefix']);
+	if (strCssClassPrefix == '')
+	{
+		strCssClassPrefix = 'd3-simplenetworkgraph-';
+	}
+
+  var sLinks = sSvg.selectAll('.'+strCssClassPrefix+'link')
     .data(aLinks)
     .enter()
     	.append("line")
-      	.attr("class", "d3-simplenetworkgraph-link")
+      	.attr("class", strCssClassPrefix+'link')
     		.style("stroke-width", function(d) { return Math.sqrt(d.weight); });
 
-  var sNodes = sSvg.selectAll(".d3-simplenetworkgraph-node")
+  var sNodes = sSvg.selectAll('.'+strCssClassPrefix+'node')
 		.data(aNodes)
     .enter()
     	.append("g")
-      	.attr("class", "d3-simplenetworkgraph-node");
+      	.attr("class", strCssClassPrefix+'node');
 
   sNodes
   	.append("circle") 

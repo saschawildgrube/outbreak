@@ -973,7 +973,7 @@
 				$nLength = ArrayCount($arrayTimeSeries);
 				for ($nIndex = 0; $nIndex < $nLength; $nIndex++)
 				{
-					if ($nIndex != 0 && $nIndex != $nLength-1) 
+					if ($nIndex != 0 && $nIndex != $nLength-1 && $arrayTimeSeries[$nIndex]['date'] != '2021-01-02') 
 					{
 						$arrayTimeSeries[$nIndex]['date'] = '';	
 					}
@@ -1030,7 +1030,7 @@
 				$nLength = ArrayCount($arrayTimeSeries);
 				for ($nIndex = 0; $nIndex < $nLength; $nIndex++)
 				{
-					if ($nIndex != 0 && $nIndex != $nLength-1) 
+					if ($nIndex != 0 && $nIndex != $nLength-1 && $arrayTimeSeries[$nIndex]['date'] != '2021-01-02') 
 					{
 						$arrayTimeSeries[$nIndex]['date'] = '';	
 					}
@@ -1099,7 +1099,7 @@
 				$nLength = ArrayCount($arrayTimeSeries);
 				for ($nIndex = 0; $nIndex < $nLength; $nIndex++)
 				{
-					if ($nIndex != 0 && $nIndex != $nLength-1) 
+					if ($nIndex != 0 && $nIndex != $nLength-1 && $arrayTimeSeries[$nIndex]['date'] != '2021-01-02')  
 					{
 						$arrayTimeSeries[$nIndex]['date'] = '';	
 					}

@@ -2,7 +2,7 @@
 
 	require_once(GetWDKDir().'wdk_element_react_d3.inc');
 
-	class CDivergingStackedBarChartElement extends CD3ReactElement
+	class CNetworkElement extends CD3ReactElement
 	{
 		function __construct(
 			CWebSite $website,
@@ -10,26 +10,25 @@
 		{
 			parent::__construct(
 				$website,
-				'divergingstackedbarchart',
+				'network',
 				$strStyleID,
 				true,  
 				false); 
 		}
 		
-		function RenderDivergingStackedBarChart($arrayData,$arrayLegends)
+		function RenderNetwork($arrayData)
 		{
-			$this->AddJavaScript('d3_divergingstackedbarchart');
-			$this->AddStyleSheet('d3-divergingstackedbarchart');
-			$this->AddJavaScript('react_divergingstackedbarchart');
+			$this->AddJavaScript('d3_network');
+			$this->AddStyleSheet('d3-network');
+			$this->AddJavaScript('react_network');
 
 			$arrayProps = array();
 			$arrayProps['height'] = intval($this->GetLayoutDef('LAYOUT_SVG_HEIGHT'));
 			$arrayProps['width'] = intval($this->GetLayoutDef('LAYOUT_SVG_WIDTH'));
 			$arrayProps['cssclassprefix'] = $this->GetLayoutDef('LAYOUT_CSSCLASSPREFIX');
 			$arrayProps['data'] = $arrayData;
-			$arrayProps['legends'] = $arrayLegends;
 			return $this->RenderReactComponent(
-				'DivergingStackedBarChartReactComponent',
+				'NetworkReactComponent',
 				$arrayProps);
 			
 		}

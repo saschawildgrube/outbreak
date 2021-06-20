@@ -2,7 +2,7 @@
 
 	require_once(GetWDKDir().'wdk_element_react_d3.inc');
 
-	class CDivergingStackedBarChartElement extends CD3ReactElement
+	class CRadialTidyTreeElement extends CD3ReactElement
 	{
 		function __construct(
 			CWebSite $website,
@@ -10,26 +10,35 @@
 		{
 			parent::__construct(
 				$website,
-				'divergingstackedbarchart',
+				'radialtidytree',
 				$strStyleID,
 				true,  
 				false); 
 		}
 		
-		function RenderDivergingStackedBarChart($arrayData,$arrayLegends)
+		function RenderRadialTidyTree($arrayData)
 		{
-			$this->AddJavaScript('d3_divergingstackedbarchart');
-			$this->AddStyleSheet('d3-divergingstackedbarchart');
-			$this->AddJavaScript('react_divergingstackedbarchart');
-
 			$arrayProps = array();
 			$arrayProps['height'] = intval($this->GetLayoutDef('LAYOUT_SVG_HEIGHT'));
 			$arrayProps['width'] = intval($this->GetLayoutDef('LAYOUT_SVG_WIDTH'));
 			$arrayProps['cssclassprefix'] = $this->GetLayoutDef('LAYOUT_CSSCLASSPREFIX');
+			
+			if (ArrayGetValue($arrayData,'label') == '')
+			{
+				$arrayData['label'] = '';	
+			}
+			
+			if (ArrayCount(ArrayGetValue($arrayData,'children')) == 0)
+			{
+				$arrayData['children'] = [];
+			}
+			
+			
 			$arrayProps['data'] = $arrayData;
-			$arrayProps['legends'] = $arrayLegends;
+			$this->AddJavaScript('d3_radialtidytree');
+			$this->AddJavaScript('react_radialtidytree');
 			return $this->RenderReactComponent(
-				'DivergingStackedBarChartReactComponent',
+				'RadialTidyTreeReactComponent',
 				$arrayProps);
 			
 		}

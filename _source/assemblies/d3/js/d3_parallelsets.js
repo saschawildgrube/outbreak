@@ -61,8 +61,12 @@ function D3_ParallelSets(vSelector, aProps)
 
 	var D3_ParallelSets_FormatNumberPercent = d3.format(".2%");
 	
-	// Not yet used
-	const strCssClassPrefix = 'parallelsets-';
+	var strCssClassPrefix = GetStringValue(aProps['cssclassprefix']);
+	if (strCssClassPrefix == '')
+	{
+		strCssClassPrefix = 'd3-parallelsets-';
+	}	
+
 	
 	var nSvgWidth = sSvg.node().getBoundingClientRect().width;
 	var nSvgHeight = sSvg.node().getBoundingClientRect().height;

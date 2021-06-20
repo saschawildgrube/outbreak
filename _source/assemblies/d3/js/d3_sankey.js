@@ -38,10 +38,11 @@ function D3_Sankey(vSelector, aProps)
 			return d3.format(',.'+GetStringValue(nPrecision)+'f')(value) + strSymbol;
 		};
 
-
-
-	// Not yet used
-	const strCssClassPrefix = 'sankey-';
+	var strCssClassPrefix = GetStringValue(aProps['cssclassprefix']);
+	if (strCssClassPrefix == '')
+	{
+		strCssClassPrefix = 'd3-sankey-';
+	}
 	
 	
 	var nSvgWidth = sSvg.node().getBoundingClientRect().width;
@@ -909,16 +910,3 @@ function D3_Sankey(vSelector, aProps)
       .text(d => d.name);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

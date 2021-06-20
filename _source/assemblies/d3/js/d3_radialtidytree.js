@@ -15,6 +15,14 @@ function D3_RadialTidyTree(selector, aProps)
 	var nSvgHeight = svg.node().getBoundingClientRect().height;
 	
 	var aData = aProps['data'];
+
+	var strCssClassPrefix = GetStringValue(aProps['cssclassprefix']);
+	if (strCssClassPrefix == '')
+	{
+		strCssClassPrefix = 'd3-radialtidytree-';
+	}	
+
+
 	
 	var aDataHierarchical = d3.hierarchy(aData);
 	const fRadius = nSvgWidth / 2;	
@@ -24,7 +32,7 @@ function D3_RadialTidyTree(selector, aProps)
     .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth)
     (aDataHierarchical)
     
-  svg.attr("class", "d3-radialtidytree-svg");
+  svg.attr("class", strCssClassPrefix+'svg');
 	
   const link = svg.append("g")
 	  .attr("fill", "none")
@@ -52,7 +60,7 @@ function D3_RadialTidyTree(selector, aProps)
   
   node.append("circle")
 		//.attr("fill", d => d.children ? "#555" : "#999")
-		.attr("class", d => d.children ? "d3-radialtidytree-path-end" : "d3-radialtidytree-path-start")
+		.attr("class", d => d.children ? strCssClassPrefix+'path-end' : strCssClassPrefix+'path-start')
 		.attr("r", 2.5);
   
   node.append("text")
@@ -60,7 +68,7 @@ function D3_RadialTidyTree(selector, aProps)
 	  .attr("x", d => d.x < Math.PI === !d.children ? 6 : -6)
 	  .attr("text-anchor", d => d.x < Math.PI === !d.children ? "start" : "end")
 	  .attr("transform", d => d.x >= Math.PI ? "rotate(180)" : null)
-	  .text(d => d.data.name)
+	  .text(d => d.data.label)
 		.clone(true).lower()
 	  .attr("stroke", "white");
 	  
