@@ -5,9 +5,11 @@
 ;Harvard University - Center for Geographic Analysis
 :Country population and geographical centroids are taken from the [https://worldmap.harvard.edu/ world map] developed by the [https://gis.harvard.edu/ Harvard University - Center for Geographic Analysis].
 ==Calculations==
-;Active
-:The number of active cases is the number of confirmed cases minus the number of deaths minus the number of recovered cases.
+;7 days incidence
+:The sum of all the new confirmed cases of the last 7 days per 100,000 capita.
 ;Mortality
 :The number of deaths divided by the number of confirmed cases - if there are more than 1,000 confirmed cases in a country, more than 100 on a ship or 10,000 cases world-wide - otherwise "n/a".
 ;Per 100,000 capita
 :The ratio is calculated by the absolute number of cases divided by the estimated population multiplied by 100,000.
+;Active
+:The number of active cases is the number of confirmed cases minus the number of deaths minus the number of recovered cases. Since the data quality of the recovered cases is not acceptable for all countries, recovered and active cases are no longer displayed.
