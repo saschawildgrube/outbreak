@@ -765,7 +765,7 @@
 			$arrayTimeSeries = ArrayGetValue($arrayCountry2,'timeseries');
 			if (IsArray($arrayTimeSeries))
 			{
-				$arrayLastTimePoint = end($arrayTimeSeries);
+				$arrayLastTimePoint = ArrayGetLastValue($arrayTimeSeries);
 				$fIncidence = ArrayGetValue($arrayLastTimePoint,'incidence_7days');
 			}
 			else

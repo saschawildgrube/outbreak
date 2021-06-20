@@ -86,6 +86,39 @@
 		return strOutput;
 	}
 	
+	function GetBoolValue(vInput)
+	{
+		if (vInput == undefined)
+		{
+			return false;
+		}
+		if (vInput == null)
+		{
+			return false;
+		}
+		if (vInput === true)
+		{
+			return true;
+		}
+		if (vInput == 'true')
+		{
+			return true;
+		}
+		if (vInput == 'false')
+		{
+			return false;
+		}
+		if (vInput == 'null')
+		{
+			return false;
+		}
+		if (vInput != 0)
+		{
+			return true;
+		}
+		return false;
+	}	
+	
 	function GetStringValue(value)
 	{
 		if (typeof value == 'string')
@@ -129,6 +162,32 @@
 	{
 		return parseInt(GetNumberValue(value));	
 	}
+
+	function CompareString(str1, str2)
+	{
+		str1 = GetStringValue(str1);
+		str2 = GetStringValue(str2);
+		return str1.localeCompare(str2);	
+	}
+
+
+ 	function CompareStringIgnoreCase(str1, str2)
+	{
+		str1 = GetStringValue(str1);
+		str2 = GetStringValue(str2);
+		return str1.toLowerCase().localeCompare(str2.toLowerCase());	
+	}
+
+	function StringCutOff(strString, nMaxLength = 100, strTrailer = '...')
+	{
+		strString = GetStringValue(strString);
+		if (strString.length > nMaxLength)
+		{
+    	return strString.substring(0, nMaxLength) + '...';
+  	}
+   	return strString;
+	}
+
 	
 	function ArrayKeyExists(aArray,vKey)
 	{
@@ -305,4 +364,5 @@
  		StopProgressIndicator(elementContainer);
 	}
 	
+
 

@@ -251,6 +251,15 @@
 		$vResult = current($array);
 		return $vResult;
 	}
+	
+	function ArrayGetLastValue($array)
+	{
+		if (IsArray($array) == false)
+		{
+			return false;
+		}
+		return end($array);
+	}
 
 
 	function ArraySetValue(&$array,$value,$key1,$key2=null,$key3=null,$key4=null,$key5=null,$key6=null,$key7=null)
@@ -815,6 +824,74 @@
 		}
 		
 		return true;
+	}
+	
+	
+	function ArrayContains($array1, $array2)
+	{
+		if (!IsArray($array1))
+		{
+			$array1 = [];	
+		}
+		if (!IsArray($array2))
+		{
+			$array2 = [];	
+		}
+		
+   	foreach ($array2 as $vKey => $vValue)
+		{
+			if (is_numeric($vKey) == false) // associative key 
+			{
+				if (ArrayKeyExists($array1,$vKey) == false)
+				{
+					return false;	
+				}
+				if (IsArray(ArrayGetValue($array1,$vKey)) == true)
+				{
+					if (ArrayContains(ArrayGetValue($array1,$vKey),$vValue) == false)
+					{
+						return false;	
+					}
+				}
+				else
+				{
+					if (ArrayGetValue($array1,$vKey) != $vValue)
+					{
+						return false;	
+					}
+				}
+			}
+			else  // indexed value
+			{
+				if (IsArray($vValue) == true)
+				{
+					$bContained = false;
+					foreach ($array1 as $vKey1 => $vValue1)
+					{
+						if (IsArray($vValue1))
+						{
+							if (ArrayContains($vValue1,$vValue) == true)
+							{
+								$bContained = true;	
+							}
+						}
+					}
+					if ($bContained == false)
+					{
+						return false;	
+					}
+		
+				}
+				else
+				{
+					if (ArrayValueExists($array1,$vValue) == false)
+					{
+						return false;	
+					}
+				}
+			}
+		}
+		return true;	
 	}
 	
 	function ArrayUnique($arrayInput)

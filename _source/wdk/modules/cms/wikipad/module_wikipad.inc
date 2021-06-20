@@ -75,19 +75,26 @@
 			
 			$tabnavigationDef = new CTabNavigationDefinition();
 
-			$arrayParams = array();
-   		$arrayParams[$this->GetModuleVarNameState()] = 'view';
-   		$tabnavigationDef->AddTab(
-      		'view',
-      		'?TID_WIKIPAD_TAB_VIEW?',
-      		$this->GetWebsite()->MakeURL($arrayParams));
+			if ($this->IsToolVisible('view') == true)
+			{
+				$arrayParams = array();
+	   		$arrayParams[$this->GetModuleVarNameState()] = 'view';
+	   		$tabnavigationDef->AddTab(
+	      		'view',
+	      		'?TID_WIKIPAD_TAB_VIEW?',
+	      		$this->GetWebsite()->MakeURL($arrayParams));
+			}
 
-			$arrayParams = array();
-   		$arrayParams[$this->GetModuleVarNameState()] = 'edit';
-   		$tabnavigationDef->AddTab(
-      		'edit',
-      		'?TID_WIKIPAD_TAB_EDIT?',
-      		$this->GetWebsite()->MakeURL($arrayParams));
+			if ($this->IsToolVisible('edit') == true)
+			{
+
+				$arrayParams = array();
+	   		$arrayParams[$this->GetModuleVarNameState()] = 'edit';
+	   		$tabnavigationDef->AddTab(
+	      		'edit',
+	      		'?TID_WIKIPAD_TAB_EDIT?',
+	      		$this->GetWebsite()->MakeURL($arrayParams));
+			}
 
 			$tabnav = new CTabNavigationElement(
 			   $this->GetWebsite(),
@@ -97,6 +104,11 @@
 				$tabnav->RenderTabNavigation(
 					$tabnavigationDef,
 					$strState));	
+		}
+		
+		function OnIsToolVisible($strToolID)
+		{
+			return true;	
 		}
 		
 		
