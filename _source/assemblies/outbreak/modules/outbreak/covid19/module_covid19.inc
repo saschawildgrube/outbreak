@@ -307,6 +307,35 @@
 			return 'loading';	
 		}
 		
+		function GetSevenDaysIncidenceScale()
+		{
+			$aScale = [];
+			$aScale[] = array(
+				'upper' => 50,
+				'color' => 'green'
+				);	
+			$aScale[] = array(
+				'lower' => 50,
+				'upper' => 100,
+				'color' => 'yellow'
+				);	
+			$aScale[] = array(
+				'lower' => 100,
+				'upper' => 200,
+				'color' => 'red'
+				);	
+			$aScale[] = array(
+				'lower' => 200,
+				'upper' => 500,
+				'color' => 'darkred'
+				);	
+			$aScale[] = array(
+				'lower' => 500,
+				'color' => 'purple'
+				);	
+			return $aScale;
+		}
+		
 		function StateWorldMap()
 		{
 			
@@ -330,6 +359,7 @@
 				$fIncidenceMax = 1.0;
 			}
 
+			$aScale = $this->GetSevenDaysIncidenceScale();
 
 			foreach ($arrayCountries as $arrayCountry)
 			{
@@ -342,18 +372,29 @@
 				
 				$strToolTip =
 					ArrayGetValue($arrayCountry,'name') . "\n"
-					.$this->LoadString('TID_LABEL_INCIDENCE_7DAYS').': '.RenderNumber($fIncidence,1)
+					.$this->LoadString('TID_LABEL_INCIDENCE-7DAYS').': '.RenderNumber($fIncidence,1)
 					;
-					
-				$strColor = 'green';
-				if ($fIncidence > 50)
+				
+				$strColor = 'grey';	
+				foreach ($aScale as $aBand)
 				{
-					$strColor = 'orange';	
+					$fLower = ArrayGetValue($aBand,'lower');
+					if ($fLower <= $fIncidence)
+					{
+						$fUpper = ArrayGetValue($aBand,'upper');
+						if ($fUpper == 0)
+						{
+							$strColor = ArrayGetValue($aBand,'color');
+						}
+						else
+						{
+							if ($fIncidence <= $fUpper)
+							{
+								$strColor = ArrayGetValue($aBand,'color');
+							}	
+						}
+					}
 				}
-				if ($fIncidence > 100)
-				{
-					$strColor = 'red';	
-				} 
 				
 				$arrayMarker['tooltip'] = $strToolTip;
 				$arrayMarker['color'] = $strColor;
@@ -383,21 +424,24 @@
 			$this->IncludeElement('legend');
 			$legend = new CLegendElement($this->GetWebsite(),'default'); 
 			
-			$arrayWorldmapLegend = array(
-					array(
-						'label' => '?TID_LABEL_INCIDENCE_7DAYS? < 50',
-						'color' => 'green'
-						),
-					array(
-						'label' => '50 < ?TID_LABEL_INCIDENCE_7DAYS? < 100',
-						'color' => 'orange' 
-						),
-					array(
-						'label' => '?TID_LABEL_INCIDENCE_7DAYS? > 100',
-						'color' => 'red'
-						)
-					);
-						
+			$arrayWorldmapLegend = $aScale;
+			foreach ($arrayWorldmapLegend as &$aLegendItem)
+			{
+				$fLower = ArrayGetValue($aLegendItem,'lower');
+				$fUpper = ArrayGetValue($aLegendItem,'upper');
+				$strLabel = '';
+				if ($fLower > 0)
+				{
+					$strLabel .= $fLower.' < ';
+				}
+				$strLabel .= $this->LoadString('TID_LABEL_INCIDENCE-7DAYS_SHORT');
+				if ($fUpper > 0)
+				{
+					$strLabel .= ' < '.$fUpper;    
+				}
+				$aLegendItem['label'] = $strLabel;
+			}
+
 			$this->SetOutputItem(
 				'WORLDMAP_LEGEND',
 				$legend->RenderLegend(
